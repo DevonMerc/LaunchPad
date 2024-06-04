@@ -16,17 +16,50 @@ CREATE TABLE users (
 	Bio TEXT,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
-	CONSTRAINT PK_user PRIMARY KEY (user_id)
+	CONSTRAINT PK_user PRIMARY KEY (user_id) ////////////is pk_user supposed to be parantheses?
 );
 
 CREATE TABLE campaigns (
     campaign_id SERIAL PRIMARY KEY,
     campaign_title VARCHAR(100) NOT NULL,
     campaign_start_date DATE NOT NULL,
-    
-
-
+    campaign_end_date DATE NOT NULL,
+    campaign_category VARCHAR(50) NOT NULL,
+    campaign_description TEXT NOT NULL, ///////////////"TEXT" did not turn orange
+    campaign_goal DECIMAL(10, 2) NOT NULL,
+    campaign_location VARCHAR (100),
+    campaign_owner_id INTEGER NOT NULL,
+    campaign_image VARCHAR(255),
+    funding_process DECIMAL (10, 2) DEFAULT 0,
+    FOREIGN KEY (campaign_owner_id) REFERENCES users(user_id)
 );
 
+CREATE TABLE donations (
+    donation_id SERIAL PRIMARY KEY, //////////////////////"SERIAL" did not turn orange
+    donor_id INTEGER NOT NULL,
+    campaign_id INTEGER NOT NULL,
+    donation_amount DECIMAL(10, 2) NOT NULL,
+    donation_date_time TIMESTAMP NOT NULL,
+    payment_method VARCHAR(50) NOT NULL,
+    transaction_id VARCHAR(100) NOT NULL,
+    donor_comments TEXT,//////////////////////////////text did not turn orange
+    FOREIGN KEY (donor_id) REFERENCES users(user_id),
+    FOREIGN KEY (campaign_id) REFERENCES campaigns(campaign_iD)
+);
+
+CREATE TABLE campaign_videos (
+    video_id SERIAL PRIMARY KEY,
+    campaign_id INTEGER NOT NULL,
+    video_url VARCHAR(255) NOT NULL,
+    FOREIGN KEY (campaign_id) REFERENCES campaigns(campaign_id)
+);
+
+CREATE TABLE campaign_updates (
+    update_id SERIAL PRIMARY KEY,///////////////////////////////////serial didnt turn orange
+    campaign_id INTEGER NOT NULL,
+    update_date DATE NOT NULL,
+    update_content TEXT NOT NULL,
+    FOREIGN KEY (campaign_id) REFERENCES campaigns(campaign_id)
+);
 
 COMMIT TRANSACTION;
