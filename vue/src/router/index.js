@@ -6,6 +6,8 @@ import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
+import DashboardView from '../views/DashboardView.vue';
+import CreateCampaignView from '../views/CreateCampaignView.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -17,11 +19,27 @@ import RegisterView from '../views/RegisterView.vue';
  */
 const routes = [
   {
-    path: '/',
-    name: 'home',
+    path: "/",
+    name: "home",
     component: HomeView,
     meta: {
       requiresAuth: false
+    }
+  },
+  {
+    path: "/dashboard",
+    name: "dashboard",
+    component: DashboardView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/createCampaign",
+    name: "createCampaign",
+    component: CreateCampaignView,
+    meta: {
+      requiresAuth: true
     }
   },
   {
