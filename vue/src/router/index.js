@@ -8,6 +8,7 @@ import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import DashboardView from '../views/DashboardView.vue';
 import CreateCampaignView from '../views/CreateCampaignView.vue';
+import MenuView from '../views/MenuView.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -22,6 +23,14 @@ const routes = [
     path: "/",
     name: "home",
     component: HomeView,
+    meta: {
+      requiresAuth: false
+    }
+  },
+  {
+    path: "/menu",
+    name: "menu",
+    component: MenuView,
     meta: {
       requiresAuth: false
     }
