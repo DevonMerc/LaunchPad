@@ -28,4 +28,5 @@ CREATE TABLE campaigns (
 
 );
 
+git
 COMMIT TRANSACTION;
