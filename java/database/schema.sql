@@ -30,7 +30,7 @@ CREATE TABLE campaigns (
     campaign_location VARCHAR (100),
     campaign_owner_id INTEGER NOT NULL,
     campaign_image VARCHAR(255),
-    funding_process DECIMAL (10, 2) DEFAULT 0,
+    funding_progress DECIMAL (10, 2) DEFAULT 0,
     FOREIGN KEY (campaign_owner_id) REFERENCES users(user_id)
 );
 
