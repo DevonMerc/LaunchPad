@@ -1,7 +1,11 @@
-<template>
+<template> 
+  
   <div id="login">
+    <header>
+      <img src="" alt="LaunchPad">
+    </header>
     <form v-on:submit.prevent="login">
-      <h1 >Please Sign In</h1>
+      <h1 >Enter your username and password</h1>
       <div role="alert" v-if="invalidCredentials">
         Invalid username and password!
       </div>
@@ -21,6 +25,7 @@
       <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
     </form>
   </div>
+
 </template>
 
 <script>
@@ -66,5 +71,14 @@ export default {
 }
 label {
   margin-right: 0.5rem;
+}
+h1{
+  text-align: center;
+}
+button{
+  fill: green;
+}
+header{
+  align-self: center;
 }
 </style>
