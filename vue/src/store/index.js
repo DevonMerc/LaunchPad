@@ -9,6 +9,8 @@ export function createStore(currentToken, currentUser) {
       campaigns: [
         {
           id: 1,
+          campaignManagerId: 0,
+          campaignManager: "Tom", 
           title: 'Campaign 1', 
           imageUrl: '',
           description: 'Description for Campaign 1',
@@ -17,12 +19,13 @@ export function createStore(currentToken, currentUser) {
           ], 
           fundingGoal: 100,
           endDate: '2024-01-01',
-          campaignManager: "Tom", 
           fundsRaised: 0,
           isPublic: false
         },
         {
           id: 2,
+          campaignManagerId: 3,
+          campaignManager: "Me", 
           title: 'Campaign 2', 
           imageUrl: '',
           description: 'Description for Campaign 2',
@@ -31,12 +34,13 @@ export function createStore(currentToken, currentUser) {
           ], 
           fundingGoal: 4360,
           endDate: '2024-01-01',
-          campaignManager: "Mary", 
           fundsRaised: 0,
           isPublic: true
         },
         {
           id: 3,
+          campaignManagerId: 0,
+          campaignManager: "Shanon",
           title: 'Campaign 3', 
           imageUrl: '',
           description: 'Description for Campaign 3',
@@ -45,12 +49,13 @@ export function createStore(currentToken, currentUser) {
           ], 
           fundingGoal: 660,
           endDate: '2024-01-01',
-          campaignManager: "Shanon", 
           fundsRaised: 0,
           isPublic: false
         },
         {
           id: 4,
+          campaignManagerId: 3,
+          campaignManager: "Me", 
           title: 'Campaign 4', 
           imageUrl: '',
           description: 'Description for Campaign 4',
@@ -59,12 +64,13 @@ export function createStore(currentToken, currentUser) {
           ], 
           fundingGoal: 87400,
           endDate: '2024-01-01',
-          campaignManager: "Alex", 
           fundsRaised: 0,
           isPublic: true
         },
         {
           id: 5,
+          campaignManagerId: 0,
+          campaignManager: "Percy", 
           title: 'Campaign 5', 
           imageUrl: '',
           description: 'Description for Campaign 5',
@@ -73,12 +79,13 @@ export function createStore(currentToken, currentUser) {
           ], 
           fundingGoal: 100,
           endDate: '2024-01-01',
-          campaignManager: "Percy", 
           fundsRaised: 0,
           isPublic: true
         },
         {
           id: 6,
+          campaignManagerId: 3,
+          campaignManager: "Me", 
           title: 'Campaign 6', 
           imageUrl: '',
           description: 'Description for Campaign 6',
@@ -87,7 +94,6 @@ export function createStore(currentToken, currentUser) {
           ], 
           fundingGoal: 100,
           endDate: '2024-01-01',
-          campaignManager: "Lorain", 
           fundsRaised: 0,
           isPublic: true
         }
