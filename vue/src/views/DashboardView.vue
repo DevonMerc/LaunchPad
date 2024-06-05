@@ -5,8 +5,8 @@
     <body>
       <button @click="$router.push( { name: 'createCampaign'} )">Start a new campaign</button>
       <h3>Your Campaigns</h3> 
-      <div v-for="card in 5" :key="card">
-        <campaign-card/>
+      <div>
+        <campaign-list :campaigns="this.$store.state.campaigns"/>
       </div>
       
     </body>
@@ -15,12 +15,12 @@
 </template>
 
 <script>
-import CampaignCard from '../components/CampaignCard.vue';
+import CampaignList from '../components/CampaignList.vue'; 
 import SiteHeader from '../components/SiteHeader.vue';
 export default{
     components: {
         SiteHeader,
-        CampaignCard
+        CampaignList
     }
 }
 </script>

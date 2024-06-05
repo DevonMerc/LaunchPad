@@ -1,9 +1,6 @@
 <template> 
   
   <div id="login">
-    <header>
-      <img src="" alt="LaunchPad">
-    </header>
     <form v-on:submit.prevent="login">
       <h1 >Enter your username and password</h1>
       <div role="alert" v-if="invalidCredentials">
