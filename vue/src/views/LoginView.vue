@@ -1,9 +1,6 @@
 <template> 
   
   <div id="login">
-    <header>
-      <img src="" alt="LaunchPad">
-    </header>
     <form v-on:submit.prevent="login">
       <h1 >Enter your username and password</h1>
       <div role="alert" v-if="invalidCredentials">
@@ -20,9 +17,9 @@
         <label for="password">Password</label>
         <input type="password" id="password" v-model="user.password" required />
       </div>
-      <button type="submit">Sign in</button>
+      <button type="submit">Log in</button>
       <p>
-      <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
+      <router-link v-bind:to="{ name: 'register' }" class="link">Need an account? Sign up here</router-link></p>
     </form>
   </div>
 
@@ -66,6 +63,9 @@ export default {
 </script>
 
 <style scoped>
+.container{
+  display: flex;
+}
 .form-input-group {
   margin-bottom: 1rem;
 }
@@ -74,11 +74,41 @@ label {
 }
 h1{
   text-align: center;
+
 }
 button{
-  fill: green;
+  fill: #23CF68;
+  color: white;
+    padding: 5px;
+    font-size: large;
+    border-color: #23CF68;
 }
 header{
   align-self: center;
+}
+header img{
+    width: 20%;
+    display: flex;
+    align-content: top;
+    justify-content: center;
+  }
+  /* header{
+    display: flex;
+    justify-content: left;
+    align-items: top;
+  } */
+.link{
+  display: flex;
+  text-align: center;
+  font-style: italic;
+  justify-content: space-evenly;
+}
+@media (max-width: 767px) {
+button{
+    width: 100%;
+    background-color:#23CF68;
+  
+}
+
 }
 </style>

@@ -18,7 +18,7 @@
         <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
       </div>
       <button type="submit">Create Account</button>
-      <p><router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
+      <p><router-link v-bind:to="{ name: 'login' }" class="link">Already have an account? Log in here</router-link></p>
     </form>
   </div>
 </template>
@@ -73,12 +73,39 @@ export default {
 </script>
 
 <style scoped>
-.form-input-group {
-  margin-bottom: 1rem;
+button{
+  fill: #23CF68;
+  color: white;
+    padding: 5px;
+    font-size: large;
+    border-color: #23CF68;
 }
-label {
+header{
+  align-self: center;
+}
+#register{
+display: flex;
+justify-content: space-evenly;
+align-content: center;
+margin-top: 30px;
+}
+.link{
+  display: flex;
+  text-align: center;
+  font-style: italic;
+  justify-content: space-evenly;
+}
+@media (max-width: 767px) {
+button{
+    width: 100%;
+    background-color:#23CF68;
+  
+}
+}
+
+/* label {
   margin-right: 0.5rem;
-}
+} */
 </style>
 
 
