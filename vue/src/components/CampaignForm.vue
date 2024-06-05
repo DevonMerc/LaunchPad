@@ -15,22 +15,22 @@
         submit button
     </div> -->
     <div class="container">
-        <h1>Create a New Campaign!</h1>
+        <h1>Create a New Campaign</h1>
     <form>
         <div>
-            <label for="title">What will you call your campaign? </label>
-            <input type="text" id="title" required/>
+            <label for="title" class="grey">What will you call your campaign? </label>
+            <input type="text" id="title" required />
         </div>
         <div>
-            <label for="goal">What is your starting goal? </label>
+            <label for="goal" class="grey">What is your starting goal? </label>
             <input type="number" id="goal" required/>
         </div>
         <div>
-            <label for="about">Describe your campaign: </label>
-            <textarea id="about" name="about" rows="8" cols="50" required></textarea>
+            <label for="about" class="grey">Describe your campaign: </label>
+            <textarea id="about" name="about" rows="6" cols="50" required></textarea>
         </div>
         <div>
-            <label for="pic">Upload an image for your campaign: </label>
+            <label for="pic">Upload an image: </label>
             <input type="file" id="pic"  accept="image/*"/>
         </div>
         <label for="visibility">Should your campaign be public or private?</label>
@@ -61,29 +61,42 @@ export default{
 </script>
 <style>
 h1{
-    text-align: center;
+    text-align: left;
+    max-width: 100%;
+    
+    
 }
+.grey{
+    color: grey;
+}
+
 .container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     height: 100vh;
     padding: 10px;
+    margin-right: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+  
 }
 .button-group {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     margin-bottom: 20px;
 }
 .button-group label {
     margin-top: 10px;
+text-align: center;
 
 }
 
 .button-group input[type="radio"] {
-   align-content: center;
+
+   justify-content: stretch;
 
 }
+
 form input[type="text"],
 form input[type="number"],
 form textarea {
@@ -97,12 +110,15 @@ form input[type ="checkbox"]{
     color: green;
 }
 form input[type="file"]{
-    margin: 10px;
-    align-content: left;
+    margin: 20px;
+    text-align: left;
 }
 form input[type="submit"]{
     border-color: #23CF68;
     background-color: #23CF68;
+    color: white;
+    padding: 5px;
+    font-size: large;
 }
 
 
@@ -110,7 +126,12 @@ form input[type="submit"]{
 @media (max-width: 767px) {
 form input[type="submit"]{
     width: 100%;
-    background-color:#23CF68;
+    height: 50px;
 }
+
+}
+h1{
+    font-size: calc(7vw);
+    text-align: left;
 }
 </style>
