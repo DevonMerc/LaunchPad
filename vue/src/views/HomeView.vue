@@ -12,7 +12,7 @@
       <h3>Browse Featured Campaigns</h3> 
       <div>
         <!-- <campaign-list :campaigns="this.$store.state.campaigns"/> -->
-        <campaign-list :campaigns="publicCampaigns"/>
+        <router-link v-bind:to="{ name: 'home' }"><campaign-list :campaigns="publicCampaigns"/></router-link>
       </div>
       
     </body>
