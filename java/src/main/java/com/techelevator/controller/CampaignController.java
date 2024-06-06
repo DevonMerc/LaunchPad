@@ -1,10 +1,14 @@
 package com.techelevator.controller;
 
+import com.techelevator.dao.CampaignDao;
+import com.techelevator.dao.UserDao;
 import com.techelevator.model.Campaign;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
+import com.techelevator.service.CampaignService;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,10 +16,15 @@ import java.util.List;
 @CrossOrigin
 public class CampaignController {
 
+    RestTemplate restTemplate = new RestTemplate();
+    private CampaignService campaignService;
+    public CampaignController(CampaignService campaignService){
+        this.campaignService = campaignService;
+    }
+
     //Need DAO for campaign table both Interface and jdbc implementation
     //Need model/DTO of campaign
     //inject them in.
-
 
     //endpoints related to getting campaign data
     //remember annotations
@@ -30,7 +39,17 @@ public class CampaignController {
 //    List<Campaign> getCampaignsByDonorId(int id);
 //    List<Campaign> getCampaignsBySearch(String searchTerm); //for home page
 //    Campaign getCampaignById(int id);
-//    Campaign createCampaign(String title, LocalDate endDate, BigDecimal goal, int managerId, String imgURL, BigDecimal funding, boolean visibility, String description);
-//    boolean updateCampaign(String title, LocalDate endDate, BigDecimal goal, String imgURL, boolean visibility, String description, int id);
+//    Campaign createCampaign(Campaign campaign);
+//    boolean updateCampaign(Campaign campaign);
+
+    @RequestMapping(path = "/campaigns", method = RequestMethod.GET)
+    public List<Campaign> getFeaturedCampaigns(){
+        return campaignService.getFeaturedCampaigns();
+    }
+
+    @RequestMapping(path = "/user-campaigns", method = RequestMethod.GET)
+    public List<Campaign> getUserCampaigns(Principal userInfo){
+        return campaignService.getUserCampaigns(userInfo);
+    }
 
 }

@@ -10,12 +10,24 @@ Campaigns
 
 			Frontend Connection:
 
-				Component: Campaign Cards
+				Component: Campaign List
 
-				Pages: Campaign Pages
+				Pages: Home page
+
+	2.	Get current userscampaigns
+
+    			Endpoint: GET whateverURLwe'reusing/user-campaigns
+
+    			Description: Returns a list of campaigns made by the current user.
+
+    			Frontend Connection:
+
+    				Component: Campaign List
+
+    				Pages: Dashboard
 
 
-	2.	Get campaign by ID / Name
+	3.	Get campaign by ID / Name
 
 			Endpoint: GET whateverURLwe'reusing/campaigns/{id}
 
@@ -27,7 +39,7 @@ Campaigns
 
 				Pages: Campaign Details Page
 
-	3.	Create a new campaign
+	4.	Create a new campaign
 
 			Endpoint: POST whateverURLwe'reusing/campaigns/
 
@@ -39,7 +51,7 @@ Campaigns
 
 				Pages: Start New Campaign Page
 
-	4.	Update campaign by ID / name (Talk to Andy, wondering how to handle search feature) 
+	5.	Update campaign by ID / name (Talk to Andy, wondering how to handle search feature)
 
 			Endpoint: PUT whateverURLwe'reusing/campaigns/{id}
 
@@ -51,7 +63,7 @@ Campaigns
 
 				Pages: Manage Campaign Page
 
-	5.	Delete campaign by ID
+	6.	Delete campaign by ID
 
 			Endpoint: DELETE whateverURLwe'reusing/campaigns/{id}
 

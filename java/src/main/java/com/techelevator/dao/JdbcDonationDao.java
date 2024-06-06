@@ -7,11 +7,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class JdbcDonationDao implements DonationDao{
     private final JdbcTemplate jdbcTemplate;
 
@@ -26,7 +28,7 @@ public class JdbcDonationDao implements DonationDao{
         try{
             Integer newDonationId = jdbcTemplate.queryForObject(sql, Integer.class, amount, donorId, campaignId);
             if(newDonationId != null) {
-                donation = getDonationById(newDonationId);
+//                donation = getDonationById(newDonationId);
             } else {
                 throw new IllegalStateException("Failed to create transfer.");
             }

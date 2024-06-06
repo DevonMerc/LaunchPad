@@ -7,6 +7,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Component
 public class JdbcCampaignDao implements CampaignDao{
 
     private final JdbcTemplate jdbcTemplate;
@@ -22,10 +24,10 @@ public class JdbcCampaignDao implements CampaignDao{
     }
 
     @Override
-    public List<Campaign> getPublicCampaigns(){
+    public List<Campaign> getFeaturedCampaigns(){
         List<Campaign> campaigns = new ArrayList<>();
 
-        String sql = "SELECT * FROM campaigns WHERE visibility = true ORDER BY funding LIMIT 7";
+        String sql = "SELECT * FROM campaigns WHERE is_public = true ORDER BY funding LIMIT 7";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
@@ -40,6 +42,7 @@ public class JdbcCampaignDao implements CampaignDao{
         return campaigns;
     }
 
+    //wasn't sure if this was for the current user or for searching up a particular managers campaigns, It would be cool to have that searchable as well
     @Override
     public List<Campaign> getCampaignsByManagerId(int id) {
         List<Campaign> campaigns = new ArrayList<>();
@@ -60,7 +63,7 @@ public class JdbcCampaignDao implements CampaignDao{
         return campaigns;
     }
     @Override
-    public List<Campaign> getCampaignsByDonorId(int id) {
+    public List<Campaign> getCampaignsByDonorId(int id) { //confused about this
         List<Campaign> campaigns = new ArrayList<>();
 
 
@@ -87,7 +90,7 @@ public class JdbcCampaignDao implements CampaignDao{
 
         String sql = "SELECT * FROM campaigns WHERE description LIKE ? OR title LIKE ?";
         try {
-            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, searchTerm);
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, searchTerm, searchTerm);
             while (results.next()) {
                 Campaign campaign = mapRowToCampaign(results);
                 campaigns.add(campaign);
@@ -112,13 +115,15 @@ public class JdbcCampaignDao implements CampaignDao{
     }
 
     @Override
-    public Campaign createCampaign(String title, LocalDate endDate, BigDecimal goal, int managerId, String imgURL, BigDecimal funding, boolean visibility, String description ) {
-        Campaign campaign = null;
+    public Campaign createCampaign(Campaign campaign) {
+        Campaign newCampaign = null;
         String sql = "INSERT INTO campaigns(title, end_date, goal, manager_id, img_url, funding, visibility, description) VALUES (?,?,?,?,?,?,?, ?) RETURNING campaign_id";
         try{
-            Integer newCampaignId = jdbcTemplate.queryForObject(sql, Integer.class, title, endDate, goal, managerId, imgURL, funding, visibility, description);
+            Integer newCampaignId = jdbcTemplate.queryForObject(sql, Integer.class, campaign.getTitle(),
+                    campaign.getEndDate(), campaign.getGoal(), campaign.getManagerId(), campaign.getImgURL(),
+                    campaign.getFunding(), campaign.getisPublic(), campaign.getDescription(), campaign.getId());
             if(newCampaignId != null) {
-                campaign = getCampaignById(newCampaignId);
+                newCampaign = getCampaignById(newCampaignId);
             } else {
                 throw new IllegalStateException("Failed to create transfer.");
             }
@@ -127,16 +132,18 @@ public class JdbcCampaignDao implements CampaignDao{
         } catch (DataIntegrityViolationException e) {
             System.out.println(e.getMessage());
         }
-        return campaign;
+        return newCampaign;
 
     }
 
     @Override
-    public boolean updateCampaign(String title, LocalDate endDate, BigDecimal goal, String imgURL, boolean visibility, String description, int id) {
+    public boolean updateCampaign(Campaign campaign) {
         Campaign updatedCampaign = null;
-        String sql = "UPDATE campaigns SET title = ? end_date = ? goal = ? imgURL = ? visibility = ? description = ? WHERE campaign_id = ?";
-        jdbcTemplate.update(sql, title, endDate, goal,imgURL,visibility,description, id);
-        updatedCampaign = getCampaignById(id);
+        String sql = "UPDATE campaigns SET title = ?, end_date = ?, goal = ?, imgURL = ?, visibility = ?, description = ? WHERE campaign_id = ?";
+        jdbcTemplate.update(sql, campaign.getTitle(), campaign.getEndDate(), campaign.getGoal(),
+                campaign.getManagerId(), campaign.getImgURL(), campaign.getFunding(),
+                campaign.getisPublic(), campaign.getDescription(), campaign.getId());
+        updatedCampaign = getCampaignById(campaign.getId());
         if(updatedCampaign!= null){
             return true;
         }
@@ -145,13 +152,17 @@ public class JdbcCampaignDao implements CampaignDao{
 
     private Campaign mapRowToCampaign(SqlRowSet rs) {
         Campaign campaign = new Campaign();
-        campaign.setCampaignId(rs.getInt("campaign_id"));
+        campaign.setId(rs.getInt("id"));
         campaign.setTitle(rs.getString("title"));
-//        campaign.setCampaignStartDate(rs.getString("campaign_start_date"));
+        if(rs.getDate("end_date").toLocalDate() != null){
+            campaign.setEndDate(rs.getDate("end_date").toLocalDate());
+        }
         campaign.setGoal(rs.getBigDecimal("goal"));
         campaign.setManagerId(rs.getInt("manager_id"));
-//        campaign.setCampaignImageURL(rs.getString("campaign_image"));
+        campaign.setImgURL(rs.getString("image_url"));
         campaign.setFunding(rs.getBigDecimal("funding"));
+        campaign.setDescription(rs.getString("description"));
+        campaign.setisPublic(rs.getBoolean("is_public"));
         return campaign;
     }
 }
