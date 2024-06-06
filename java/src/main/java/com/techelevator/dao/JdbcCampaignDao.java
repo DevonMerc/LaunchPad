@@ -146,12 +146,12 @@ public class JdbcCampaignDao implements CampaignDao{
     private Campaign mapRowToCampaign(SqlRowSet rs) {
         Campaign campaign = new Campaign();
         campaign.setCampaignId(rs.getInt("campaign_id"));
-        campaign.setTitle(rs.getString("campaign_title"));
+        campaign.setTitle(rs.getString("title"));
 //        campaign.setCampaignStartDate(rs.getString("campaign_start_date"));
-        campaign.setGoal(rs.getBigDecimal("campaign_goal"));
-        campaign.setManagerId(rs.getInt("campaign_owner_id"));
+        campaign.setGoal(rs.getBigDecimal("goal"));
+        campaign.setManagerId(rs.getInt("manager_id"));
 //        campaign.setCampaignImageURL(rs.getString("campaign_image"));
-        campaign.setFunding(rs.getBigDecimal("funding_progress"));
+        campaign.setFunding(rs.getBigDecimal("funding"));
         return campaign;
     }
 }
