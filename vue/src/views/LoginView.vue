@@ -4,7 +4,7 @@
     <header>
       <img src="../assets/PLACEHOLDER_LOGO.png" alt="LaunchPad">
     </header>
-  
+  </div>
   <div id="login">
     <form v-on:submit.prevent="login">
       <h1 >Enter your username and password</h1>
