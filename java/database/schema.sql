@@ -1,6 +1,7 @@
 BEGIN TRANSACTION;
 
 --remember to drop tables in the order of MOST DEPENDENT to LEAST DEPENDENT
+
 DROP TABLE IF EXISTS donations;
 DROP TABLE IF EXISTS campaigns;
 DROP TABLE IF EXISTS users;
@@ -34,6 +35,5 @@ CREATE TABLE donations (
     donation_date_time TIMESTAMP NOT NULL,
     FOREIGN KEY (donor_id) REFERENCES users(user_id),
     FOREIGN KEY (campaign_id) REFERENCES campaigns(id)
-);
 
-COMMIT TRANSACTION;
+);

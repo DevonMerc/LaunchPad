@@ -9,6 +9,7 @@ import RegisterView from '../views/RegisterView.vue';
 import DashboardView from '../views/DashboardView.vue';
 import CreateCampaignView from '../views/CreateCampaignView.vue';
 import MenuView from '../views/MenuView.vue';
+import CampaignDetailsAnonView from '../views/CampaignDetailsAnonView.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -49,6 +50,14 @@ const routes = [
     component: CreateCampaignView,
     meta: {
       requiresAuth: true
+    }
+  },
+  {
+    path: "/campaign/:id",
+    name: "campaignDetails",
+    component: CampaignDetailsAnonView,
+    meta: {
+      requiresAuth: false
     }
   },
   {
