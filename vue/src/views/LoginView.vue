@@ -1,14 +1,11 @@
 <template> 
   
-<<<<<<< HEAD
   <div id="login" class="container">
     <header>
       <img src="../assets/PLACEHOLDER_LOGO.png" alt="LaunchPad">
     </header>
   
-=======
   <div id="login">
->>>>>>> 35427e509b7493545f07774403e0ad6dfe35a6a7
     <form v-on:submit.prevent="login">
       <h1 >Enter your username and password</h1>
       <div role="alert" v-if="invalidCredentials">
