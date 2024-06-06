@@ -1,5 +1,8 @@
 BEGIN TRANSACTION;
 
+--remember to drop tables in the order of MOST DEPENDENT to LEAST DEPENDENT
+DROP TABLE IF EXISTS donations;
+DROP TABLE IF EXISTS campaigns;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -11,15 +14,16 @@ CREATE TABLE users (
 );
 
 CREATE TABLE campaigns (
-    campaign_id SERIAL PRIMARY KEY,
-    campaign_title VARCHAR(100) NOT NULL,
-    campaign_start_date DATE NOT NULL,
-    campaign_end_date DATE NOT NULL,
-    campaign_goal DECIMAL(10, 2) NOT NULL,
-    campaign_owner_id INTEGER NOT NULL,
-    campaign_image VARCHAR(255),
-    funding_progress DECIMAL (10, 2) DEFAULT 0,
-    FOREIGN KEY (campaign_owner_id) REFERENCES users(user_id)
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    end_date DATE NOT NULL,
+    goal DECIMAL(10, 2) NOT NULL,
+    manager_id INTEGER NOT NULL,
+    image_url VARCHAR(255),
+    funding DECIMAL (10, 2) DEFAULT 0,
+    description VARCHAR(500),
+    is_public BOOLEAN NOT NULL DEFAULT FALSE,
+    FOREIGN KEY (manager_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE donations (
@@ -29,7 +33,7 @@ CREATE TABLE donations (
     donation_amount DECIMAL(10, 2) NOT NULL,
     donation_date_time TIMESTAMP NOT NULL,
     FOREIGN KEY (donor_id) REFERENCES users(user_id),
-    FOREIGN KEY (campaign_id) REFERENCES campaigns(campaign_iD)
+    FOREIGN KEY (campaign_id) REFERENCES campaigns(id)
 );
 
 COMMIT TRANSACTION;

@@ -4,27 +4,39 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Campaign {
-    int campaignId;
+//  data we need
+//    String title, LocalDate endDate, BigDecimal goal, int managerId, String imgURL, BigDecimal funding, boolean isPublic, String description
+    int id;
     String title;
-//    LocalDate campaignStartDate;
-//    String campaignStartDate;
     LocalDate endDate;
     BigDecimal goal;
     int managerId;
     String imgURL;
     BigDecimal funding;
     String description;
-    boolean visibility;
+    boolean isPublic;
 
-    public String getDescription() {
-        return description;
-    }
+    public Campaign() {}
 
-    public void setDescription(String description) {
+    public Campaign(int id, String title, LocalDate endDate, BigDecimal goal, int managerId, String imgURL, BigDecimal funding, String description, boolean isPublic) {
+        this.id = id;
+        this.title = title;
+        this.endDate = endDate;
+        this.goal = goal;
+        this.managerId = managerId;
+        this.imgURL = imgURL;
+        this.funding = funding;
         this.description = description;
+        this.isPublic = isPublic;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -74,105 +86,19 @@ public class Campaign {
         this.funding = funding;
     }
 
-    public Campaign(int campaignId, String title, LocalDate endDate, BigDecimal goal, int managerId, String imgURL, BigDecimal funding, boolean visibility, String description) {
-        this.campaignId = campaignId;
-        this.title = title;
-        this.endDate = endDate;
-        this.goal = goal;
-        this.managerId = managerId;
-        this.imgURL = imgURL;
-        this.funding = funding;
-        this.visibility = visibility;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
         this.description = description;
     }
 
-
-
-    public boolean isVisibility() {
-        return visibility;
+    public boolean getisPublic() {
+        return isPublic;
     }
 
-    public void setVisibility(boolean visibility) {
-        this.visibility = visibility;
+    public void setisPublic(boolean isPublic) {
+        this.isPublic = isPublic;
     }
-
-
-
-    public Campaign() { }
-
-//    public Campaign(int campaignId, String campaignTitle, LocalDate campaignEndDate, BigDecimal campaignGoal, int campaignOwnerId, String campaignImageURL, BigDecimal fundingProgress, boolean visibility) {
-//        this.campaignId = campaignId;
-//        this.campaignTitle = campaignTitle;
-////        this.campaignStartDate = campaignStartDate;
-//        this.campaignEndDate = campaignEndDate;
-//        this.campaignGoal = campaignGoal;
-//        this.campaignOwnerId = campaignOwnerId;
-//        this.campaignImageURL = campaignImageURL;
-//        this.fundingProgress = fundingProgress;
-//        this.visibility = visibility;
-//    }
-
-    public int getCampaignId() {
-        return campaignId;
-    }
-
-    public void setCampaignId(int campaignId) {
-        this.campaignId = campaignId;
-    }
-//
-//    public String getCampaignTitle() {
-//        return campaignTitle;
-//    }
-//
-//    public void setCampaignTitle(String campaignTitle) {
-//        this.campaignTitle = campaignTitle;
-//    }
-//
-////    public String getCampaignStartDate() {
-////        return campaignStartDate;
-////    }
-////
-////    public void setCampaignStartDate(String campaignStartDate) {
-////        this.campaignStartDate = campaignStartDate;
-////    }
-//
-//    public LocalDate getCampaignEndDate() {
-//        return campaignEndDate;
-//    }
-//
-//    public void setCampaignEndDate(LocalDate campaignEndDate) {
-//        this.campaignEndDate = campaignEndDate;
-//    }
-//
-//    public BigDecimal getCampaignGoal() {
-//        return campaignGoal;
-//    }
-//
-//    public void setCampaignGoal(BigDecimal campaignGoal) {
-//        this.campaignGoal = campaignGoal;
-//    }
-//
-//    public int getCampaignOwnerId() {
-//        return campaignOwnerId;
-//    }
-//
-//    public void setCampaignOwnerId(int campaignOwnerId) {
-//        this.campaignOwnerId = campaignOwnerId;
-//    }
-//
-//    public String getCampaignImageURL() {
-//        return campaignImageURL;
-//    }
-//
-//    public void setCampaignImageURL(String campaignImageURL) {
-//        this.campaignImageURL = campaignImageURL;
-//    }
-//
-//    public BigDecimal getFundingProgress() {
-//        return fundingProgress;
-//    }
-//
-//    public void setFundingProgress(BigDecimal fundingProgress) {
-//        this.fundingProgress = fundingProgress;
-//    }
 }

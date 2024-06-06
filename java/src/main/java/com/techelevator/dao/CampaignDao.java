@@ -8,12 +8,13 @@ import java.util.List;
 
 public interface CampaignDao {
 
-    List<Campaign> getPublicCampaigns(); //for home page
+    List<Campaign> getFeaturedCampaigns(); //for home page
+//    List<Campaign> getUsersCampaigns(int userId);
     List<Campaign> getCampaignsByManagerId(int id); //for dashboard
-    List<Campaign> getCampaignsByDonorId(int id);
+    List<Campaign> getCampaignsByDonorId(int id); //confused about this
     List<Campaign> getCampaignsBySearch(String searchTerm); //for home page
     Campaign getCampaignById(int id);
-    Campaign createCampaign(String title, LocalDate endDate, BigDecimal goal, int managerId, String imgURL, BigDecimal funding, boolean visibility, String description);
-    boolean updateCampaign(String title, LocalDate endDate, BigDecimal goal, String imgURL, boolean visibility, String description, int id);
+    Campaign createCampaign(Campaign campaign);
+    boolean updateCampaign(Campaign campaign);
 
 }
