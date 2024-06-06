@@ -16,7 +16,7 @@
     </div> -->
     <div class="container">
         <h1>Create a New Campaign</h1>
-    <form>
+    <form @submit.prevent="addCampaign">
         <div>
             <label for="title" class="grey">What will you call your campaign? </label>
             <input type="text" id="title" required />
@@ -47,8 +47,43 @@
 </div>
 </template>
 
-<script>
 
+<script>
+import { mapActions } from 'vuex';
+
+export default {
+  data() {
+    return {
+      title: '',
+      goal: '',
+      about: '',
+      pic: '',
+      visibility: 'public'
+    };
+  },
+  methods: {
+    ...mapActions(['updateCampaign']),
+    addCampaign() {
+      const campaign = {
+        title: this.title,
+        goal: this.goal,
+        about: this.about,
+        pic: this.pic,
+        visibility: this.visibility
+      };
+      this.updateCampaign(campaign);
+      this.$router.push({ name: 'dashboard' });
+    },
+    onFileChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.pic = URL.createObjectURL(file);
+      }
+    }
+  }
+};
+
+/** 
 export default{ 
     methods: {
         addCampaign(){
@@ -58,6 +93,7 @@ export default{
     },
    
 }
+*/
 </script>
 <style>
 h1{
