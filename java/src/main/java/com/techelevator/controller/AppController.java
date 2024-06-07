@@ -12,7 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@RestController
+@RestController //just for testing, re-comment if I forget
 @CrossOrigin
 public class AppController {
     RestTemplate restTemplate = new RestTemplate();

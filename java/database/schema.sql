@@ -45,7 +45,7 @@ CREATE TABLE donations (
 );
 CREATE TABLE tag (
 tag_id SERIAL PRIMARY KEY,
-tag_description VARCHAR (50) NOT NULL,
+tag_description VARCHAR (50) NOT NULL
 );
 
 CREATE TABLE campaign_tag (
@@ -61,7 +61,7 @@ spend_request_id SERIAL PRIMARY KEY,
 campaign_id INTEGER NOT NULL,
 spend_description VARCHAR(500),
 spend_status INTEGER NOT NULL,
-CONSTRAINT fk_campaign_id FOREIGN KEY (campaign_id) REFERENCES campaign_id(campaign_id)
+CONSTRAINT fk_campaign_id FOREIGN KEY (campaign_id) REFERENCES campaigns(campaign_id)
 );
 
 --CREATE TABLE spend_campaign (
@@ -71,3 +71,4 @@ CONSTRAINT fk_campaign_id FOREIGN KEY (campaign_id) REFERENCES campaign_id(campa
 --CONSTRAINT fk_campaign_id FOREIGN KEY (campaign_id) REFERENCES campaigns(campaign_id),
 --PRIMARY KEY (spend_request_id, campaign_id)
 --);
+COMMIT TRANSACTION;

@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/campaign")
+@RequestMapping(path = "/campaigns")
 public class CampaignController {
 
     RestTemplate restTemplate = new RestTemplate();
@@ -50,7 +50,7 @@ public class CampaignController {
 //    Campaign createCampaign(Campaign campaign);
 //    boolean updateCampaign(Campaign campaign);
 
-    @RequestMapping(path = "/campaigns", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<Campaign> getFeaturedCampaigns() {
         return campaignService.getFeaturedCampaigns();
     }
