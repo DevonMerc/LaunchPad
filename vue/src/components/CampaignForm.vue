@@ -22,6 +22,10 @@
             <input type="text" id="title" required />
         </div>
         <div>
+            <label for="organizer" class="grey">Campaign Organizer</label>
+            <input type="text" id="organizerName" required />
+        </div>
+        <div>
             <label for="goal" class="grey">What is your starting goal? </label>
             <input type="number" id="goal" required/>
         </div>
@@ -32,6 +36,10 @@
         <div>
             <label for="pic">Upload an image: </label>
             <input type="file" id="pic"  accept="image/*"/>
+        </div>
+        <div>
+            <label for="timeline">When will the fundraiser end?</label>
+            <input type="file" id="endDate" required/>
         </div>
         <label for="visibility">Should your campaign be public or private?</label>
         <div class="button-group">

@@ -1,4 +1,6 @@
 <template>
+
+    <button>Menu</button>
     <div class="container">
       <h1>{{ campaign.title }}</h1>
       <p>Goal: {{ campaign.goal }}</p>
