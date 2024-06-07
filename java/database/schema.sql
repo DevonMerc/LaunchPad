@@ -2,13 +2,14 @@ BEGIN TRANSACTION;
 
 --remember to drop tables in the order of MOST DEPENDENT to LEAST DEPENDENT
 
+DROP TABLE IF EXISTS campaign_tag;
+DROP TABLE IF EXISTS tag;
+DROP TABLE IF EXISTS spend_request;
 DROP TABLE IF EXISTS donations;
 DROP TABLE IF EXISTS campaigns;
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS tag;
-DROP TABLE IF EXISTS campaign_tag;
-DROP TABLE IF EXISTS spend_request;
-DROP TABLE IF EXISTS spend_campaign;
+
+--DROP TABLE IF EXISTS spend_campaign;
 
 
 CREATE TABLE users (
