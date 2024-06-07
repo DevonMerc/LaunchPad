@@ -4,7 +4,8 @@ public class SpendRequest {
     int spendRequestId;
     int campaignId;
     String spendDescription;
-    int spendStatus;
+    int spendStatus = 0;
+    public SpendRequest(){};
 
     public SpendRequest(int spendRequestId, int campaignId, String spendDescription, int spendStatus) {
         this.spendRequestId = spendRequestId;

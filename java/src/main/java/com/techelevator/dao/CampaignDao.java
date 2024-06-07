@@ -17,5 +17,7 @@ public interface CampaignDao {
     Campaign createCampaign(Campaign campaign);
     boolean updateCampaign(Campaign campaign, int campaignId);
     List<Campaign> getCampaignsByTag(String tag);
+    int deleteCampaign(int campaignId);
+
 
 }

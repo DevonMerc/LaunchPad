@@ -86,8 +86,17 @@ public class CampaignController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/campaign", method = RequestMethod.POST)
-    public Campaign add(@RequestBody Campaign campaign) {
+    public Campaign createCampaign(@RequestBody Campaign campaign) {
         return campaignDao.createCampaign(campaign);
 
+    }
+    @RequestMapping(path = "/campaign/{campaignId}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCampaign(@PathVariable int campaignId) {
+        try {
+            campaignDao.deleteCampaign(campaignId);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Campaign not found");
+        }
     }
 }

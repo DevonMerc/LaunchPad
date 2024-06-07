@@ -8,4 +8,5 @@ public interface TagDao {
     Tag createTag(String tag);
     Tag getTagById(int id);
     List<Tag> getTagsByCampaignId(int id);
+    int deleteTag(int id);
 }

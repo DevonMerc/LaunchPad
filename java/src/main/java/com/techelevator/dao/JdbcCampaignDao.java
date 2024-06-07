@@ -170,6 +170,19 @@ public class JdbcCampaignDao implements CampaignDao{
         }
         return campaigns;
     }
+    @Override
+    public int deleteCampaign(int id){
+        int rowCount = 0;
+        String deleteCampaignSql = "DELETE FROM campaign WHERE campaign_id = ?";
+        try {
+            rowCount = jdbcTemplate.update(deleteCampaignSql, id);
+        }catch (CannotGetJdbcConnectionException e) {
+                throw new DaoException("Unable to connect to server or database", e);
+            } catch (DataIntegrityViolationException e) {
+                throw new DaoException("Data integrity violation", e);
+            }
+        return rowCount;
+    }
 
     private Campaign mapRowToCampaign(SqlRowSet rs) {
         Campaign campaign = new Campaign();

@@ -60,12 +60,13 @@ spend_request_id SERIAL PRIMARY KEY,
 campaign_id INTEGER NOT NULL,
 spend_description VARCHAR(500),
 spend_status INTEGER NOT NULL,
+CONSTRAINT fk_campaign_id FOREIGN KEY (campaign_id) REFERENCES campaign_id(campaign_id)
 );
 
-CREATE TABLE spend_campaign (
-spend_request_id INTEGER NOT NULL,
-campaign_id INTEGER NOT NULL,
-CONSTRAINT fk_spend_request FOREIGN KEY (spend_request_id) REFERENCES spend_request(spend_request_id),
-CONSTRAINT fk_campaign_id FOREIGN KEY (campaign_id) REFERENCES campaigns(campaign_id),
-PRIMARY KEY (spend_request_id, campaign_id)
-);
+--CREATE TABLE spend_campaign (
+--spend_request_id INTEGER NOT NULL,
+--campaign_id INTEGER NOT NULL,
+--CONSTRAINT fk_spend_request FOREIGN KEY (spend_request_id) REFERENCES spend_request(spend_request_id),
+--CONSTRAINT fk_campaign_id FOREIGN KEY (campaign_id) REFERENCES campaigns(campaign_id),
+--PRIMARY KEY (spend_request_id, campaign_id)
+--);
