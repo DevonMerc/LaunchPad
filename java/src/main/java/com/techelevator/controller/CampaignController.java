@@ -2,10 +2,13 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.CampaignDao;
 import com.techelevator.dao.UserDao;
+import com.techelevator.exception.DaoException;
 import com.techelevator.model.Campaign;
 import com.techelevator.service.CampaignService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -18,9 +21,13 @@ public class CampaignController {
 
     RestTemplate restTemplate = new RestTemplate();
     private CampaignService campaignService;
-    public CampaignController(CampaignService campaignService){
+    private CampaignDao campaignDao;
+
+    public CampaignController(CampaignService campaignService, CampaignDao campaignDao) {
         this.campaignService = campaignService;
+        this.campaignDao = campaignDao;
     }
+
 
     //Need DAO for campaign table both Interface and jdbc implementation
     //Need model/DTO of campaign
@@ -43,13 +50,44 @@ public class CampaignController {
 //    boolean updateCampaign(Campaign campaign);
 
     @RequestMapping(path = "/campaigns", method = RequestMethod.GET)
-    public List<Campaign> getFeaturedCampaigns(){
+    public List<Campaign> getFeaturedCampaigns() {
         return campaignService.getFeaturedCampaigns();
     }
 
     @RequestMapping(path = "/user-campaigns", method = RequestMethod.GET)
-    public List<Campaign> getUserCampaigns(Principal userInfo){
-        return campaignService.getUserCampaigns(userInfo);
+    public List<Campaign> getCampaignsByManagerId(Principal userInfo) {
+        return campaignService.getCampaignsByManagerId(userInfo);
     }
 
+    @RequestMapping(path = "/donor-campaigns", method = RequestMethod.GET)
+    public List<Campaign> getCampaignsByDonorId(Principal userInfo) {
+        return campaignService.getCampaignsByDonorId(userInfo);
+    }
+
+    @RequestMapping(path = "/search", method = RequestMethod.GET)
+    public List<Campaign> getCampaignsBySearch(String searchTerm) {
+        return campaignService.getCampaignsBySearch(searchTerm);
+    }
+    @RequestMapping(path = "/tag", method = RequestMethod.GET)
+    public List<Campaign> getCampaignsByTag(String tag) {
+        return campaignService.getCampaignsByTag(tag);
+    }
+
+    @RequestMapping(path = "/campaign/{campaignId}", method = RequestMethod.PUT)
+    public boolean updateCampaign(@RequestBody Campaign campaign, @PathVariable int campaignId) {
+        try {
+            campaignDao.updateCampaign(campaign, campaignId);
+            return true;
+
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Campaign not found");
+        }
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(path = "/campaign", method = RequestMethod.POST)
+    public Campaign add(@RequestBody Campaign campaign) {
+        return campaignDao.createCampaign(campaign);
+
+    }
 }

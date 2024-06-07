@@ -15,6 +15,7 @@ public interface CampaignDao {
     List<Campaign> getCampaignsBySearch(String searchTerm); //for home page
     Campaign getCampaignById(int id);
     Campaign createCampaign(Campaign campaign);
-    boolean updateCampaign(Campaign campaign);
+    boolean updateCampaign(Campaign campaign, int campaignId);
+    List<Campaign> getCampaignsByTag(String tag);
 
 }

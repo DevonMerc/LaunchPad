@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class Campaign {
 //  data we need
 //    String title, LocalDate endDate, BigDecimal goal, int managerId, String imgURL, BigDecimal funding, boolean isPublic, String description
-    int id;
+    int campaignId;
     String title;
     LocalDate endDate;
     BigDecimal goal;
@@ -18,8 +18,8 @@ public class Campaign {
 
     public Campaign() {}
 
-    public Campaign(int id, String title, LocalDate endDate, BigDecimal goal, int managerId, String imgURL, BigDecimal funding, String description, boolean isPublic) {
-        this.id = id;
+    public Campaign(int campaignId, String title, LocalDate endDate, BigDecimal goal, int managerId, String imgURL, BigDecimal funding, String description, boolean isPublic) {
+        this.campaignId = campaignId;
         this.title = title;
         this.endDate = endDate;
         this.goal = goal;
@@ -30,12 +30,12 @@ public class Campaign {
         this.isPublic = isPublic;
     }
 
-    public int getId() {
-        return id;
+    public int getCampaignId() {
+        return campaignId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCampaignId(int campaignId) {
+        this.campaignId = campaignId;
     }
 
     public String getTitle() {

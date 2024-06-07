@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 @Component
@@ -86,9 +87,9 @@ public class JdbcCampaignDao implements CampaignDao{
     @Override
     public List<Campaign> getCampaignsBySearch(String searchTerm) {
         List<Campaign> campaigns = new ArrayList<>();
-        searchTerm = '%' + searchTerm + '%';
+        searchTerm = '%' + searchTerm.toLowerCase() + '%';
 
-        String sql = "SELECT * FROM campaigns WHERE description LIKE ? OR title LIKE ?";
+        String sql = "SELECT * FROM campaigns WHERE LOWER (description) LIKE ? OR LOWER(title) LIKE ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, searchTerm, searchTerm);
             while (results.next()) {
@@ -117,15 +118,15 @@ public class JdbcCampaignDao implements CampaignDao{
     @Override
     public Campaign createCampaign(Campaign campaign) {
         Campaign newCampaign = null;
-        String sql = "INSERT INTO campaigns(title, end_date, goal, manager_id, img_url, funding, visibility, description) VALUES (?,?,?,?,?,?,?, ?) RETURNING campaign_id";
+        String sql = "INSERT INTO campaigns(title, end_date, goal, manager_id, img_url, funding, is_public, description) VALUES (?,?,?,?,?,?,?, ?) RETURNING campaign_id";
         try{
             Integer newCampaignId = jdbcTemplate.queryForObject(sql, Integer.class, campaign.getTitle(),
                     campaign.getEndDate(), campaign.getGoal(), campaign.getManagerId(), campaign.getImgURL(),
-                    campaign.getFunding(), campaign.getisPublic(), campaign.getDescription(), campaign.getId());
+                    campaign.getFunding(), campaign.getisPublic(), campaign.getDescription());
             if(newCampaignId != null) {
                 newCampaign = getCampaignById(newCampaignId);
             } else {
-                throw new IllegalStateException("Failed to create transfer.");
+                throw new IllegalStateException("Failed to create campaign.");
             }
         } catch (CannotGetJdbcConnectionException e) {
             System.out.println(e.getMessage());
@@ -137,22 +138,42 @@ public class JdbcCampaignDao implements CampaignDao{
     }
 
     @Override
-    public boolean updateCampaign(Campaign campaign) {
+    public boolean updateCampaign(Campaign campaign, int campaignId) {
         Campaign updatedCampaign = null;
-        String sql = "UPDATE campaigns SET title = ?, end_date = ?, goal = ?, imgURL = ?, visibility = ?, description = ? WHERE campaign_id = ?";
+        String sql = "UPDATE campaigns SET title = ?, end_date = ?, goal = ?, imgURL = ?, is_public = ?, description = ? WHERE campaign_id = ?";
         jdbcTemplate.update(sql, campaign.getTitle(), campaign.getEndDate(), campaign.getGoal(),
                 campaign.getManagerId(), campaign.getImgURL(), campaign.getFunding(),
-                campaign.getisPublic(), campaign.getDescription(), campaign.getId());
-        updatedCampaign = getCampaignById(campaign.getId());
+                campaign.getisPublic(), campaign.getDescription(), campaign.getCampaignId());
+        updatedCampaign = getCampaignById(campaign.getCampaignId());
         if(updatedCampaign!= null){
             return true;
         }
         return false;
     }
 
+    @Override
+    public List<Campaign> getCampaignsByTag(String tag) {
+        List<Campaign> campaigns = new ArrayList<>();
+        tag = '%' + tag.toLowerCase() + '%';
+
+        String sql = "SELECT * FROM campaigns JOIN campaign_tag ON campaigns.campaign_id = campaign_tag.campaign_id WHERE LOWER (tag_description) LIKE ?";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tag);
+            while (results.next()) {
+                Campaign campaign = mapRowToCampaign(results);
+                campaigns.add(campaign);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }catch (DataIntegrityViolationException e) {
+            System.out.println(e.getMessage());
+        }
+        return campaigns;
+    }
+
     private Campaign mapRowToCampaign(SqlRowSet rs) {
         Campaign campaign = new Campaign();
-        campaign.setId(rs.getInt("id"));
+        campaign.setCampaignId(rs.getInt("campaign_id"));
         campaign.setTitle(rs.getString("title"));
         if(rs.getDate("end_date").toLocalDate() != null){
             campaign.setEndDate(rs.getDate("end_date").toLocalDate());
