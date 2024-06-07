@@ -25,7 +25,7 @@ CREATE TABLE campaigns (
     title VARCHAR(100) NOT NULL,
     end_date DATE NOT NULL,
     goal DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY manager_id INTEGER NOT NULL,
+    manager_id INTEGER NOT NULL,
     image_url VARCHAR(255),
     funding DECIMAL (10, 2) DEFAULT 0,
     description VARCHAR(500),

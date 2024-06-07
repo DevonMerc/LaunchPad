@@ -17,6 +17,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/campaign")
 public class CampaignController {
 
     RestTemplate restTemplate = new RestTemplate();
@@ -73,7 +74,7 @@ public class CampaignController {
         return campaignService.getCampaignsByTag(tag);
     }
 
-    @RequestMapping(path = "/campaign/{campaignId}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/{campaignId}", method = RequestMethod.PUT)
     public boolean updateCampaign(@RequestBody Campaign campaign, @PathVariable int campaignId) {
         try {
             campaignDao.updateCampaign(campaign, campaignId);
@@ -85,12 +86,12 @@ public class CampaignController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "/campaign", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public Campaign createCampaign(@RequestBody Campaign campaign) {
         return campaignDao.createCampaign(campaign);
 
     }
-    @RequestMapping(path = "/campaign/{campaignId}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/{campaignId}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCampaign(@PathVariable int campaignId) {
         try {
