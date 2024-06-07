@@ -13,7 +13,7 @@
         <p>Description: {{ campaign.about }}</p>
         
         <p>$<!--Need Donation Raised amount--> RAISED OUT OF {{ campaign.goal }} GOAL!</p>
-        
+
         <button>Donate</button>
 
         <p>Timeline: {{ daysLeft }} Days Left!</p>
@@ -54,7 +54,7 @@ export default {
       if (daysLeft > 0) {
         return daysLeft;
       } else if (daysLeft === 0) {
-        return 'Today is the day!';
+        return 'Today!';
       } else {
         return 'This date has passed.';
       }
