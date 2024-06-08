@@ -62,7 +62,7 @@ const routes = [
     name: "campaignDetails",
     component: CampaignDetailsAnonView,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {
@@ -111,7 +111,7 @@ const routes = [
     name: "logout",
     component: LogoutView,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
   {

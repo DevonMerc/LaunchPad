@@ -1,8 +1,10 @@
 <!-- add header here  -->
 <template>
+    <div>
     <!-- SHOULD BE OK -->
     <site-header />
     <campaign-form :campaign="campaign"/>
+    </div>
 </template>
 
 <script>

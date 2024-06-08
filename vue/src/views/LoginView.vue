@@ -1,5 +1,5 @@
 <template> 
-  
+  <div>
   <div id="login" class="container">
     <header>
       <img src="../assets/PLACEHOLDER_LOGO.png" alt="LaunchPad">
@@ -27,6 +27,7 @@
       <router-link v-bind:to="{ name: 'register' }" class="link">Need an account? Sign up here</router-link></p>
     </form>
   </div>
+</div>
 
 </template>
 

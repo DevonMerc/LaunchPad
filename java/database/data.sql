@@ -35,7 +35,7 @@ INSERT INTO spend_request (campaign_id, spend_description, spend_status) VALUES 
 INSERT INTO campaign_tag (tag_id, campaign_id) VALUES (1,1);
 INSERT INTO campaign_tag (tag_id, campaign_id) VALUES (1,4);
 INSERT INTO campaign_tag (tag_id, campaign_id) VALUES (4,3);
-INSERT INTO campaign_tag (tag_id, campaign_id) VALUES (2,1;
+INSERT INTO campaign_tag (tag_id, campaign_id) VALUES (2,1);
 INSERT INTO campaign_tag (tag_id, campaign_id) VALUES (3,2);
 
 
