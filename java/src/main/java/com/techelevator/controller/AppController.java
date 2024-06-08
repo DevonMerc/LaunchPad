@@ -30,6 +30,10 @@ public class AppController {
     public List<Tag> getTagsByCampaignId(int id){
         return tagDao.getTagsByCampaignId(id);
     }
+    @RequestMapping(path = "/featured", method = RequestMethod.GET)
+    public List<Tag> getFeaturedTags(){
+        return tagDao.getFeaturedTags();
+    }
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/tag", method = RequestMethod.POST)
     public Tag createTag(String tag){

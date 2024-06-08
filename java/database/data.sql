@@ -23,4 +23,20 @@ INSERT INTO donations (donor_id, campaign_id, donation_amount, donation_date_tim
 INSERT INTO donations (donor_id, campaign_id, donation_amount, donation_date_time) VALUES (4, 4, 125.00, '2024-01-04 15:00:00');
 INSERT INTO donations (donor_id, campaign_id, donation_amount, donation_date_time) VALUES (5, 5, 150.00, '2024-01-05 16:00:00');
 
+INSERT INTO tag (tag_description) VALUES ('health');
+INSERT INTO tag (tag_description) VALUES ('environment');
+INSERT INTO tag (tag_description) VALUES ('school');
+INSERT INTO tag (tag_description) VALUES ('game');
+
+INSERT INTO spend_request (campaign_id, spend_description, spend_status) VALUES (1, 'do something cool', 0);
+INSERT INTO spend_request (campaign_id, spend_description, spend_status) VALUES (1, 'do something crazy', 1);
+INSERT INTO spend_request (campaign_id, spend_description, spend_status) VALUES (2, 'do something in general', 2);
+
+INSERT INTO campaign_tag (tag_id, campaign_id) VALUES (1,1);
+INSERT INTO campaign_tag (tag_id, campaign_id) VALUES (1,4);
+INSERT INTO campaign_tag (tag_id, campaign_id) VALUES (4,3);
+INSERT INTO campaign_tag (tag_id, campaign_id) VALUES (2,1;
+INSERT INTO campaign_tag (tag_id, campaign_id) VALUES (3,2);
+
+
 COMMIT TRANSACTION;

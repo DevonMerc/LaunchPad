@@ -17,15 +17,16 @@ import java.util.Locale;
 import java.util.Objects;
 
 @Component
-public class JdbcCampaignDao implements CampaignDao{
+public class JdbcCampaignDao implements CampaignDao {
 
     private final JdbcTemplate jdbcTemplate;
+
     public JdbcCampaignDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    public List<Campaign> getFeaturedCampaigns(){
+    public List<Campaign> getFeaturedCampaigns() {
         List<Campaign> campaigns = new ArrayList<>();
 
         String sql = "SELECT * FROM campaigns WHERE is_public = true ORDER BY funding LIMIT 7";
@@ -37,7 +38,7 @@ public class JdbcCampaignDao implements CampaignDao{
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
-        }catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             System.out.println(e.getMessage());
         }
         return campaigns;
@@ -58,11 +59,12 @@ public class JdbcCampaignDao implements CampaignDao{
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
-        }catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             System.out.println(e.getMessage());
         }
         return campaigns;
     }
+
     @Override
     public List<Campaign> getCampaignsByDonorId(int id) { //confused about this
         List<Campaign> campaigns = new ArrayList<>();
@@ -78,7 +80,7 @@ public class JdbcCampaignDao implements CampaignDao{
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
-        }catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             System.out.println(e.getMessage());
         }
         return campaigns;
@@ -98,7 +100,7 @@ public class JdbcCampaignDao implements CampaignDao{
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
-        }catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             System.out.println(e.getMessage());
         }
         return campaigns;
@@ -118,12 +120,12 @@ public class JdbcCampaignDao implements CampaignDao{
     @Override
     public Campaign createCampaign(Campaign campaign) {
         Campaign newCampaign = null;
-        String sql = "INSERT INTO campaigns(title, end_date, goal, manager_id, img_url, funding, is_public, description) VALUES (?,?,?,?,?,?,?, ?) RETURNING campaign_id";
-        try{
+        String sql = "INSERT INTO campaigns(title, end_date, goal, manager_id, image_url, funding, is_public, description) VALUES (?,?,?,?,?,?,?, ?) RETURNING campaign_id";
+        try {
             Integer newCampaignId = jdbcTemplate.queryForObject(sql, Integer.class, campaign.getTitle(),
                     campaign.getEndDate(), campaign.getGoal(), campaign.getManagerId(), campaign.getImgURL(),
                     campaign.getFunding(), campaign.getisPublic(), campaign.getDescription());
-            if(newCampaignId != null) {
+            if (newCampaignId != null) {
                 newCampaign = getCampaignById(newCampaignId);
             } else {
                 throw new IllegalStateException("Failed to create campaign.");
@@ -139,16 +141,25 @@ public class JdbcCampaignDao implements CampaignDao{
 
     @Override
     public boolean updateCampaign(Campaign campaign, int campaignId) {
-        Campaign updatedCampaign = null;
-        String sql = "UPDATE campaigns SET title = ?, end_date = ?, goal = ?, imgURL = ?, is_public = ?, description = ? WHERE campaign_id = ?";
-        jdbcTemplate.update(sql, campaign.getTitle(), campaign.getEndDate(), campaign.getGoal(),
-                campaign.getManagerId(), campaign.getImgURL(), campaign.getFunding(),
-                campaign.getisPublic(), campaign.getDescription(), campaign.getCampaignId());
-        updatedCampaign = getCampaignById(campaign.getCampaignId());
-        if(updatedCampaign!= null){
-            return true;
+//        Campaign updatedCampaign = null;
+        String sql = "UPDATE campaigns SET title = ?, end_date = ?, goal = ?, image_url = ?, is_public = ?, description = ? WHERE campaign_id = ?";
+        try {
+            int rowsAffected = jdbcTemplate.update(sql, campaign.getTitle(), campaign.getEndDate(), campaign.getGoal(),
+                    campaign.getImgURL(),
+                    campaign.getisPublic(), campaign.getDescription(), campaignId);
+//        updatedCampaign = getCampaignById(campaign.getCampaignId());
+            return rowsAffected > 0;
+        }catch (CannotGetJdbcConnectionException e) {
+
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+
+            throw new DaoException("Data integrity violation", e);
+        } catch (Exception e) {
+
+            throw new DaoException("Unexpected error occurred", e);
         }
-        return false;
+
     }
 
     @Override
@@ -165,22 +176,23 @@ public class JdbcCampaignDao implements CampaignDao{
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
-        }catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             System.out.println(e.getMessage());
         }
         return campaigns;
     }
+
     @Override
-    public int deleteCampaign(int id){
+    public int deleteCampaign(int id) {
         int rowCount = 0;
         String deleteCampaignSql = "DELETE FROM campaign WHERE campaign_id = ?";
         try {
             rowCount = jdbcTemplate.update(deleteCampaignSql, id);
-        }catch (CannotGetJdbcConnectionException e) {
-                throw new DaoException("Unable to connect to server or database", e);
-            } catch (DataIntegrityViolationException e) {
-                throw new DaoException("Data integrity violation", e);
-            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
         return rowCount;
     }
 
@@ -188,7 +200,7 @@ public class JdbcCampaignDao implements CampaignDao{
         Campaign campaign = new Campaign();
         campaign.setCampaignId(rs.getInt("campaign_id"));
         campaign.setTitle(rs.getString("title"));
-        if(rs.getDate("end_date").toLocalDate() != null){
+        if (rs.getDate("end_date").toLocalDate() != null) {
             campaign.setEndDate(rs.getDate("end_date").toLocalDate());
         }
         campaign.setGoal(rs.getBigDecimal("goal"));

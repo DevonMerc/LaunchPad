@@ -66,6 +66,7 @@ public class JdbcTagDao implements TagDao{
         return tags;
 
     }
+    @Override
     public int deleteTag(int id){
         int rowCount = 0;
         String sql = "DELETE FROM tag WHERE tag_id = ?";
@@ -78,6 +79,24 @@ public class JdbcTagDao implements TagDao{
         }
         return rowCount;
     }
+
+    @Override
+    public List<Tag> getFeaturedTags(){
+        List<Tag> tags = new ArrayList<>();
+        String sql = "SELECT tag_description, tag_id FROM " +
+                "(SELECT t.tag_description, tag_id, COUNT(ct.tag_id) AS tag_count FROM tag JOIN campaign_tag ct ON t.tag_id = ct.tag_id GROUP BY t.tag_name ORDER BY tag_count DESC) AS tag_counts";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+            while (results.next()) {
+                Tag tag = mapRowToTag(results);
+                tags.add(tag);
+            }
+        }catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }catch (DataIntegrityViolationException e) {
+            System.out.println(e.getMessage());
+        }
+        return tags;}
 
     private Tag mapRowToTag(SqlRowSet rs) {
         Tag tag = new Tag();
