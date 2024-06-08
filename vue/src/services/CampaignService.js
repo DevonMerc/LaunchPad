@@ -22,9 +22,9 @@ export default {
   },
 
   updateCampaignById(campaignId){
-    return baseUrl.put(`campaigns/${campaignId}`);
+    return baseUrl.put(`/campaigns/${campaignId}`);
   }
-  // createCampaign(campaign) { //will need to make this work later
+  // createCampaign(campaign) { //will need to make this work in frontend later
   //   return baseUrl.post('/api/campaigns', campaign);
   // }
 };

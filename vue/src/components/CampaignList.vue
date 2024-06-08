@@ -1,7 +1,7 @@
 <template>
     <div class="campaign-card" v-for="campaign in campaigns" :key="campaign.id">
         <!-- <router-link v-bind:to="{ name: 'campaignDetails', params: {id: campaign.id} }"> -->
-            <campaign-card :campaign="campaign" :campaignIsEmpty="campaignIsEmpty"/>
+            <campaign-card :campaign="campaign"/>
         <!-- </router-link> -->
     </div>
 </template>

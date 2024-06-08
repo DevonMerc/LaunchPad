@@ -10,11 +10,8 @@
       <div>
         <!-- <campaign-list :campaigns="this.$store.state.campaigns"/> -->
         <campaign-list :campaigns="userCampaigns"/>
-
       </div>
-      
     </body>
-    
   </div>
 </template>
 

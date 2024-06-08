@@ -1,13 +1,13 @@
 <template>
-    <!-- STILL NEEDS WORK, CONNECTION NEEDED -->
+    <!-- Connection works -->
     <SiteHeader />
     <!-- I think this was meant to be the component not the view, so changed the names -->
     <!-- <CampaignDetailsAnonView /> -->
     <CampaignDetailsAnon :campaign="campaign"/>
 </template>
 
-<script>
 
+<script>
 // import CampaignDetailsAnonView from '../components/CampaignDetailsForm.vue';
 import CampaignDetailsAnon from '../components/CampaignDetailsAnon.vue';
 import SiteHeader from '../components/SiteHeader.vue';
@@ -23,7 +23,7 @@ export default{
         return {
             campaign: {
                 campaignId: 0,
-                title: this.campaign.title,
+                title: "",
                 endDate: '0000-00-00',
                 goal: 0.00,
                 managerId: 0,
@@ -31,14 +31,14 @@ export default{
                 funding: 0.00,
                 description: "",
                 isPublic: false
-            },
+            }
             // isLoading: true
         };
     },
     created() {
-        //need this connection to exit first
+      const id = this.$route.params.id; //for debugging
       campaignService
-      .getCampaignById(this.$route.params.campaignId)
+      .getCampaignById(this.$route.params.id)
       .then(response => {
         this.campaign = response.data;
         // this.isLoading = false;

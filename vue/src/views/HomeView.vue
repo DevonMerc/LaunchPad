@@ -42,8 +42,9 @@ export default {
   },
   data(){
     return {
-      campaigns: [] //not really sure just using this isnt working
+      campaigns: [], //not really sure just using this isnt working
     //   isLoading: true
+    searchText: ""
     }
   },
   methods: {
