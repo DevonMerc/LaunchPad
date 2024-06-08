@@ -17,7 +17,7 @@ export default {
     return baseUrl.get('/campaigns/user-campaigns');
   },
 
-  getCampaignById(campaignId){ //need endpoint
+  getCampaignById(campaignId){ 
     return baseUrl.get(`/campaigns/${campaignId}`);
   },
 

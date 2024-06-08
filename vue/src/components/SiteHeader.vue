@@ -2,7 +2,7 @@
     <header>
       <!-- some img/icon
       menu button -> goes to menuview -->
-      <router-link v-bind:to="{ name: 'home' }"><img src="../assets/PLACEHOLDER_LOGO.png" alt="LaunchPad"/></router-link>
+      <router-link v-bind:to="{ name: 'home' }"><img src="../assets/Launchpad-logo-full.png" alt="LaunchPad"/></router-link>
       <!-- Idea, we have an array and loop through options based on the authenticated role of user or something. -->
       <button @click="$router.push({name: 'menu'})">Menu</button>
     </header>

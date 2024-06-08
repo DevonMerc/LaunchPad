@@ -84,6 +84,10 @@ public class CampaignController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Campaign not found");
         }
     }
+    @RequestMapping(path = "/{campaignId}", method = RequestMethod.GET)
+    public Campaign getCampaignById(@PathVariable int id){
+        return campaignDao.getCampaignById(id);
+    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(method = RequestMethod.POST)
