@@ -20,7 +20,7 @@ export default{
         return{
             campaign: {
                 campaignId: 0,
-                title: this.campaign.title,
+                title: "",
                 endDate: '0000-00-00',
                 goal: 0.00,
                 managerId: 0,

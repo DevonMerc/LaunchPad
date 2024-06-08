@@ -85,8 +85,8 @@ public class CampaignController {
         }
     }
     @RequestMapping(path = "/{campaignId}", method = RequestMethod.GET)
-    public Campaign getCampaignById(@PathVariable int id){
-        return campaignDao.getCampaignById(id);
+    public Campaign getCampaignById(@PathVariable int campaignId){
+        return campaignDao.getCampaignById(campaignId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
