@@ -1,7 +1,8 @@
 <!-- add header here  -->
-<site-header />
 <template>
-    <campaign-form/>
+    <!-- SHOULD BE OK -->
+    <site-header />
+    <campaign-form :campaign="campaign"/>
 </template>
 
 <script>
@@ -10,10 +11,23 @@ import SiteHeader from '../components/SiteHeader.vue';
 
 export default{
     components: {
-        CampaignForm
+        CampaignForm,
+        SiteHeader
     },
     data(){
-        //dunno if well need this but whatever
+        return{
+            campaign: {
+                campaignId: 0,
+                title: this.campaign.title,
+                endDate: '0000-00-00',
+                goal: 0.00,
+                managerId: 0,
+                imgURL: "",
+                funding: 0.00,
+                description: "",
+                isPublic: false
+            }
+        }
     }
 }
 </script>

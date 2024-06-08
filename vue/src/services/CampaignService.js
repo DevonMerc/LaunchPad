@@ -1,17 +1,32 @@
 import axios from 'axios';
 
+const baseUrl = axios.create({
+  baseURL: "http://localhost:9000"
+});
+
 export default {
-  getAllCampaigns() {
-    return axios.get('/api/campaigns');
-  },
+  // getAllCampaigns() { //idk if we need this
+  //   return baseUrl.get('/api/campaigns');
+  // },
 
   getFeaturedCampaigns() {
-    return axios.get('/api/campaigns/featured');
+    return baseUrl.get('/campaigns');
   },
 
-  createCampaign(campaign) {
-    return axios.post('/api/campaigns', campaign);
+  getUserCampaigns(){
+    return baseUrl.get('/campaigns/user-campaigns');
+  },
+
+  getCampaignById(campaignId){ //need endpoint
+    return baseUrl.get(`/campaigns/${campaignId}`);
+  },
+
+  updateCampaignById(campaignId){
+    return baseUrl.put(`campaigns/${campaignId}`);
   }
+  // createCampaign(campaign) { //will need to make this work later
+  //   return baseUrl.post('/api/campaigns', campaign);
+  // }
 };
 
 

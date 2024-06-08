@@ -10,6 +10,11 @@ import DashboardView from '../views/DashboardView.vue';
 import CreateCampaignView from '../views/CreateCampaignView.vue';
 import MenuView from '../views/MenuView.vue';
 import CampaignDetailsAnonView from '../views/CampaignDetailsAnonView.vue';
+import ViewYourCampaignsView from '../views/ViewYourCampaignsView.vue';
+import CampaignVotingView from '../views/CampaignVotingView.vue';
+import CampaignRequestFormView from '../views/CampaignRequestFormView.vue';
+import EditCampaignView from '../views/EditCampaignView.vue';
+
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -58,6 +63,39 @@ const routes = [
     component: CampaignDetailsAnonView,
     meta: {
       requiresAuth: false
+    }
+  },
+  {
+    path: "/editCampaign/:id",
+    name: "editCampaign",
+    component: EditCampaignView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  //testing new views
+  {
+    path: "/view",
+    name: "view",
+    component: ViewYourCampaignsView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/voting",
+    name: "voting",
+    component: CampaignVotingView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/request",
+    name: "request",
+    component: CampaignRequestFormView,
+    meta: {
+      requiresAuth: true
     }
   },
   {
