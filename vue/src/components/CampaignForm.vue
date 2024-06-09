@@ -17,15 +17,15 @@
     <form @submit.prevent="addCampaign">
         <div>
             <label for="title" class="grey">What will you call your campaign? </label>
-            <input type="text" id="title" required v-model="editedCampaign.title"/>
+            <input type="text" id="title" name="title" required v-model="editedCampaign.title"/>
         </div>
         <div>
             <label for="organizer" class="grey">Campaign Organizer</label>
-            <input type="text" id="managerId" required v-model="editedCampaign.managerId"/>
+            <input type="text" id="organizer" name="managerId" required v-model="editedCampaign.managerId"/>
         </div>
         <div>
             <label for="goal" class="grey">What is your starting goal? </label>
-            <input type="number" id="goal" required v-model="editedCampaign.goal"/>
+            <input type="number" id="goal" name="goal" required v-model="editedCampaign.goal"/>
         </div>
         <div>
             <label for="about" class="grey">Describe your campaign: </label>
@@ -33,11 +33,11 @@
         </div>
         <div>
             <label for="pic">Upload an image: </label>
-            <input type="file" id="imageUrl"  accept="image/*" />
+            <input type="file" id="pic" name="imageUrl" accept="image/*" />
         </div>
         <div>
             <label for="timeline">When will the fundraiser end?</label>
-            <input type="date" id="endDate" required v-model="editedCampaign.endDate"/>
+            <input type="date" id="timeline" name="endDate" required v-model="editedCampaign.endDate"/>
         </div>
         <!-- Have to look into v-model for radio buttons -->
         <label for="visibility">Should your campaign be public or private?</label>
@@ -49,7 +49,7 @@
                 <input type="radio" name="visibility" value="private" checked> Private
             </label>
         </div>
-        <input type="submit" @click.prevent="addCampaign" value="Create Campaign"/>
+        <input type="submit" @click.prevent="submitForm" value="Create Campaign"/>
     </form>
 </div>
 </template>
@@ -64,6 +64,7 @@ export default {
   data() {
     return {
         editedCampaign: {
+            campaignId: this.campaign.campaignId,
             title: this.campaign.title,
             endDate: this.campaign.endDate,
             goal: this.campaign.goal,
@@ -73,11 +74,10 @@ export default {
             description: this.campaign.description,
             isPublic: this.campaign.isPublic
         }
-      
     };
   },
   methods: {
-    // ...mapActions(['updateCampaign']), //I'm not sure what this is...
+    // ...mapActions(['updateCampaign']), //I'm personally not sure how this works, add back in later?
     // addCampaign() {
     //   const campaign = {
     //     title: this.title,
@@ -86,7 +86,7 @@ export default {
     //     pic: this.pic,
     //     visibility: this.visibility
     //   };
-    //   this.updateCampaign(campaign); //Does this connect to something outside this file? Still need id to update a campaign
+    //   this.updateCampaign(campaign); //Does this connect to something outside this file? I think it still needs an id to update a campaign
     //   this.$router.push({ name: 'dashboard' });
     // },
     // onFileChange(event) {
@@ -102,12 +102,13 @@ export default {
         return;
       }
       // Check for add or edit
-      if (this.editCampaign.id === 0) {
+      if (this.editedCampaign.campaignId === 0) {
         
         // TODO - Do an add, then navigate Dashboard on success.
         // For errors, call handleErrorResponse
-        campaignService.add(this.editCampaign).then(response => {
+        campaignService.createCampaign(this.editedCampaign).then(response => {
           if(response.status === 201){
+            console.log("worked");
             this.$router.push({ name: 'dashboard'}); //need to change route to registered, anon is ok for now
           }
         }).catch(error => {
@@ -118,7 +119,7 @@ export default {
         
         // TODO - Do an edit, then navigate back to Campaign Details on success
         // For errors, call handleErrorResponse
-        campaignService.put(this.editCampaign).then(response => {
+        campaignService.updateCampaign(this.editedCampaign, this.editedCampaign.campaignId).then(response => {
           if(response.status === 200){
             this.$router.push({ name: 'campaignDetailsView' ,params: {id: this.editCampaign.campaignId}});
           }
@@ -145,20 +146,20 @@ export default {
       }
     },
     validateForm() {
-      let msg = '';
+      let title = '';
 
-      this.editMessage.title = this.editMessage.title.trim();
-      if (this.editMessage.title.length === 0) {
-        msg += 'The new message must have a title. ';
+      this.editedCampaign.title = this.editedCampaign.title.trim();
+      if (this.editedCampaign.title.length === 0) {
+        title += 'The new campaign must have a title. ';
       }
 
-      this.editMessage.messageText = this.editMessage.messageText.trim();
-      if (this.editMessage.messageText.length === 0) {
-        msg += 'The message must contain message text.';
-      }
+      // this.editCampaign.messageText = this.editCampaign.messageText.trim();
+      // if (this.editCampaign.messageText.length === 0) {
+      //   msg += 'The message must contain message text.';
+      // }
 
-      if (msg.length > 0) {
-        this.$store.commit('SET_NOTIFICATION', msg);
+      if (title.length > 0) {
+        this.$store.commit('SET_NOTIFICATION', title);
         return false;
       }
       return true;

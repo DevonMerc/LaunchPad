@@ -32,30 +32,32 @@ export default{
       }
     },
   methods: {
-    getUserCampaigns() {
+    callUserCampaigns() {
+      //right now its taking in a userId, that's backup since principal isnt working, change back later if that's figured out
+      campaignService.getUserCampaigns(this.$store.state.user.id).then(response => {
+        // console.log(response.data);
+        this.campaigns = response.data;
+        // this.isLoading = false;
+      }).catch( error => {
+        console.log(error);
+      })
       if(this.campaigns.length === 0){
         this.campaigns = [{
-          campaignId: -1,
+          campaignId: 0,
           title: "No Campaigns created",
           endDate: "",
           goal: 0.00,
-          managerId: 8,
+          managerId: 0,
           imgURL: "",
           funding: 0.00,
           description: "",
           isPublic: false
-        }]
-      }else{
-        campaignService.getUserCampaigns().then(response => {
-        this.campaigns = response.data;
-        // this.isLoading = false;
-      });
+        }];
       }
-      
     },
     created() { //what does this do again
-    this.getUserCampaigns();
-  }
+      this.callUserCampaigns();
+    }
   },
     computed: {
     // userCampaigns(){
@@ -65,7 +67,7 @@ export default{
     //   return filteredCampaigns;
     // },
     userCampaigns(){
-      this.getUserCampaigns();
+      this.callUserCampaigns();
       const test = this.campaigns; //for debugging
       // if(this.campaigns.length === 0){
       //   return [{

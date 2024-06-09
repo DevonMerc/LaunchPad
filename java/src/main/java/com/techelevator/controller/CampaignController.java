@@ -55,9 +55,14 @@ public class CampaignController {
         return campaignService.getFeaturedCampaigns();
     }
 
-    @RequestMapping(path = "/user-campaigns", method = RequestMethod.GET)
-    public List<Campaign> getCampaignsByManagerId(Principal userInfo) {
-        return campaignService.getCampaignsByManagerId(userInfo);
+//    @RequestMapping(path = "/user-campaigns", method = RequestMethod.GET)
+//    public List<Campaign> getCampaignsByManagerId(Principal userInfo) {
+//        return campaignService.getCampaignsByManagerId(userInfo);
+//    }
+
+    @RequestMapping(path = "/user-campaigns/{userId}", method = RequestMethod.GET)
+    public List<Campaign> getCampaignsByManagerId(@PathVariable int userId) {
+        return campaignDao.getCampaignsByManagerId(userId);
     }
 
     @RequestMapping(path = "/donor-campaigns", method = RequestMethod.GET)
