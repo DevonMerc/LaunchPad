@@ -106,7 +106,7 @@ export default {
 
 <style scoped>
 .home {
-  display: flex;
+ /**  display: flex; */
   flex-direction: column;
   align-items: center;
 }
