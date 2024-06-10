@@ -15,7 +15,7 @@
         <p>$<!--Need Donation Raised amount--> RAISED OUT OF {{ campaign.goal }} GOAL!</p>
 
         <!-- Need to create donate view/components and link to this -->
-        <button>Donate</button>
+        <button @click="this.$router.push({name: 'donationForm', params:{campaignId:campaign.campaignId}})">Donate</button>
 
         <p>Timeline: {{ daysLeft }} Days Left!</p>
 
@@ -85,7 +85,12 @@ export default {
       
       return dynamicDonation;
     }
-  }
+  },
+  // methods: {
+  //   donate(){
+
+  //   }
+  // }
 };
 </script>
   

@@ -37,6 +37,9 @@ export default {
   },
   searchCampaigns(searchTerm){
     return baseUrl.get(`campaigns/search?searchTerm=${searchTerm}`);
+  },
+  createDonation(donation){
+    return baseUrl.post('/donation', donation);
   }
 };
 

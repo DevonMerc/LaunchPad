@@ -13,31 +13,31 @@
 </template>
   
 <script>
-  import { mapGetters, mapMutations } from 'vuex';
+  // import { mapGetters, mapMutations } from 'vuex';
   
-  export default {
-    data() {
-      return {
-        donationAmount: ''
-      };
-    },
-    computed: {
-      ...mapGetters(['campaign'])
-    },
-    methods: {
-      ...mapMutations(['setCampaign']),
-      submitForm() {
-        const campaignData = {
-          title: this.title,
-          request: this.request,
-          manager: this.manager,
-          description: this.description
-        };
-        this.setCampaign(campaignData);
-        this.$router.push('/campaign-voting');
-      }
-    }
-  };
+  // export default {
+  //   data() {
+  //     return {
+  //       donationAmount: ''
+  //     };
+  //   },
+  //   computed: {
+  //     ...mapGetters(['campaign'])
+  //   },
+  //   methods: {
+  //     ...mapMutations(['setCampaign']),
+  //     submitForm() {
+  //       const campaignData = {
+  //         title: this.title,
+  //         request: this.request,
+  //         manager: this.manager,
+  //         description: this.description
+  //       };
+  //       this.setCampaign(campaignData);
+  //       this.$router.push('/campaign-voting');
+  //     }
+  //   }
+  // };
 </script>
   
 <style>
