@@ -5,7 +5,7 @@
     </div>
     <div v-else> -->
       <h1>Edit Campaign</h1>
-      <campaign-form :campaign="campaign" />
+      <campaign-form :campaign="campaign" v-if="campaign"/>
     <!-- </div> -->
   </template>
   

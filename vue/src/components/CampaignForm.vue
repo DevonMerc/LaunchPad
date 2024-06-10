@@ -77,6 +77,9 @@ export default {
         }
     };
   },
+  created() {
+    console.log('ready')
+  },
   methods: {
     // ...mapActions(['updateCampaign']), //I'm personally not sure how this works, add back in later?
     // addCampaign() {
