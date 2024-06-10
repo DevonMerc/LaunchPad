@@ -22,13 +22,14 @@ public class JdbcDonationDao implements DonationDao{
     }
 
     @Override
-    public Donation createDonation(BigDecimal amount, int donorId, int campaignId) {
-        Donation donation = null;
-        String sql = "INSERT INTO campaigns(amount, donorId, campaignId) VALUES (?, ?, ?) RETURNING donation_id";
+    public Donation createDonation(Donation donation) {
+//        Donation donation = null;
+        String sql = "INSERT INTO donations(donation_amount, donor_id, campaign_id, donation_date_time) VALUES (?, ?, ?, ?) RETURNING donation_id";
         try{
-            Integer newDonationId = jdbcTemplate.queryForObject(sql, Integer.class, amount, donorId, campaignId);
+            Integer newDonationId = jdbcTemplate.queryForObject(sql, Integer.class,  donation.getAmount(), donation.getDonorId(), donation.getCampaignId(), donation.getDateTime());
             if(newDonationId != null) {
-//                donation = getDonationById(newDonationId);
+                //newDonation = getDonationById(newDonationId); // would need to create a new method, so keeping out for now
+                donation.setDonationId(newDonationId);
             } else {
                 throw new IllegalStateException("Failed to create transfer.");
             }
@@ -43,7 +44,7 @@ public class JdbcDonationDao implements DonationDao{
     @Override
     public List<Donation> getDonationsByCampaignId(int id) {
         List<Donation> donations = new ArrayList<>();
-        String sql = "SELECT * FROM donation WHERE campaign_id = ?";
+        String sql = "SELECT * FROM donations WHERE campaign_id = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
             while (results.next()) {
@@ -61,7 +62,7 @@ public class JdbcDonationDao implements DonationDao{
     @Override
     public List<Donation> getDonationsByDonorId(int id) {
         List<Donation> donations = new ArrayList<>();
-        String sql = "SELECT * FROM donation WHERE donor_id = ?";
+        String sql = "SELECT * FROM donations WHERE donor_id = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
             while (results.next()) {
@@ -77,10 +78,14 @@ public class JdbcDonationDao implements DonationDao{
     }
     private Donation mapRowToDonation(SqlRowSet rs){
         Donation donation = new Donation();
-        donation.setAmount(rs.getBigDecimal("amount"));
+//        donation.setAmount(rs.getBigDecimal("amount"));
+        //vvv changed name as per schema, ^^^original
+        donation.setAmount(rs.getBigDecimal("donation_amount"));
         donation.setCampaignId(rs.getInt("campaign_id"));
         donation.setDonationId(rs.getInt("donation_id"));
         donation.setDonorId(rs.getInt("donor_id"));
+        //added as per schema vvvv
+        donation.setDateTime(rs.getTimestamp("donation_date_time"));
         return donation;
     }
 }

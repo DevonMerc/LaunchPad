@@ -1,12 +1,17 @@
 package com.techelevator.model;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Donation {
     int donationId;
     int donorId;
     int campaignId;
     BigDecimal amount;
+
+    //vvv added (getters setters, constructor passes) as per schema
+    Timestamp dateTime; //curious if this needs to be LocalDateTime instead
     public Donation(){}
 
     public int getDonationId() {
@@ -41,11 +46,20 @@ public class Donation {
         this.amount = amount;
     }
 
-    public Donation(int donationId, int donorId, int campaignId, BigDecimal amount) {
+    public Timestamp getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(Timestamp dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public Donation(int donationId, int donorId, int campaignId, BigDecimal amount,Timestamp dateTime) {
         this.donationId = donationId;
         this.donorId = donorId;
         this.campaignId = campaignId;
         this.amount = amount;
+        this.dateTime = dateTime;
     }
 
 
