@@ -1,22 +1,13 @@
 <template>
     <div>
-      <h1>Campaign Request Form</h1>
+      <h1>Donation Form</h1>
     </div>
     <div class="form-container">
       <form @submit.prevent="submitForm">
         <div class="form-group">
-          <input v-model="title" type="text" id="title" name="title" placeholder="Title of Campaign" required>
+          <input v-model="title" type="text" id="donationAmount" name="donationAmount" placeholder="What amount are you donating ($0.00)?" required>
         </div>
-        <div class="form-group">
-          <input v-model="request" type="text" id="request" name="request" placeholder="Campaign Request" required>
-        </div>
-        <div class="form-group">
-          <input v-model="manager" type="text" id="manager" name="manager" placeholder="Campaign Manager" required>
-        </div>
-        <div class="form-group">
-          <input v-model="description" type="text" id="description" name="description" placeholder="Description Request" required>
-        </div>
-        <button type="submit" class="submit-btn">Create Request</button>
+        <button type="submit" class="submit-btn">Donate</button>
       </form>
     </div>
 </template>
@@ -27,10 +18,7 @@
   export default {
     data() {
       return {
-        title: '',
-        request: '',
-        manager: '',
-        description: ''
+        donationAmount: ''
       };
     },
     computed: {
