@@ -137,7 +137,7 @@ export default {
         // For errors, call handleErrorResponse
         campaignService.updateCampaign(this.editedCampaign, this.editedCampaign.campaignId).then(response => {
           if(response.status === 200){
-            this.$router.push({ name: 'campaignDetailsView' ,params: {id: this.editCampaign.campaignId}});
+            this.$router.push({ name: 'campaignDetails', params: {id: this.campaign.campaignId} }); //probably same issues w timing, used campaign instead of editedcampaign for router push
           }
         }).catch(error => {
           this.handleErrorResponse(error, 'updating');  
