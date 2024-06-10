@@ -1,7 +1,10 @@
 <template>
     <!-- NEED TO SHOW BUTTONS WHEN ITS DASHBOARD -->
     <div class = "card">
-        <img src="../assets/PLACEHOLDER_LOGO.png"/>
+        <router-link v-bind:to="{ name: 'campaignDetails', params: {id: campaign.campaignId} }">
+            <img src="../assets/PLACEHOLDER_LOGO.png"/>
+        </router-link>
+
         <div class="info">
         <p>{{ campaign.title }}</p>
         <p>Manged by {{ campaign.managerId }}</p>

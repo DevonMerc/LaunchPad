@@ -1,8 +1,8 @@
 <template>
     <div class="campaign-card" v-for="campaign in campaigns" :key="campaign.campaignId">
-        <router-link v-bind:to="{ name: 'campaignDetails', params: {id: campaign.campaignId} }">
+        <!-- <router-link v-bind:to="{ name: 'campaignDetails', params: {id: campaign.campaignId} }"> -->
             <campaign-card :campaign="campaign" :isDashboard="isDashboard"/>
-        </router-link>
+        <!-- </router-link> -->
     </div>
 </template>
 
