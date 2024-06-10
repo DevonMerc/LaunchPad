@@ -65,20 +65,19 @@ export default {
   data() {
     return {
         editedCampaign: {
-            campaignId: this.campaign.campaignId,
-            title: this.campaign.title,
-            endDate: this.campaign.endDate,
-            goal: this.campaign.goal,
-            managerId: this.campaign.managerId,
-            imgURL: this.campaign.imgURL,
-            funding: this.campaign.funding,
-            description: this.campaign.description,
-            isPublic: this.campaign.isPublic
+            campaignId: this.campaign ? this.campaign.campaignId : 0,
+            title:  this.campaign ? this.campaign.title : '',
+            endDate: this.campaign ? this.campaign.endDate : '',
+            goal: this.campaign ? this.campaign.goal : '',
+            managerId: this.campaign ? this.campaign.managerId : '',
+            imgURL: this.campaign ? this.campaign.imgURL : '',
+            funding: this.campaign ? this.campaign.funding : '',
+            description: this.campaign ? this.campaign.description : '',
+            isPublic: this.campaign ? this.campaign.isPublic : ''
         }
     };
   },
   created() {
-    console.log('ready')
   },
   methods: {
     // ...mapActions(['updateCampaign']), //I'm personally not sure how this works, add back in later?
@@ -99,6 +98,19 @@ export default {
     //     this.pic = URL.createObjectURL(file);
     //   }
     // }
+    updateFormData() {
+      this.editedCampaign = {
+            campaignId: this.campaign ? this.campaign.campaignId : 0,
+            title:  this.campaign ? this.campaign.title : '',
+            endDate: this.campaign ? this.campaign.endDate : '',
+            goal: this.campaign ? this.campaign.goal : '',
+            managerId: this.campaign ? this.campaign.managerId : '',
+            imgURL: this.campaign ? this.campaign.imgURL : '',
+            funding: this.campaign ? this.campaign.funding : '',
+            description: this.campaign ? this.campaign.description : '',
+            isPublic: this.campaign ? this.campaign.isPublic : ''
+        }
+    },
     submitForm() {
       // Do client-side form validation 
       if (!this.validateForm()) {
