@@ -112,6 +112,10 @@ body {
   padding: 0.25rem 0; /* Add small padding for spacing */
 }
 
+.title {
+    font-weight: bolder;
+}
+
 .dashboard-buttons {
   display: flex;
   justify-content: space-around;

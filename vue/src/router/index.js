@@ -14,7 +14,7 @@ import ViewYourCampaignsView from '../views/ViewYourCampaignsView.vue';
 import CampaignVotingView from '../views/CampaignVotingView.vue';
 import CampaignRequestFormView from '../views/CampaignRequestFormView.vue';
 import EditCampaignView from '../views/EditCampaignView.vue';
-
+import DonationFormView from '../views/DonationFormView.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -86,6 +86,14 @@ const routes = [
     path: "/voting",
     name: "voting",
     component: CampaignVotingView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/donationForm/:campaignId",
+    name: "donationForm",
+    component: DonationFormView,
     meta: {
       requiresAuth: true
     }
