@@ -35,17 +35,18 @@ export default{
             // if(true){//we need to be able to get donors associated with a campaign id
 
             // }else{
-                if (confirm(`Are you sure you want to delete "${this.campaign.title}"? This action cannot be undone.`)) {
+                if (confirm("Are you sure you want to delete this campaign? This action cannot be undone.")) {
                 campaignService.deleteCampaign(this.campaign.campaignId).then(response => {
-                    if (response.status === 200) {
-                    this.$store.commit(
-                        'SET_NOTIFICATION',
-                        {
-                            message: `Campaign "${this.campaign.title}" was successfully deleted.`,
-                            type: 'success'
-                        }
-                    );
+                    if (response.status === 204) {
+                        this.$store.commit(
+                            'SET_NOTIFICATION',
+                            {
+                                message: `Campaign "${this.campaign.title}" was successfully deleted.`,
+                                type: 'success'
+                            }
+                        );
                         this.$router.push({ name: 'dashboard'});
+                        // this.$router.go(0);
                     }
                 })
                 .catch(error => {
