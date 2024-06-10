@@ -5,7 +5,7 @@
     </div>
     <div v-else> -->
       <h1>Edit Campaign</h1>
-      <campaign-form :campaign="campaign" v-if="campaign"/>
+      <campaign-form :campaign="campaign" ref="editForm" />
     <!-- </div> -->
   </template>
   
@@ -30,6 +30,7 @@
         campaignService.getCampaignById(id)
           .then(response => {
             this.campaign = response.data;
+            this.$refs.editForm.updateFormData();
             // this.isLoading = false;
           })
           .catch(error => {
