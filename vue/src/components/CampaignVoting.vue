@@ -1,12 +1,12 @@
 <template>
     <div>
-      <div v-if="campaign.pic">
+      <div v-if="campaign.imgURL">
         <img src="../assets/Launchpad-logo-full.png" alt="Launchpad Logo">
       </div>
       <div>
         <h1>Completed Campaign</h1>
       </div>
-      <div v-if="campaign.pic">
+      <div v-if="campaign.imgURL">
         <img src="../assets/PLACEHOLDER_LOGO.png" alt="Place Holder">
       </div>
       <div class="container">

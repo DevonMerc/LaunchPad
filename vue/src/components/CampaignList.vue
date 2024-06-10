@@ -1,8 +1,8 @@
 <template>
-    <div class="campaign-card" v-for="campaign in campaigns" :key="campaign.id">
-        <!-- <router-link v-bind:to="{ name: 'campaignDetails', params: {id: campaign.id} }"> -->
-            <campaign-card :campaign="campaign"/>
-        <!-- </router-link> -->
+    <div class="campaign-card" v-for="campaign in campaigns" :key="campaign.campaignId">
+        <router-link v-bind:to="{ name: 'campaignDetails', params: {id: campaign.campaignId} }">
+            <campaign-card :campaign="campaign" :isDashboard="isDashboard"/>
+        </router-link>
     </div>
 </template>
 
@@ -12,6 +12,6 @@ export default{
     components: {
         CampaignCard
     },
-    props: ['campaigns'] //I have campaigns coming in as a prop bc the campaigns depends on the page, anon vs registered
+    props: ['campaigns', 'isDashboard'] //I have campaigns coming in as a prop bc the campaigns depends on the page, anon vs registered
 }
 </script>

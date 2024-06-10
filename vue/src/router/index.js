@@ -9,7 +9,7 @@ import RegisterView from '../views/RegisterView.vue';
 import DashboardView from '../views/DashboardView.vue';
 import CreateCampaignView from '../views/CreateCampaignView.vue';
 import MenuView from '../views/MenuView.vue';
-import CampaignDetailsAnonView from '../views/CampaignDetailsAnonView.vue';
+import CampaignDetailsView from '../views/CampaignDetailsView.vue';
 import ViewYourCampaignsView from '../views/ViewYourCampaignsView.vue';
 import CampaignVotingView from '../views/CampaignVotingView.vue';
 import CampaignRequestFormView from '../views/CampaignRequestFormView.vue';
@@ -60,9 +60,9 @@ const routes = [
   {
     path: "/campaign/:id",
     name: "campaignDetails",
-    component: CampaignDetailsAnonView,
+    component: CampaignDetailsView,
     meta: {
-      requiresAuth: true
+      requiresAuth: false
     }
   },
   {

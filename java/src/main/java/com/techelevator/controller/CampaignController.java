@@ -71,7 +71,7 @@ public class CampaignController {
     }
 
     @RequestMapping(path = "/search", method = RequestMethod.GET)
-    public List<Campaign> getCampaignsBySearch(String searchTerm) {
+    public List<Campaign> getCampaignsBySearch(@RequestParam String searchTerm) {
         return campaignService.getCampaignsBySearch(searchTerm);
     }
     @RequestMapping(path = "/tag", method = RequestMethod.GET)

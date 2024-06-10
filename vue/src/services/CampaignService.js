@@ -26,11 +26,17 @@ export default {
     return baseUrl.get(`/campaigns/${campaignId}`);
   },
 
-  updateCampaign(campaign, campaignId){
+  updateCampaign(campaign, campaignId){ //not sure if works yet, other frontend issues getting in the way
     return baseUrl.put(`/campaigns/${campaignId}`, campaign);
   },
-  createCampaign(campaign) { //will need to make this work in frontend later
+  createCampaign(campaign) { 
     return baseUrl.post('/campaigns', campaign);
+  },
+  deleteCampaign(campaignId){
+    return baseUrl.delete(`/campaigns/${campaignId}`);
+  },
+  searchCampaigns(searchTerm){
+    return baseUrl.get(`campaigns/search?searchTerm=${searchTerm}`);
   }
 };
 

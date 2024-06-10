@@ -1,9 +1,11 @@
 <template>
     <!-- Connection works -->
     <SiteHeader />
+    <!-- <div>{{ isUserAnon }}, {{ isUserRegistered }}</div> -->
     <!-- I think this was meant to be the component not the view, so changed the names -->
     <!-- <CampaignDetailsAnonView /> -->
-    <CampaignDetailsAnon :campaign="campaign"/>
+    <CampaignDetailsAnon v-if="isUserAnon" :campaign="campaign" />
+    <CampaignDetailsRegistered v-if="isUserRegistered" :campaign="campaign" />
 </template>
 
 
@@ -12,11 +14,13 @@
 import CampaignDetailsAnon from '../components/CampaignDetailsAnon.vue';
 import SiteHeader from '../components/SiteHeader.vue';
 import campaignService from '../services/CampaignService.js';
+import CampaignDetailsRegistered from '../components/CampaignDetailsRegistered.vue';
 export default{
     
     components: {
         // CampaignDetailsAnonView,
         CampaignDetailsAnon,
+        CampaignDetailsRegistered,
         SiteHeader
     },
     data() {
@@ -34,6 +38,14 @@ export default{
             }
             // isLoading: true
         };
+    },
+    computed: {
+        isUserAnon(){
+            return JSON.stringify(this.$store.state.user) === "{}";
+        },
+        isUserRegistered(){
+            return JSON.stringify(this.$store.state.user) != "{}";
+        }
     },
     created() {
       const id = this.$route.params.id; //for debugging

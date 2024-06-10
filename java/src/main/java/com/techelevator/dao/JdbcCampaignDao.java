@@ -185,7 +185,7 @@ public class JdbcCampaignDao implements CampaignDao {
     @Override
     public int deleteCampaign(int id) {
         int rowCount = 0;
-        String deleteCampaignSql = "DELETE FROM campaign WHERE campaign_id = ?";
+        String deleteCampaignSql = "DELETE FROM campaigns WHERE campaign_id = ?";
         try {
             rowCount = jdbcTemplate.update(deleteCampaignSql, id);
         } catch (CannotGetJdbcConnectionException e) {

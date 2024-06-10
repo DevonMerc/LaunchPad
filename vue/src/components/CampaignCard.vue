@@ -7,11 +7,11 @@
         <p>Manged by {{ campaign.managerId }}</p>
         <p>{{ campaign.description }}</p>
         <p>${{ campaign.funding }}/${{ campaign.goal }} Currently raised</p>
-        <button  @click="$router.push({name: 'campaignDetails', params: {id: campaign.campaignId}})">View Details</button>
-        <div v-show="false">
+        <!-- <button  @click="$router.push({name: 'campaignDetails', params: {id: campaign.campaignId}})">View Details</button> -->
+        <div v-show="isDashboard">
             <button @click="$router.push({name: 'editCampaign', params: {id: campaign.campaignId}})">Edit Campaign</button>
             <!-- Add click event later vvv -->
-            <button >Delete Campaign</button>
+            <button @click="deleteCampaign">Delete Campaign</button>
         </div>
         <!-- <p>Tags</p>
         <div class="tags" v-for="tag in campaign.tags" :key="tag">
@@ -26,45 +26,39 @@
 import campaignService from '../services/CampaignService.js';
 export default{
     
-    props: ['campaign'],
+    props: ['campaign', 'isDashboard'],
     methods: {
-        // deleteCampaign() { // for now shouldn't work, uncomment and work on after endpoint is set
-        //     // if(true){//we need to be able to get donors associated with a campaign id
+        deleteCampaign() { // for now shouldn't work, uncomment and work on after endpoint is set
+            // if(true){//we need to be able to get donors associated with a campaign id
 
-        //     // }else{
-        //         if (
-        //         confirm(
-        //         'Are you sure you want to delete this campaign? This action cannot be undone.'
-        //         )
-        //         ) {
-        //         campaignService
-        //         .deleteCampaign(this.card.id)
-        //         .then(response => {
-        //             if (response.status === 200) {
-        //             this.$store.commit(
-        //                 'SET_NOTIFICATION',
-        //                 {
-        //                     message: `Campaign ${this.card.id} was successfully deleted.`,
-        //                     type: 'success'
-        //                 }
-        //             );
-        //                 this.$router.push({ name: 'dashboard'});
-        //             }
-        //         })
-        //         .catch(error => {
-        //             if (error.response) {
-        //                 this.$store.commit('SET_NOTIFICATION',
-        //                 `Error deleting campaign. Response received was "${error.response.statusText}".`);
-        //             } else if (error.request) {
-        //                 this.$store.commit('SET_NOTIFICATION', 'Error deleting campaign. Server could not be reached.');
-        //             } else {
-        //                 this.$store.commit('SET_NOTIFICATION', 'Error deleting campaign. Request could not be created.');
-        //             }
-        //         });
-        //     // }
-        //     }
+            // }else{
+                if (confirm(`Are you sure you want to delete "${this.campaign.title}"? This action cannot be undone.`)) {
+                campaignService.deleteCampaign(this.campaign.campaignId).then(response => {
+                    if (response.status === 200) {
+                    this.$store.commit(
+                        'SET_NOTIFICATION',
+                        {
+                            message: `Campaign "${this.campaign.title}" was successfully deleted.`,
+                            type: 'success'
+                        }
+                    );
+                        this.$router.push({ name: 'dashboard'});
+                    }
+                })
+                .catch(error => {
+                    if (error.response) {
+                        this.$store.commit('SET_NOTIFICATION',
+                        `Error deleting campaign. Response received was "${error.response.statusText}".`);
+                    } else if (error.request) {
+                        this.$store.commit('SET_NOTIFICATION', 'Error deleting campaign. Server could not be reached.');
+                    } else {
+                        this.$store.commit('SET_NOTIFICATION', 'Error deleting campaign. Request could not be created.');
+                    }
+                });
+            // }
+            }
             
-        // }
+        }
     }
 }
 </script>

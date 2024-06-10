@@ -13,43 +13,44 @@
         submit button
     </div> -->
     <div class="container">
-        <h1>Create a New Campaign</h1>
+      <!-- We probably dont need the @submit in the form tag but this works so not gonna touch it now -->
     <form @submit.prevent="addCampaign">
         <div>
             <label for="title" class="grey">What will you call your campaign? </label>
-            <input type="text" id="title" name="title" required v-model="editedCampaign.title"/>
+            <input type="text" id="title"  required v-model="editedCampaign.title" />
         </div>
         <div>
-            <label for="organizer" class="grey">Campaign Organizer</label>
-            <input type="text" id="organizer" name="managerId" required v-model="editedCampaign.managerId"/>
+            <label for="managerId" class="grey">Campaign Organizer</label>
+            <input type="text" id="managerId" required v-model="editedCampaign.managerId"/>
         </div>
         <div>
             <label for="goal" class="grey">What is your starting goal? </label>
-            <input type="number" id="goal" name="goal" required v-model="editedCampaign.goal"/>
+            <input type="number" id="goal" required v-model="editedCampaign.goal"/>
         </div>
         <div>
-            <label for="about" class="grey">Describe your campaign: </label>
-            <textarea id="about" name="description" rows="6" cols="50" required v-model="editedCampaign.description"></textarea>
+            <label for="description" class="grey">Describe your campaign: </label>
+            <textarea id="description" rows="6" cols="50" required v-model="editedCampaign.description"></textarea>
         </div>
         <div>
-            <label for="pic">Upload an image: </label>
-            <input type="file" id="pic" name="imageUrl" accept="image/*" />
+            <label for="imgURL">Upload an image: </label>
+            <input type="file" id="imgURL" accept="image/*" />
         </div>
         <div>
-            <label for="timeline">When will the fundraiser end?</label>
-            <input type="date" id="timeline" name="endDate" required v-model="editedCampaign.endDate"/>
+            <label for="endDate">When will the fundraiser end?</label>
+            <input type="date" id="endDate" required v-model="editedCampaign.endDate" default="{{  }}"/> 
         </div>
         <!-- Have to look into v-model for radio buttons -->
-        <label for="visibility">Should your campaign be public or private?</label>
+        <label for="isPublic">Should your campaign be public or private?</label>
         <div class="button-group" >
             <label> 
-                <input type="radio" name="visibility" value="public" > Public
+                <input type="radio" id="isPublic" :value="true" v-model="editedCampaign.isPublic"/> Public
             </label>
             <label>
-                <input type="radio" name="visibility" value="private" checked> Private
+                <input type="radio" id="isPublic" :value="false" checked v-model="editedCampaign.isPublic"/> Private
             </label>
         </div>
         <input type="submit" @click.prevent="submitForm" value="Create Campaign"/>
+        <input type="cancel" @click.prevent="cancelForm" value="Cancel"/>
     </form>
 </div>
 </template>
@@ -60,7 +61,7 @@ import campaignService from '../services/CampaignService.js';
 import { mapActions } from 'vuex';
 
 export default {
-    props: ['campaign'],
+  props: ['campaign'], //bug with props when the content passed is a webcall, shows up in html, is undefined in javascript. dunno what to do about that
   data() {
     return {
         editedCampaign: {
@@ -117,7 +118,7 @@ export default {
 
       } else {
         
-        // TODO - Do an edit, then navigate back to Campaign Details on success
+        // Do an edit, then navigate back to Campaign Details on success
         // For errors, call handleErrorResponse
         campaignService.updateCampaign(this.editedCampaign, this.editedCampaign.campaignId).then(response => {
           if(response.status === 200){

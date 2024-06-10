@@ -1,6 +1,6 @@
 <template>
 
-    <button>Menu</button>
+    <!-- <button>Menu</button> -->
     <div class="container">
       <img src="../assets/PLACEHOLDER_LOGO.png" alt="Place Holder">
       <h1>{{ campaign.title }}</h1>

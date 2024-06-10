@@ -1,19 +1,20 @@
 <template>
-    <button>menu</button>
+    <!-- <button>menu</button> -->
 
-    <div v-if="campaign.pic">
+    <!-- <div v-if="campaign.imgURL"> -->
         <img src="../assets/PLACEHOLDER_LOGO.png" alt="Place Holder">
-    </div>
+    <!-- </div> -->
     <div class="container">
 
         <h1>{{ campaign.title }}</h1>
         <h2>Fund this Project!</h2>
-        <p>Organizer:{{ campaign.organizer }}</p>
+        <p>Organizer:{{ campaign.managerId }}</p>
         <p>Goal: {{ campaign.goal }}</p>
-        <p>Description: {{ campaign.about }}</p>
+        <p>Description: {{ campaign.description }}</p>
         
         <p>$<!--Need Donation Raised amount--> RAISED OUT OF {{ campaign.goal }} GOAL!</p>
 
+        <!-- Need to create donate view/components and link to this -->
         <button>Donate</button>
 
         <p>Timeline: {{ daysLeft }} Days Left!</p>
@@ -41,13 +42,14 @@
 import { mapGetters } from 'vuex';
 
 export default {
+  props: ['campaign'],
   computed: {
-    ...mapGetters(['campaign']),
+    // ...mapGetters(['campaign']),
     daysLeft() {
-      if (!this.campaign.timeline) {
+      if (!this.campaign.endDate) {
         return '';
       }
-      const targetDate = new Date(this.campaign.timeline);
+      const targetDate = new Date(this.campaign.endDate);
       const currentDate = new Date();
       const timeDifference = targetDate - currentDate;
       const daysLeft = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
@@ -60,13 +62,13 @@ export default {
       }
     },
     progressValue() {
-      if (!this.campaign.goal || !this.campaign.raisedAmount) {
+      if (!this.campaign.goal || !this.campaign.funding) {
         return 0;
       }
-      return Math.min((this.campaign.raisedAmount / this.campaign.goal) * 100, 100);
+      return Math.min((this.campaign.funding / this.campaign.goal) * 100, 100);
     },
     requiredDonors() {
-      const amountNeeded = this.campaign.goal - this.campaign.raisedAmount;
+      const amountNeeded = this.campaign.goal - this.campaign.funding;
       if (amountNeeded <= 0) {
         return 0;
       }
