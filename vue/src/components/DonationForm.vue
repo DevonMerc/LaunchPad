@@ -28,7 +28,8 @@
           donorId: this.$store.state.user.id,
           campaignId: this.$route.params.campaignId,
           amount: 0, //I have no clue why amount doesn't return null in backend but donationAmount does.. but whatever it works
-          dateTime: new Date()
+          // dateTime: ""
+          dateTime: Date.now()
         }
       };
     },
@@ -39,6 +40,7 @@
   //     ...mapMutations(['setCampaign']),
       submitForm() {
         //need to create donation and then get campaign by id, then update campaign to adjust funding
+        // this.donation.dateTime = Date.now();
         campaignService.createDonation(this.donation).then(response => {
           if(response.status === 201){
             console.log("worked");

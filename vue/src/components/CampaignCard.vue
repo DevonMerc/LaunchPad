@@ -6,7 +6,7 @@
         </router-link>
 
         <div class="info">
-
+        <p v-if="errorMsg != ''">{{ errorMsg }}</p>
         <p class="title">{{ campaign.title }}</p>
         <p class="manager">Managed by {{ campaign.managerId }}</p>
         <p class="description">{{ campaign.description }}</p>
@@ -29,24 +29,28 @@
 <script>
 import campaignService from '../services/CampaignService.js';
 export default{
-    
+    data(){
+      return{
+        errorMsg: '',
+        donations : []
+      }
+    },
     props: ['campaign', 'isDashboard'],
     methods: {
         deleteCampaign() { // for now shouldn't work, uncomment and work on after endpoint is set
-            // if(true){//we need to be able to get donors associated with a campaign id
-
-            // }else{
+        const donations = this.donations;
+        console.log(donations.length);
+            if(donations.length > 0){//we need to be able to get donors associated with a campaign id
+              this.errorMsg = 'Cannot delete campaign';
+              this.$store.commit(
+                  'SET_NOTIFICATION', 'Cannot delete campaigns that have donors!');
+            }else{
                 if (confirm("Are you sure you want to delete this campaign? This action cannot be undone.")) {
                 campaignService.deleteCampaign(this.campaign.campaignId).then(response => {
                     if (response.status === 204) {
-                        this.$store.commit(
-                            'SET_NOTIFICATION',
-                            {
-                                message: `Campaign "${this.campaign.title}" was successfully deleted.`,
-                                type: 'success'
-                            }
-                        );
-                        this.$router.push({ name: 'dashboard'});
+                        // this.$router.push({ name: "dashboard"});
+                        console.log('should not see')
+                        this.$forceUpdate();
                         // this.$router.go(0);
                     }
                 })
@@ -60,10 +64,25 @@ export default{
                         this.$store.commit('SET_NOTIFICATION', 'Error deleting campaign. Request could not be created.');
                     }
                 });
-            // }
+            }
             }
             
+        },
+        getDonations(){
+          campaignService.getDonationsByCampaignId(this.campaign.campaignId).then(response => {
+            if(response.status === 200){
+              this.donations = response.data;
+            }
+          });
+          return [];
         }
+    }, 
+    created() {
+      campaignService.getDonationsByCampaignId(this.campaign.campaignId).then(response => {
+            if(response.status === 200){
+              this.donations = response.data;
+            }
+          });
     }
 }
 </script>

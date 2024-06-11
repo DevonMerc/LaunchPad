@@ -33,7 +33,7 @@
         </div>
         <div>
             <label for="imgURL">Upload an image: </label>
-            <input type="file" id="imgURL" accept="image/*" />
+            <input type="file" id="imgURL" accept="image/*" :src="editedCampaign.imgURL"/>
         </div>
         <div>
             <label for="endDate">When will the fundraiser end?</label>

@@ -1,6 +1,4 @@
 <template>
-    <!-- <button>menu</button> -->
-
     <!-- <div v-if="campaign.imgURL"> -->
         <img src="../assets/PLACEHOLDER_LOGO.png" alt="Place Holder">
     <!-- </div> -->
@@ -14,7 +12,6 @@
         
         <p>${{ campaign.funding }} RAISED OUT OF {{ campaign.goal }} GOAL!</p>
 
-        <!-- Need to create donate view/components and link to this -->
         <button @click="this.$router.push({name: 'donationForm', params:{campaignId:campaign.campaignId}})">Donate</button>
 
         <p>Timeline: {{ daysLeft }} Days Left!</p>
@@ -26,13 +23,10 @@
         <h1> Thank You To Our Donors </h1>
         <p>Top Donors: </p>
 
-        <p>We need to figure out how to parse this info now, and shorten amount of donations shown</p>
-        <div v-for="donation in donations" :key="donation.donationId">
-          <p>{{ donation }}</p>
+        <div v-for="donation in donations.slice(0,5)" :key="donation.donationId">
+          <!-- {{ donation }} -->
+          <p>Donor {{ donation.donorId }} donated ${{ donation.amount }} on {{donationDateTime(donation.dateTime) }}</p>
         </div>
-        <!-- <p>1. Placeholder for donor 1</p>
-        <p>2. Placeholder for donor 2</p>
-        <p>3. Placeholder for donor 3</p> -->
 
         <h2>Donation Breakdown:  X% of Money on: Placeholder | X% of Money on: Placeholder | X% of Money on: Placeholder</h2>
         <progress id="item1Spend" :value="progressValue" max="100">{{progressValue}}%</progress>
@@ -53,8 +47,32 @@ export default {
       donations: []
     }
   },
+  methods: {
+    donationDateTime(dateTime){
+      const timestamp = new Date(dateTime);
+      //.toLocaleDateString is a built in function for converting timestamp day info to weekday word, month word ect eg. 10 => October
+      return `${timestamp.toLocaleDateString('en-US', { weekday: 'long' })}, ${timestamp.toLocaleDateString('en-US', { month: 'long' })} ${this.dayWithSuffix(timestamp.getDate())} ${timestamp.getFullYear()}`;
+    },
+    dayWithSuffix(day){ //for getting stuff like 1st, 2nd, 11th ect.
+      if(day === 11 || day === 12 || day === 13){
+        return `${day}th`;
+      }else{
+        const onesDigit = day % 10;
+        if(onesDigit === 1){
+          return `${day}st`;
+        }else if(onesDigit === 2){
+          return `${day}nd`;
+        }else if(onesDigit === 3){
+          return `${day}rd`;
+        }else{
+          return `${day}th`;
+        }
+      }
+    }
+  },
   computed: {
     // ...mapGetters(['campaign']),
+    
     daysLeft() {
       if (!this.campaign.endDate) {
         return '';
@@ -95,29 +113,14 @@ export default {
       
       return dynamicDonation;
     }
-    // donations(){
-    //   campaignService.getDonationsByCampaignId(this.campaign.campaignId).then(response => {
-    //     if(response.status === 200){
-    //       return response.data;
-    //     }
-    //   });
-    //   return {};
-    // }
   },
   created(){
     campaignService.getDonationsByCampaignId(this.campaignId).then(response => {
       if(response.status === 200){
-        console.log(response.data);
         this.donations = response.data;
-        console.log(this.donations);
       }
     });
   }
-  // methods: {
-  //   donate(){
-
-  //   }
-  // }
 };
 </script>
   
