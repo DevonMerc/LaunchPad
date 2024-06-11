@@ -2,8 +2,9 @@
     <!-- NEED TO SHOW BUTTONS WHEN ITS DASHBOARD -->
     <div class = "card">
         <router-link v-bind:to="{ name: 'campaignDetails', params: { id: campaign.campaignId } }" class="card-image">
-            <img src="../assets/PLACEHOLDER_LOGO.png" alt="Campaign Image" />
+          <img src="../assets/Launchpad-logo.png" alt="Campaign Image" />
         </router-link>
+
 
         <div class="info">
 
@@ -25,6 +26,7 @@
         </div>
     </div> 
 </template>
+
 
 <script>
 import campaignService from '../services/CampaignService.js';
@@ -66,7 +68,7 @@ export default{
         }
     }
 }
-</script>
+</script> 
 
 <style scoped>
 body {
@@ -74,7 +76,7 @@ body {
 }
 
 .card {
-  border: 2px solid black;
+  border: 2px solid rgb(194, 192, 192);
   border-radius: 10px;
   width: 100%;
   margin: 20px auto;
@@ -110,10 +112,14 @@ body {
 .funding {
   margin: 0; /* Remove default margin */
   padding: 0.25rem 0; /* Add small padding for spacing */
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 0.8rem;
+  font-style: oblique;
 }
 
 .title {
     font-weight: bolder;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .dashboard-buttons {
