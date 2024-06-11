@@ -1,4 +1,9 @@
 <template>
+  <div id="register" class="container">
+    <header>
+      <img src="../assets/Launchpad-logo-full.png" alt="LaunchPad">
+    </header>
+  </div>
   <div id="register" class="text-center">
     <form v-on:submit.prevent="register">
       <h1>Create Account</h1>
@@ -73,28 +78,89 @@ export default {
 </script>
 
 <style scoped>
+.container{
+  display: flex;
+  position: relative; 
+  top: -375px;
+  padding: 15rem;
+  width: 1px;
+  height: auto;
+  transform: scale(0.15);
+  align-items: center;
+}
+
+h1{
+  text-align: center;
+  position: relative; 
+  top: -790px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.5rem;
+}
+
+.form-input-group {
+  margin-bottom: 1rem;
+  position: relative; 
+  top: -790px;
+  font-size: 1rem;
+}
+
+input[type="text"] {
+height: 10px;
+width: 300px;
+border: 1px solid #cdcdcd;
+}
+
+input[type="password"] {
+height: 29px;
+width: 320px;
+border: 1px solid #cdcdcd;
+border-radius: 5px;
+padding: 0.1rem;
+}
+
+input[type="password"] {
+height: 29px;
+width: 262px;
+border: 1px solid #cdcdcd;
+border-radius: 5px;
+padding: 0.1rem;
+}
+
+label {
+  margin-right: 0.6rem;
+}
+
 button{
   fill: #23CF68;
   color: white;
-    padding: 5px;
-    font-size: large;
-    border-color: #23CF68;
+  padding: 15px;
+  font-size: large;
+  border-color: #23CF68;
+  position: relative; 
+  top: -775px;
+  border-radius: 5px;
 }
+
 header{
   align-self: center;
 }
+
 #register{
 display: flex;
 justify-content: space-evenly;
 align-content: center;
 margin-top: 30px;
 }
+
 .link{
   display: flex;
   text-align: center;
   font-style: italic;
   justify-content: space-evenly;
+  position: relative; 
+  top: -765px;
 }
+
 @media (max-width: 767px) {
 button{
     width: 100%;

@@ -74,7 +74,7 @@ export default {
   position: relative; 
   top: -300px;
   padding: 1rem;
-
+  align-items: center;
 }
 
 .container img{
