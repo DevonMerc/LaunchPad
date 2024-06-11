@@ -1,6 +1,7 @@
 <template>
     <!-- NEED TO SHOW BUTTONS WHEN ITS DASHBOARD -->
     <div class = "card">
+      
         <router-link v-bind:to="{ name: 'campaignDetails', params: { id: campaign.campaignId } }" class="card-image">
           <img src="../assets/Launchpad-logo.png" alt="Campaign Image" />
         </router-link>
