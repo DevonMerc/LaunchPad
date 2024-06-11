@@ -134,6 +134,7 @@ export default {
   width: 100%;
   min-height: calc(100vh - 80px); 
   padding: 1rem;
+  padding-top: 6.5rem;
 }
 
 .search-container {
