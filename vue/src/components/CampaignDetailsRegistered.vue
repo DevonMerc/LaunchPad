@@ -18,7 +18,7 @@
       <!-- <p class="campaign-impact">For every $Y the campaign will be able to Z(Whatever the campaign is for)</p> -->
       <h1 class="donors-title">Thank You To Our Donors!</h1>
       <p class="top-donors">Top Donors:</p>
-      <p>We need to figure out how to parse this info now, and shorten amount of donations shown</p>
+      <!-- <p>We need to figure out how to parse this info now, and shorten amount of donations shown</p> -->
       <div v-for="donation in donations" :key="donation.donationId" class="donation">
         <p>{{ donation }}</p>
       </div>

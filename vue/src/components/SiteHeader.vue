@@ -4,7 +4,7 @@
       <img src="../assets/Launchpad-logo-full.png" alt="LaunchPad" />
     </router-link>
     <nav class="nav-buttons">
-      <button @click="$router.push({ name: 'menu' })" class="menu-button">Menu</button>
+      <button @click="$router.push({ name: 'dashboard' })" class="menu-button">Manage</button>
       <button v-if="this.$store.state.token != ''" @click="logout" class="logout-button">
         Logout
       </button>

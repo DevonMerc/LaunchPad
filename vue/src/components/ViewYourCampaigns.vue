@@ -12,9 +12,9 @@
       <button type="button">Edit Campaign</button>
       <button type="button">Delete Campaign</button>
     </div>
-  </template>
+</template>
   
-  <script>
+<script>
   import { mapGetters } from 'vuex';
   
   export default {
@@ -22,7 +22,10 @@
       ...mapGetters(['campaign'])
     }
   };
-  </script>
+</script>
   
-  <style>
-  </style>
+<style>
+
+
+
+</style>
