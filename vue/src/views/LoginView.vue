@@ -2,12 +2,12 @@
   <div>
   <div id="login" class="container">
     <header>
-      <img src="../assets/PLACEHOLDER_LOGO.png" alt="LaunchPad">
+      <img src="../assets/Launchpad-logo-full.png" alt="LaunchPad">
     </header>
   </div>
   <div id="login">
     <form v-on:submit.prevent="login">
-      <h1 >Enter your username and password</h1>
+      <h1 >Enter Your Username And Password</h1>
       <div role="alert" v-if="invalidCredentials">
         Invalid username and password!
       </div>
@@ -71,44 +71,88 @@ export default {
 <style scoped>
 .container{
   display: flex;
-}
-.form-input-group {
-  margin-bottom: 1rem;
-}
-label {
-  margin-right: 0.5rem;
-}
-h1{
-  text-align: center;
+  position: relative; 
+  top: -300px;
+  padding: 1rem;
 
 }
+
+.container img{
+  width: 150px;
+  height: auto;
+  display: flex;
+}
+
+h1{
+  text-align: center;
+  position: relative; 
+  top: -600px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.5rem;
+}
+
+.form-input-group {
+  margin-bottom: 1rem;
+  position: relative; 
+  top: -600px;
+  font-size: 1rem;
+}
+
+input[type="text"] {
+height: 10px;
+width: 300px;
+border: 1px solid #cdcdcd;
+}
+
+input[type="password"] {
+height: 29px;
+width: 320px;
+border: 1px solid #cdcdcd;
+border-radius: 5px;
+padding: 0.1rem;
+}
+
+label {
+  margin-right: 0.6rem;
+}
+
 button{
   fill: #23CF68;
   color: white;
-    padding: 5px;
-    font-size: large;
-    border-color: #23CF68;
+  padding: 15px;
+  font-size: large;
+  border-color: #23CF68;
+  position: relative; 
+  top: -590px;
+  border-radius: 5px;
 }
+
 header{
   align-self: center;
 }
+
 header img{
     width: 20%;
     display: flex;
     align-content: top;
     justify-content: center;
   }
+
   /* header{
     display: flex;
     justify-content: left;
     align-items: top;
   } */
+
 .link{
   display: flex;
   text-align: center;
   font-style: italic;
   justify-content: space-evenly;
+  position: relative; 
+  top: -580px;
 }
+
 @media (max-width: 767px) {
 button{
     width: 100%;
