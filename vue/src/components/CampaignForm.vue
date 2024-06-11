@@ -36,8 +36,9 @@
             <input type="file" id="imgURL" accept="image/*" />
         </div>
         <div>
-            <label for="endDate">When will the fundraiser end?</label>
-            <input type="date" id="endDate" required v-model="editedCampaign.endDate" default="{{  }}"/> 
+            <label for="endDate" class="form-label">When will the fundraiser end?</label>
+            <input type="date" id="endDate" required v-model="editedCampaign.endDate" class="form-input" />
+            <!-- <input type="date" id="endDate" required v-model="editedCampaign.endDate" default="{{  }}"/>  -->
         </div>
         <!-- Have to look into v-model for radio buttons -->
         <label for="isPublic">Should your campaign be public or private?</label>
@@ -50,7 +51,7 @@
             </label>
         </div>
         <input type="submit" @click.prevent="submitForm" value="Create Campaign"/>
-        <input type="cancel" @click.prevent="cancelForm" value="Cancel"/>
+        <input class="form-group" type="cancel" @click.prevent="cancelForm" value="Cancel"/>
     </form>
 </div>
 </template>
@@ -195,13 +196,15 @@ export default{
 }
 */
 </script>
+
+
 <style>
+
 h1{
     text-align: left;
     max-width: 100%;
-    
-    
 }
+
 .grey{
     color: grey;
 }
@@ -212,6 +215,7 @@ h1{
     justify-content: center;
     height: 100vh;
     padding: 10px;
+    padding-top: 4.4rem;
     margin-right: 20px;
     font-family: Arial, Helvetica, sans-serif;
   
@@ -255,6 +259,37 @@ form input[type="submit"]{
     color: white;
     padding: 5px;
     font-size: large;
+    border-radius: 10px;
+}
+
+.form-group {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+}
+
+.form-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+  font-size: 1.1em;
+}
+
+.form-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.form-input:focus {
+  border-color: #4CAF50;
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
 
 
