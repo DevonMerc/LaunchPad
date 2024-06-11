@@ -142,11 +142,11 @@ public class JdbcCampaignDao implements CampaignDao {
     @Override
     public boolean updateCampaign(Campaign campaign, int campaignId) {
 //        Campaign updatedCampaign = null;
-        String sql = "UPDATE campaigns SET title = ?, end_date = ?, goal = ?, image_url = ?, is_public = ?, description = ? WHERE campaign_id = ?";
+        String sql = "UPDATE campaigns SET title = ?, end_date = ?, goal = ?, image_url = ?, is_public = ?, description = ?, funding = ? WHERE campaign_id = ?";
         try {
             int rowsAffected = jdbcTemplate.update(sql, campaign.getTitle(), campaign.getEndDate(), campaign.getGoal(),
                     campaign.getImgURL(),
-                    campaign.getisPublic(), campaign.getDescription(), campaignId);
+                    campaign.getisPublic(), campaign.getDescription(), campaign.getFunding(), campaignId);
 //        updatedCampaign = getCampaignById(campaign.getCampaignId());
             return rowsAffected > 0;
         }catch (CannotGetJdbcConnectionException e) {

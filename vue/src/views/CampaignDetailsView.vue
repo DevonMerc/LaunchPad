@@ -5,7 +5,7 @@
     <!-- I think this was meant to be the component not the view, so changed the names -->
     <!-- <CampaignDetailsAnonView /> -->
     <CampaignDetailsAnon v-if="isUserAnon" :campaign="campaign" />
-    <CampaignDetailsRegistered v-if="isUserRegistered" :campaign="campaign" />
+    <CampaignDetailsRegistered v-if="isUserRegistered" :campaign="campaign" :campaignId="this.$route.params.id"/>
 </template>
 
 
@@ -48,7 +48,7 @@ export default{
         }
     },
     created() {
-      const id = this.$route.params.id; //for debugging
+    //   const id = this.$route.params.id; //for debugging
       campaignService
       .getCampaignById(this.$route.params.id)
       .then(response => {

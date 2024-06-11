@@ -8,7 +8,7 @@ public class Donation {
     int donationId;
     int donorId;
     int campaignId;
-    BigDecimal amount;
+    BigDecimal donationAmount;
 
     //vvv added (getters setters, constructor passes) as per schema
     Timestamp dateTime; //curious if this needs to be LocalDateTime instead
@@ -39,11 +39,11 @@ public class Donation {
     }
 
     public BigDecimal getAmount() {
-        return amount;
+        return donationAmount;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setAmount(BigDecimal donationAmount) {
+        this.donationAmount = donationAmount;
     }
 
     public Timestamp getDateTime() {
@@ -54,11 +54,11 @@ public class Donation {
         this.dateTime = dateTime;
     }
 
-    public Donation(int donationId, int donorId, int campaignId, BigDecimal amount,Timestamp dateTime) {
+    public Donation(int donationId, int donorId, int campaignId, BigDecimal donationAmount,Timestamp dateTime) {
         this.donationId = donationId;
         this.donorId = donorId;
         this.campaignId = campaignId;
-        this.amount = amount;
+        this.donationAmount = donationAmount;
         this.dateTime = dateTime;
     }
 
