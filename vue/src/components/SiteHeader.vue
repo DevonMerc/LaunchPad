@@ -8,7 +8,7 @@
       <button v-if="this.$store.state.token != ''" @click="logout" class="logout-button">
         Logout
       </button>
-      <button class="login-button" @click="this.$router.push({ name: 'createCampaign' })">
+      <button v-if="this.$store.state.token === ''" class="login-button" @click="this.$router.push({ name: 'createCampaign' })">
         Login
       </button>
     </nav>
@@ -34,7 +34,7 @@ export default {
   padding: 1rem;
   background-color: white;
   border-bottom: 2px solid aliceblue;
-  position: fixed; 
+  /* position: fixed;  */
   width: 100%; 
   top: 0; 
   z-index: 1000; 

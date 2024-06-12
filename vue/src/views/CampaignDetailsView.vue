@@ -39,7 +39,7 @@ export default{
             // isLoading: true
         };
     },
-    computed: {
+    computed: { //so we actually dont need these, can just check if the token is empty or not oops
         isUserAnon(){
             return JSON.stringify(this.$store.state.user) === "{}";
         },
