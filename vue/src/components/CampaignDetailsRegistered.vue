@@ -28,14 +28,6 @@
       <progress id="item1Spend" :value="progressValue" max="100">{{progressValue}}%</progress>
       <progress id="item2Spend" :value="progressValue" max="100">{{progressValue}}%</progress>
       <progress id="item3Spend" :value="progressValue" max="100">{{progressValue}}%</progress> -->
-
-      <div>
-        <p>Placeholder for spend request</p>
-        <button class="vote-button">
-          <router-link to="/spendRequests">Vote!</router-link>
-        </button>
-      </div>
-
     </div>
   </div>
 </template>

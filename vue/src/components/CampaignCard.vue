@@ -19,6 +19,7 @@
             <button @click="$router.push({ name: 'editCampaign', params: { id: campaign.campaignId } })">Edit Campaign</button>
             <!-- Add click event later vvv -->
             <button @click="deleteCampaign">Delete Campaign</button>
+            <router-link to="/create-spend-request" class="button-link">Create Spend Request</router-link>
         </div>
         <!-- <p>Tags</p>
         <div class="tags" v-for="tag in campaign.tags" :key="tag">
@@ -108,7 +109,7 @@ body {
 }
 
 .card-image {
-  width: 40%;
+  width: 30%;
 }
 
 .card-image img {
@@ -118,11 +119,11 @@ body {
 }
 
 .info {
-  width: 60%;
+  width: 70%;
   padding: 0.5rem; /* Reduced padding */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
 }
 
@@ -146,9 +147,10 @@ body {
   display: flex;
   justify-content: space-around;
   margin-top: 0.5rem; /* Adjust margin for spacing */
+  width: 100%;
 }
 
-.dashboard-buttons button {
+/* .dashboard-buttons button {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   background-color: #007bff;
@@ -157,11 +159,31 @@ body {
   border-radius: 4px;
   cursor: pointer;
   flex: 1;
-  margin: 0 0.5rem;
+  margin: 0 0.05rem;
+} */
+
+.dashboard-buttons button,
+.dashboard-buttons .button-link {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  flex: 1; 
+  margin: 0 0.07rem; 
+  text-align: center; 
+  text-decoration: none; 
+  display: inline-block; 
 }
 
+.dashboard-buttons .button-link:hover {
+  background-color: #0056b3; /* Add hover effect */
+}
 .dashboard-buttons button:last-child {
-  background-color: #dc3545;
+  background-color: #007BFF;
+  color: white;
 }
 
 @media (min-width: 600px) {
