@@ -13,6 +13,7 @@
         submit button
     </div> -->
     <div class="container">
+      {{ editedCampaign }}
       <!-- We probably dont need the @submit in the form tag but this works so not gonna touch it now -->
     <form @submit.prevent="addCampaign">
         <div>
@@ -33,7 +34,7 @@
         </div>
         <div>
             <label for="imgURL">Upload an image: </label>
-            <input type="file" id="imgURL" accept="image/*" />
+            <input type="file" id="imgURL" accept="image/*" :src="editedCampaign.imgURL"/>
         </div>
         <div>
             <label for="endDate" class="form-label">When will the fundraiser end?</label>
@@ -78,7 +79,9 @@ export default {
         }
     };
   },
-  created() {
+  mounted() {
+    
+    this.updateFormData();
   },
   methods: {
     // ...mapActions(['updateCampaign']), //I'm personally not sure how this works, add back in later?
@@ -100,6 +103,7 @@ export default {
     //   }
     // }
     updateFormData() {
+      console.log(this.campaign);
       this.editedCampaign = {
             campaignId: this.campaign ? this.campaign.campaignId : 0,
             title:  this.campaign ? this.campaign.title : '',

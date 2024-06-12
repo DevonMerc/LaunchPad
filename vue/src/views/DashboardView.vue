@@ -9,7 +9,9 @@
       <h3>Your Campaigns</h3> 
       <div>
         <!-- <campaign-list :campaigns="this.$store.state.campaigns"/> -->
-        <campaign-list :campaigns="campaigns" :isDashboard="true"/>
+        <campaign-list  :campaigns="campaigns" :isDashboard="true"
+          @delete-complete="refreshList"
+        />
       </div>
     </body>
   </div>
@@ -32,10 +34,13 @@ export default{
       }
     },
   methods: {
+    refreshList() {
+        console.log('something should happen here');
+        this.callUserCampaigns();
+    },
     callUserCampaigns() { //I made this a diff name from getUserCampaigns just in case, probably doesnt matter
       //right now its taking in a userId, that's backup since principal isnt working, change back later if that's figured out
       campaignService.getUserCampaigns(this.$store.state.user.id).then(response => {
-        // console.log(response.data);
         this.campaigns = response.data;
         // this.isLoading = false;
       }).catch( error => {

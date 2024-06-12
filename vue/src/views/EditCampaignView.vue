@@ -30,6 +30,7 @@
         campaignService.getCampaignById(id)
           .then(response => {
             this.campaign = response.data;
+            console.log(this.campaign)
             this.$refs.editForm.updateFormData();
             // this.isLoading = false;
           })
@@ -51,34 +52,38 @@
       }
     },
     created() {
-      let campaignId = parseInt(this.$route.params.id);
-      // this.getCampaign(campaignId);
-      campaignService.getCampaignById(campaignId)
-          .then(response => {
-            this.campaign = response.data;
-            // this.isLoading = false;
-          })
-          .catch(error => {
-            if (error.response) {
-              if (error.response.status == 404) {
-                this.$router.push({name: 'NotFoundView'});
-              } 
-              else {
-                this.$store.commit('SET_NOTIFICATION',
-                `Error getting message. Response received was "${error.response.statusText}".`);
-              }
-            } else if (error.request) {
-              this.$store.commit('SET_NOTIFICATION', `Error getting message. Server could not be reached.`);
-            } else {
-              this.$store.commit('SET_NOTIFICATION', `Error getting message. Request could not be created.`);
-            }
-          })
+      console.log(this.$route.params.id);
+      this.getCampaign(this.$route.params.id);
+      // let campaignId = parseInt(this.$route.params.id);
+      // // this.getCampaign(campaignId);
+      // campaignService.getCampaignById(campaignId)
+      //     .then(response => {
+      //       this.campaign = response.data;
+      //       this.$refs.editForm.updateFormData();
+      //       // this.isLoading = false;
+      //     })
+      //     .catch(error => {
+      //       if (error.response) {
+      //         if (error.response.status == 404) {
+      //           this.$router.push({name: 'NotFoundView'});
+      //         } 
+      //         else {
+      //           this.$store.commit('SET_NOTIFICATION',
+      //           `Error getting message. Response received was "${error.response.statusText}".`);
+      //         }
+      //       } else if (error.request) {
+      //         this.$store.commit('SET_NOTIFICATION', `Error getting message. Server could not be reached.`);
+      //       } else {
+      //         this.$store.commit('SET_NOTIFICATION', `Error getting message. Request could not be created.`);
+      //       }
+      //     })
     },
     computed: { //don't really need this was just testing things
-      testCampaign(){
-        this.getCampaign(this.$route.params.id);
-        return this.campaign;
-      }
+      // testCampaign(){
+      //   this.getCampaign(this.$route.params.id);
+      //   return this.campaign;
+      // },
+      
     }
   };
   </script>
