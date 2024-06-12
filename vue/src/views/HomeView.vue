@@ -22,6 +22,7 @@
         <button class="search-button" @click="searchCampaigns">
           <img src="../assets/search-icon.svg" alt="Search Icon" />
         </button>
+        <p></p>
       </div>
 
       <button class="get-started" @click="this.$router.push({ name: 'createCampaign' })">Get Started</button>
