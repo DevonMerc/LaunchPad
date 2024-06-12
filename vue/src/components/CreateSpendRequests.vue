@@ -39,6 +39,7 @@
 <style scoped>
   .create-spend-request {
     padding: 2rem;
+    font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   }
 </style>
   

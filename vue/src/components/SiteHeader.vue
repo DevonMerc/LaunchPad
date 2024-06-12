@@ -60,7 +60,7 @@ export default {
   background-color: rgb(228, 225, 225);
   color: black;
   font-weight: bolder;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   border: none;
   padding: 0.5rem 1rem;
   font-size: 1rem;

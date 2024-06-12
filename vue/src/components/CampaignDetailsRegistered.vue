@@ -164,7 +164,7 @@ export default {
   margin: 10px 0;
   color: #444;
   font-style: italic;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .donate-button {

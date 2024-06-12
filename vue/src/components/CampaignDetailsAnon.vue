@@ -44,7 +44,7 @@ h1{
   text-align: center;
   position: relative; 
   top: 25px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 1.5rem;
 }
 
@@ -52,7 +52,7 @@ p{
   text-align: center;
   position: relative; 
   top: 25px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 1rem;
 }
 </style>

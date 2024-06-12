@@ -220,7 +220,7 @@ h1{
     padding: 10px;
     padding-top: 4.4rem;
     margin-right: 20px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   
 }
 .button-group {

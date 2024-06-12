@@ -133,14 +133,14 @@ body {
 .funding {
   margin: 0; /* Remove default margin */
   padding: 0.25rem 0; /* Add small padding for spacing */
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 0.8rem;
   font-style: oblique;
 }
 
 .title {
     font-weight: bolder;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .dashboard-buttons {
