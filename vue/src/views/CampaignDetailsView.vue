@@ -6,6 +6,7 @@
     <!-- <CampaignDetailsAnonView /> -->
     <CampaignDetailsAnon v-if="isUserAnon" :campaign="campaign" />
     <CampaignDetailsRegistered v-if="isUserRegistered" :campaign="campaign" :campaignId="this.$route.params.id"/>
+    <VoteSpendRequest />
 </template>
 
 
@@ -15,14 +16,17 @@ import CampaignDetailsAnon from '../components/CampaignDetailsAnon.vue';
 import SiteHeader from '../components/SiteHeader.vue';
 import campaignService from '../services/CampaignService.js';
 import CampaignDetailsRegistered from '../components/CampaignDetailsRegistered.vue';
+import VoteSpendRequest from '../components/VoteSpendRequest.vue';
+
 export default{
     
     components: {
-        // CampaignDetailsAnonView,
-        CampaignDetailsAnon,
-        CampaignDetailsRegistered,
-        SiteHeader
-    },
+    // CampaignDetailsAnonView,
+    CampaignDetailsAnon,
+    CampaignDetailsRegistered,
+    SiteHeader,
+    VoteSpendRequest
+},
     data() {
         return {
             campaign: {
