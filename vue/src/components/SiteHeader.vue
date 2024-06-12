@@ -34,7 +34,7 @@ export default {
   padding: 1rem;
   background-color: white;
   border-bottom: 2px solid aliceblue;
-  position: fixed; 
+  /* position: fixed;  */
   width: 100%; 
   top: 0; 
   z-index: 1000; 
