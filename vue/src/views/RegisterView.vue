@@ -81,18 +81,18 @@ export default {
 .container{
   display: flex;
   position: relative; 
-  top: -375px;
+  top: -200px;
   padding: 15rem;
   width: 1px;
   height: auto;
-  transform: scale(0.15);
+  transform: scale(1.1);
   align-items: center;
 }
 
 h1{
   text-align: center;
   position: relative; 
-  top: -790px;
+  top: -450px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 1.5rem;
 }
@@ -100,7 +100,7 @@ h1{
 .form-input-group {
   margin-bottom: 1rem;
   position: relative; 
-  top: -790px;
+  top: -450px;
   font-size: 1rem;
 }
 
@@ -137,7 +137,7 @@ button{
   font-size: large;
   border-color: #23CF68;
   position: relative; 
-  top: -775px;
+  top: -430px;
   border-radius: 5px;
 }
 
@@ -158,7 +158,7 @@ margin-top: 30px;
   font-style: italic;
   justify-content: space-evenly;
   position: relative; 
-  top: -765px;
+  top: -440px;
 }
 
 @media (max-width: 767px) {
