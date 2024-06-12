@@ -44,7 +44,7 @@ public class JdbcDonationDao implements DonationDao{
     @Override
     public List<Donation> getDonationsByCampaignId(int id) {
         List<Donation> donations = new ArrayList<>();
-        String sql = "SELECT * FROM donations WHERE campaign_id = ?";
+        String sql = "SELECT * FROM donations WHERE campaign_id = ? ORDER BY donation_amount DESC";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
             while (results.next()) {
