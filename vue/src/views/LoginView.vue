@@ -171,6 +171,12 @@ button{
   align-items: center;
 }
 
+.container img{
+  width: 150px;
+  height: auto;
+  display: flex;
+}
+
 h1{
   text-align: center;
   position: relative; 

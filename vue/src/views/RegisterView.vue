@@ -90,6 +90,11 @@ export default {
   transform: scale(1.1);
   align-items: center;
 }
+.container img{
+  width: 150px;
+  height: auto;
+  display: flex;
+}
 
 h1{
   text-align: center;
