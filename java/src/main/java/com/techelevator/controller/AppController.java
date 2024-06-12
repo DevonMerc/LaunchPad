@@ -22,8 +22,8 @@ public class AppController {
         this.tagDao = tagDao;
         this.spendRequestDao = spendRequestDao;
     }
-    @RequestMapping(path = "/tag", method = RequestMethod.GET)
-    public Tag getTagById(int id){
+    @RequestMapping(path = "/tag/{id}", method = RequestMethod.GET)
+    public Tag getTagById(@PathVariable int id){
         return tagDao.getTagById(id);
     }
     @RequestMapping(path = "/tags", method = RequestMethod.GET)

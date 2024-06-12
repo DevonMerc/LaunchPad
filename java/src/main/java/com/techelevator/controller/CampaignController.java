@@ -6,6 +6,7 @@ import com.techelevator.exception.DaoException;
 import com.techelevator.model.Campaign;
 import com.techelevator.service.CampaignService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,6 +19,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping(path = "/campaigns")
+@PreAuthorize("isAuthenticated()")
 public class CampaignController {
 
     RestTemplate restTemplate = new RestTemplate();
@@ -51,14 +53,15 @@ public class CampaignController {
 //    boolean updateCampaign(Campaign campaign);
 
     @RequestMapping(method = RequestMethod.GET)
+    @PreAuthorize("permitAll")
     public List<Campaign> getFeaturedCampaigns() {
         return campaignService.getFeaturedCampaigns();
     }
 
-//    @RequestMapping(path = "/user-campaigns", method = RequestMethod.GET)
-//    public List<Campaign> getCampaignsByManagerId(Principal userInfo) {
-//        return campaignService.getCampaignsByManagerId(userInfo);
-//    }
+    @RequestMapping(path = "/user-campaigns", method = RequestMethod.GET)
+    public List<Campaign> getCampaignsByManagerId(Principal userInfo) {
+        return campaignService.getCampaignsByManagerId(userInfo);
+    }
 
     @RequestMapping(path = "/user-campaigns/{userId}", method = RequestMethod.GET)
     public List<Campaign> getCampaignsByManagerId(@PathVariable int userId) {
@@ -75,7 +78,8 @@ public class CampaignController {
         return campaignService.getCampaignsBySearch(searchTerm);
     }
     @RequestMapping(path = "/tag", method = RequestMethod.GET)
-    public List<Campaign> getCampaignsByTag(String tag) {
+    @PreAuthorize("permitAll")
+    public List<Campaign> getCampaignsByTag(@RequestParam String tag) {
         return campaignService.getCampaignsByTag(tag);
     }
 
