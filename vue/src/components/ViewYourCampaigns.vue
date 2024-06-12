@@ -2,7 +2,6 @@
     <div class="container">
       <h6>Your Campaigns</h6>
       <button type="button">Start A New Campaign</button>
-      <!--Need process to create individual cards for each campaign-->
       <div v-if="campaign.pic">
         <img src="../assets/PLACEHOLDER_LOGO.png" alt="Place Holder">
       </div>
