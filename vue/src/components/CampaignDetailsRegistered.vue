@@ -26,6 +26,14 @@
       <progress id="item1Spend" :value="progressValue" max="100">{{progressValue}}%</progress>
       <progress id="item2Spend" :value="progressValue" max="100">{{progressValue}}%</progress>
       <progress id="item3Spend" :value="progressValue" max="100">{{progressValue}}%</progress> -->
+
+      <div>
+        <p>Placeholder for spend request</p>
+        <button class="vote-button">
+          <router-link to="/spendRequests">Vote!</router-link>
+        </button>
+      </div>
+
     </div>
   </div>
 </template>
@@ -169,6 +177,23 @@ export default {
 
 .donate-button:hover {
   background-color: #45a049;
+}
+
+.vote-button {
+  width:100%;
+  box-sizing: border-box;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  font-size: 1em;
+}
+
+.vote-button:hover {
+  background-color: #4CAF50;
 }
 
 .donors-title {
