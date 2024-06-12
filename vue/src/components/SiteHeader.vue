@@ -4,7 +4,7 @@
       <img src="../assets/Launchpad-logo-full.png" alt="LaunchPad" />
     </router-link>
     <nav class="nav-buttons">
-      <button @click="$router.push({ name: 'menu' })" class="menu-button">Menu</button>
+      <button @click="$router.push({ name: 'dashboard' })" class="menu-button">Manage</button>
       <button v-if="this.$store.state.token != ''" @click="logout" class="logout-button">
         Logout
       </button>
@@ -34,7 +34,7 @@ export default {
   padding: 1rem;
   background-color: white;
   border-bottom: 2px solid aliceblue;
-  position: fixed; 
+  /* position: fixed;  */
   width: 100%; 
   top: 0; 
   z-index: 1000; 

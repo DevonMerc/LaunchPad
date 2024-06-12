@@ -47,6 +47,16 @@ export default {
   getDonationsByDonorId(donorId){
     return baseUrl.get(`/donations/donor/${donorId}`);
   },
+
+  getFeaturedTags(){
+return baseUrl.get(`/featured`);
+  },
+  getTagById(id){
+return baseUrl.get(`/tag/${id}`);
+  },
+  getCampaignsByTag(tag){
+    return baseUrl.get(`/campaigns/tag?tag=${tag}`);
+  },
 };
 
 

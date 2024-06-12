@@ -167,7 +167,7 @@ public class JdbcCampaignDao implements CampaignDao {
         List<Campaign> campaigns = new ArrayList<>();
         tag = '%' + tag.toLowerCase() + '%';
 
-        String sql = "SELECT * FROM campaigns JOIN campaign_tag ON campaigns.campaign_id = campaign_tag.campaign_id WHERE LOWER (tag_description) LIKE ?";
+        String sql = "SELECT * FROM campaigns JOIN campaign_tag ON campaigns.campaign_id = campaign_tag.campaign_id JOIN tag ON campaign_tag.tag_id = tag.tag_id WHERE LOWER (tag_description) LIKE ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tag);
             while (results.next()) {

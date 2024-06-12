@@ -3,6 +3,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.DonationDao;
 import com.techelevator.model.Donation;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping(path = "/donations")
+@PreAuthorize("isAuthenticated()")
 public class DonationController {
     private DonationDao donationDao;
 

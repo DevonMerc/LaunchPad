@@ -15,6 +15,8 @@ import CampaignVotingView from '../views/CampaignVotingView.vue';
 import CampaignRequestFormView from '../views/CampaignRequestFormView.vue';
 import EditCampaignView from '../views/EditCampaignView.vue';
 import DonationFormView from '../views/DonationFormView.vue';
+// import CreateSpendRequestView from '../views/CreateSpendRequestView.vue';
+// import VoteSpendRequestView from '../views/VoteSpendRequestView.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -106,6 +108,22 @@ const routes = [
       requiresAuth: true
     }
   },
+  // {
+  //   path: '/createSpendRequest',
+  //   name: 'CreateSpendRequest',
+  //   component: CreateSpendRequestView,
+  //   meta: {
+  //     requiresAuth: true
+  //   }
+  // },
+  // {
+  //   path:"./voteSpendRequest",
+  //   name:"voteSpendRequest",
+  //   component: VoteSpendRequestView,
+  //     meta: {
+  //       requiresAuth: true
+  //     }
+  // },
   {
     path: "/login",
     name: "login",
