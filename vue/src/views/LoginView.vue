@@ -2,7 +2,9 @@
   <div>
   <div id="login" class="container">
     <header>
-      <img src="../assets/Launchpad-logo-full.png" alt="LaunchPad">
+      <router-link v-bind:to="{ name: 'home' }" class="logo">
+        <img src="../assets/Launchpad-logo-full.png" alt="LaunchPad">
+      </router-link>
     </header>
   </div>
   <div id="login">
@@ -68,17 +70,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<!-- <style scoped>
 .container{
   display: flex;
   position: relative; 
-  top: -300px;
   padding: 1rem;
   align-items: center;
 }
 
 .container img{
-  width: 150px;
+  width: 70%;
   height: auto;
   display: flex;
 }
@@ -90,6 +91,7 @@ h1{
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 1.5rem;
 }
+
 
 .form-input-group {
   margin-bottom: 1rem;
@@ -138,12 +140,6 @@ header img{
     justify-content: center;
   }
 
-  /* header{
-    display: flex;
-    justify-content: left;
-    align-items: top;
-  } */
-
 .link{
   display: flex;
   text-align: center;
@@ -160,5 +156,98 @@ button{
   
 }
 
+}
+</style> -->
+
+<style scoped>
+.container{
+  display: flex;
+  position: relative; 
+  top: -200px;
+  padding: 15rem;
+  width: 1px;
+  height: auto;
+  transform: scale(1.1);
+  align-items: center;
+}
+
+h1{
+  text-align: center;
+  position: relative; 
+  top: -450px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.5rem;
+}
+
+.form-input-group {
+  margin-bottom: 1rem;
+  position: relative; 
+  top: -450px;
+  font-size: 1rem;
+}
+
+input[type="text"] {
+height: 10px;
+width: 300px;
+border: 1px solid #cdcdcd;
+}
+
+input[type="password"] {
+height: 29px;
+width: 320px;
+border: 1px solid #cdcdcd;
+border-radius: 5px;
+padding: 0.1rem;
+}
+
+input[type="password"] {
+height: 29px;
+width: 262px;
+border: 1px solid #cdcdcd;
+border-radius: 5px;
+padding: 0.1rem;
+}
+
+label {
+  margin-right: 0.6rem;
+}
+
+button{
+  fill: #23CF68;
+  color: white;
+  padding: 15px;
+  font-size: large;
+  border-color: #23CF68;
+  position: relative; 
+  top: -430px;
+  border-radius: 5px;
+}
+
+header{
+  align-self: center;
+}
+
+#register{
+display: flex;
+justify-content: space-evenly;
+align-content: center;
+margin-top: 30px;
+}
+
+.link{
+  display: flex;
+  text-align: center;
+  font-style: italic;
+  justify-content: space-evenly;
+  position: relative; 
+  top: -440px;
+}
+
+@media (max-width: 767px) {
+button{
+    width: 100%;
+    background-color:#23CF68;
+  
+}
 }
 </style>

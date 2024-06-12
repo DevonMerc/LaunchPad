@@ -1,7 +1,9 @@
 <template>
   <div id="register" class="container">
     <header>
-      <img src="../assets/Launchpad-logo-full.png" alt="LaunchPad">
+      <router-link v-bind:to="{ name: 'home' }" class="logo">
+        <img src="../assets/Launchpad-logo-full.png" alt="LaunchPad">
+      </router-link>
     </header>
   </div>
   <div id="register" class="text-center">
