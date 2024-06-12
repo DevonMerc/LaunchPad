@@ -5,7 +5,7 @@
     <div class="form-container">
       <form @submit.prevent="submitForm">
         <div class="form-group">
-          <label for="donationAmount">What amount are you donating ($)?</label>
+          <label for="donationAmount">What amount are you donating (Currency is in U.S. dollars $)?</label>
           <input type="number" id="donationAmount" name="donationAmount" placeholder="What amount are you donating ($0.00)?" required v-model="donation.amount">
         </div>
         <button type="submit" class="submit-btn">Donate</button>
