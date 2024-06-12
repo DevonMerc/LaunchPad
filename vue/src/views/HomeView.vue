@@ -22,9 +22,13 @@
         <button class="search-button" @click="searchCampaigns">
           <img src="../assets/search-icon.svg" alt="Search Icon" />
         </button>
-        <p></p>
+        
+         
+        
       </div>
-
+      <div v-for="featuredTag in featuredTags" v-bind:key="featuredTag.id">
+            <div @click="getCampaignByTag(featuredTag.description)">{{ featuredTag.description }}</div>
+          </div>
       <button class="get-started" @click="this.$router.push({ name: 'createCampaign' })">Get Started</button>
       <h3>Browse Featured Campaigns</h3> 
       <div>
@@ -82,7 +86,9 @@ export default {
     return {
       campaigns: [], 
     //   isLoading: true
-      searchText: ""
+      searchText: "",
+      featuredTags: [],
+      tag:{},
     }
   },
   methods: {
@@ -98,10 +104,30 @@ export default {
       });
       console.log(this.searchText);
       console.log(this.campaigns);
-    }
+    },
+    getFeaturedTags() {
+      campaignService.getFeaturedTags().then(response => {
+        this.featuredTags = response.data;
+        // this.isLoading = false;
+      });
+    },
+    getTagById(id){
+      campaignService.getTagById(id).then(response =>{
+        this.tag = response.data;
+      });
+    },
+    getCampaignByTag(tag){
+      campaignService.getCampaignsByTag(tag).then(response =>{
+        this.campaigns = response.data;
+        
+      })
+      .catch(error=>{console.log(error)});
+
+    },
   },
   created() { //what does this do again
     this.getFeaturedCampaigns();
+    this.getFeaturedTags();
   },
   computed: {
     // publicCampaigns(){ //from the fake store data, can delete later

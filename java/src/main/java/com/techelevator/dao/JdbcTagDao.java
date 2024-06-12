@@ -83,8 +83,7 @@ public class JdbcTagDao implements TagDao{
     @Override
     public List<Tag> getFeaturedTags(){
         List<Tag> tags = new ArrayList<>();
-        String sql = "SELECT tag_description, tag_id FROM " +
-                "(SELECT t.tag_description, tag_id, COUNT(ct.tag_id) AS tag_count FROM tag JOIN campaign_tag ct ON t.tag_id = ct.tag_id GROUP BY t.tag_name ORDER BY tag_count DESC) AS tag_counts";
+        String sql = "SELECT t.tag_description, t.tag_id, COUNT(ct.tag_id) AS tag_count FROM tag t JOIN campaign_tag ct ON t.tag_id = ct.tag_id GROUP BY t.tag_description, t.tag_id ORDER BY tag_count DESC LIMIT 5";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
