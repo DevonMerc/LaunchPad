@@ -13,7 +13,6 @@
         submit button
     </div> -->
     <div class="container">
-      {{ editedCampaign }}
       <!-- We probably dont need the @submit in the form tag but this works so not gonna touch it now -->
     <form @submit.prevent="addCampaign">
         <div>
@@ -102,18 +101,18 @@ export default {
     //     this.pic = URL.createObjectURL(file);
     //   }
     // }
-    updateFormData() {
-      console.log(this.campaign);
+    updateFormData(campaignInfo) {
+      console.log(campaignInfo);
       this.editedCampaign = {
-            campaignId: this.campaign ? this.campaign.campaignId : 0,
-            title:  this.campaign ? this.campaign.title : '',
-            endDate: this.campaign ? this.campaign.endDate : '',
-            goal: this.campaign ? this.campaign.goal : '',
-            managerId: this.campaign ? this.campaign.managerId : '',
-            imgURL: this.campaign ? this.campaign.imgURL : '',
-            funding: this.campaign ? this.campaign.funding : '',
-            description: this.campaign ? this.campaign.description : '',
-            isPublic: this.campaign ? this.campaign.isPublic : ''
+            campaignId: campaignInfo ? campaignInfo.campaignId : 0,
+            title:  campaignInfo ? campaignInfo.title : '',
+            endDate: campaignInfo ? campaignInfo.endDate : '',
+            goal: campaignInfo ? campaignInfo.goal : '',
+            managerId: campaignInfo ? campaignInfo.managerId : '',
+            imgURL: campaignInfo ? campaignInfo.imgURL : '',
+            funding: campaignInfo ? campaignInfo.funding : '',
+            description: campaignInfo ? campaignInfo.description : '',
+            isPublic: campaignInfo ? campaignInfo.isPublic : ''
         }
     },
     submitForm() {

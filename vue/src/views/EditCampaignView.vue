@@ -31,7 +31,7 @@
           .then(response => {
             this.campaign = response.data;
             console.log(this.campaign)
-            this.$refs.editForm.updateFormData();
+            this.$refs.editForm.updateFormData(this.campaign);
             // this.isLoading = false;
           })
           .catch(error => {

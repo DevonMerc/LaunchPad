@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping(path = "/campaigns")
-@PreAuthorize("isAuthenticated()")
+//@PreAuthorize("isAuthenticated()")
 public class CampaignController {
 
     RestTemplate restTemplate = new RestTemplate();
