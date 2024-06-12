@@ -52,8 +52,8 @@ export default{
                 campaignService.deleteCampaign(this.campaign.campaignId).then(response => {
                     if (response.status === 204) {
                         // this.$router.push({ name: "dashboard"});
-                        console.log('should not see')
-                        this.$forceUpdate();
+                        
+                        this.$emit('delete-complete');
                         // this.$router.go(0);
                     }
                 })
