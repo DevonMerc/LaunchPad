@@ -5,9 +5,13 @@
     </router-link>
     <nav class="nav-buttons">
       <button @click="$router.push({ name: 'dashboard' })" class="menu-button">Manage</button>
+      &nbsp;
+      &nbsp;
       <button v-if="this.$store.state.token != ''" @click="logout" class="logout-button">
         Logout
       </button>
+      &nbsp;
+      &nbsp;
       <button v-if="this.$store.state.token === ''" class="login-button" @click="this.$router.push({ name: 'createCampaign' })">
         Login
       </button>
