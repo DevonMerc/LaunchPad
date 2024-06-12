@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping(path = "/campaigns")
-//@PreAuthorize("isAuthenticated()")
+@PreAuthorize("isAuthenticated()")
 public class CampaignController {
 
     RestTemplate restTemplate = new RestTemplate();
@@ -63,10 +63,10 @@ public class CampaignController {
         return campaignService.getCampaignsByManagerId(userInfo);
     }
 
-    @RequestMapping(path = "/user-campaigns/{userId}", method = RequestMethod.GET)
-    public List<Campaign> getCampaignsByManagerId(@PathVariable int userId) {
-        return campaignDao.getCampaignsByManagerId(userId);
-    }
+//    @RequestMapping(path = "/user-campaigns/{userId}", method = RequestMethod.GET)
+//    public List<Campaign> getCampaignsByManagerId(@PathVariable int userId) {
+//        return campaignDao.getCampaignsByManagerId(userId);
+//    }
 
     @RequestMapping(path = "/donor-campaigns", method = RequestMethod.GET)
     public List<Campaign> getCampaignsByDonorId(Principal userInfo) {
@@ -74,6 +74,7 @@ public class CampaignController {
     }
 
     @RequestMapping(path = "/search", method = RequestMethod.GET)
+    @PreAuthorize("permitAll")
     public List<Campaign> getCampaignsBySearch(@RequestParam String searchTerm) {
         return campaignService.getCampaignsBySearch(searchTerm);
     }
@@ -94,6 +95,7 @@ public class CampaignController {
         }
     }
     @RequestMapping(path = "/{campaignId}", method = RequestMethod.GET)
+    @PreAuthorize("permitAll")
     public Campaign getCampaignById(@PathVariable int campaignId){
         return campaignDao.getCampaignById(campaignId);
     }

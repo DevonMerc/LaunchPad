@@ -1,35 +1,23 @@
 <template>
     <!-- STILL NEEDS WORK -->
-    <!-- <div>
-        <h1>My unorthodox below, form not finished</h1>
-        Thinking a form:
-        $ Goal
-        Title
-        Campaign manager
-        Description
-        image upload maybe
-        radio button for private or public
-        dropdown menu for tags set, or its like checkboxes? Gonna struggle with checkbox logic
-        submit button
-    </div> -->
     <div class="container">
       <!-- We probably dont need the @submit in the form tag but this works so not gonna touch it now -->
     <form @submit.prevent="addCampaign">
         <div>
             <label for="title" class="grey">What will you call your campaign? </label>
-            <input type="text" id="title"  required v-model="editedCampaign.title" />
+            <input type="text" id="title"  required placeholder="Campaign title here" v-model="editedCampaign.title" />
         </div>
-        <div>
+        <!-- <div>
             <label for="managerId" class="grey">Campaign Organizer</label>
             <input type="text" id="managerId" required v-model="editedCampaign.managerId"/>
-        </div>
+        </div> -->
         <div>
-            <label for="goal" class="grey">What is your starting goal? </label>
-            <input type="number" id="goal" required v-model="editedCampaign.goal"/>
+            <label for="goal" class="grey">What is your starting goal? (Currency is in U.S. dollars $)</label>
+            <input type="number" id="goal" required placeholder="eg. 2000" v-model="editedCampaign.goal"/>
         </div>
         <div>
             <label for="description" class="grey">Describe your campaign: </label>
-            <textarea id="description" rows="6" cols="50" required v-model="editedCampaign.description"></textarea>
+            <textarea id="description" rows="6" cols="50" required placeholder="We're raising money to fund our amazing project!" v-model="editedCampaign.description"></textarea>
         </div>
         <div>
             <label for="imgURL">Upload an image: </label>
@@ -37,10 +25,8 @@
         </div>
         <div>
             <label for="endDate" class="form-label">When will the fundraiser end?</label>
-            <input type="date" id="endDate" required v-model="editedCampaign.endDate" class="form-input" />
-            <!-- <input type="date" id="endDate" required v-model="editedCampaign.endDate" default="{{  }}"/>  -->
+            <input type="date" id="endDate" required  v-model="editedCampaign.endDate" class="form-input" />
         </div>
-        <!-- Have to look into v-model for radio buttons -->
         <label for="isPublic">Should your campaign be public or private?</label>
         <div class="button-group" >
             <label> 
@@ -70,7 +56,7 @@ export default {
             title:  this.campaign ? this.campaign.title : '',
             endDate: this.campaign ? this.campaign.endDate : '',
             goal: this.campaign ? this.campaign.goal : '',
-            managerId: this.campaign ? this.campaign.managerId : '',
+            managerId: this.campaign ? this.campaign.managerId : this.$store.state.user.id,
             imgURL: this.campaign ? this.campaign.imgURL : '',
             funding: this.campaign ? this.campaign.funding : '',
             description: this.campaign ? this.campaign.description : '',
@@ -108,7 +94,7 @@ export default {
             title:  campaignInfo ? campaignInfo.title : '',
             endDate: campaignInfo ? campaignInfo.endDate : '',
             goal: campaignInfo ? campaignInfo.goal : '',
-            managerId: campaignInfo ? campaignInfo.managerId : '',
+            managerId: campaignInfo ? campaignInfo.managerId : this.$store.state.user.id,
             imgURL: campaignInfo ? campaignInfo.imgURL : '',
             funding: campaignInfo ? campaignInfo.funding : '',
             description: campaignInfo ? campaignInfo.description : '',
