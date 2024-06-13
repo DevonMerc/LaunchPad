@@ -11,7 +11,7 @@
     <div class="container" v-show="!isLoading">
       <h1 class="title">{{ campaign.title }}</h1>
       <h2 class="subtitle">Fund this Project!</h2>
-      <p class="organizer">Organizer: {{ campaign.managerId }}</p>
+      <p class="organizer">Organizer: {{ managerName }}</p>
       <p class="goal">Goal: {{ campaign.goal }}</p>
       <p class="description">{{ campaign.description }}</p>
 
@@ -21,7 +21,6 @@
       <button class="donate-button" @click="this.$router.push({name: 'donationForm', params:{campaignId:campaign.campaignId}})">Donate</button>
       <p class="timeline">Timeline: {{ daysLeft }} Days Left!</p>
       <p class="donation-info">If {{ requiredDonors }} people donate ${{ donationAmount }}, the campaign will be over.</p>
-      <!-- <p class="campaign-impact">For every $Y the campaign will be able to Z(Whatever the campaign is for)</p> -->
       <h1 class="donors-title">Thank You To Our Donors!</h1>
       <p class="top-donors">Top Donors:</p>
       <div v-for="donation in donations.slice(0,5)" :key="donation.donationId">
@@ -44,7 +43,8 @@ export default {
   data(){
     return{
       isLoading: true,
-      donations: []
+      donations: [],
+      managerName: 'N/A'
     }
   },
   methods: {
@@ -128,7 +128,12 @@ export default {
         
       }
     });
-    console.log(this.donations);
+    campaignService.getUsernameByManagerId(this.campaign.managerId).then(response => {
+        if(response.status === 200){
+          this.managerName = response.data;
+          console.log(this.managerName); 
+        }
+    });
   }
 };
 </script>
@@ -153,13 +158,14 @@ export default {
 }
 
 .container {
-  background: white;
+  background: rgb(255, 255, 255);
   padding: 2.2rem;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 800px;
   margin-top: 20px; /* Add margin to prevent overlap with header */
+  height: auto;
 }
 
 .title {

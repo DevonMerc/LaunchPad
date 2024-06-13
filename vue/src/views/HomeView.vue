@@ -31,11 +31,11 @@
           </div>
       <button class="get-started" @click="this.$router.push({ name: 'createCampaign' })">Get Started</button>
       <h3>Browse Featured Campaigns</h3> 
-      <div>
+      
+    </main>
+    <div>
         <campaign-list :campaigns="campaigns" :isDashboard="false" />
       </div>
-    </main>
-    
     <body>
       <!-- {{ this.$store.state.user }} -->
       <!-- Testing routing, delete later, things don't show up but I think it's because no data is reachable atm -->
@@ -147,10 +147,10 @@ export default {
 </script> 
 
 <style scoped>
-.home {
+/* .home {
   flex-direction: column;
   align-items: center;
-}
+} */
 
 .content {
   font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -160,9 +160,9 @@ export default {
   justify-content: center;
   text-align: center;
   width: 100%;
-  min-height: calc(100vh - 80px); 
-  padding: 1rem;
-  padding-top: 6.5rem;
+  /* min-height: calc(100vh - 80px);  */
+  /* padding: 1rem; */
+  padding-top: 1rem;
 }
 
 h3{
@@ -176,6 +176,12 @@ h3{
   margin-bottom: 1rem;
   width: 100%;
   max-width: 300px; /* Adjust as necessary for mobile */
+  
+  height: 100%;
+  width: 100%;
+  border: 3px solid #369c07;
+  border-radius: 13px;
+  padding: 2%;
 }
 
 .search-input {

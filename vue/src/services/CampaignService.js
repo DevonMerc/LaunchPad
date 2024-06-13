@@ -54,6 +54,12 @@ return axios.get(`/tag/${id}`);
   getCampaignsByTag(tag){
     return axios.get(`/campaigns/tag?tag=${tag}`);
   },
+  getTagsByCampaignId(campaignId){
+    return axios.get(`/tags/${campaignId}`);
+  },
+  getTags(){
+    return axios.get('/tags');
+  },
 
   getUsernameByManagerId(managerId){
     return axios.get(`campaigns/username/${managerId}`)

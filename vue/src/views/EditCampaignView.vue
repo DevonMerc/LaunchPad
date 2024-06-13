@@ -1,12 +1,12 @@
 <template>
     <!-- STILL NEEDS WORK -->
-    <!-- <div class="loading" v-if="isLoading">
-      <p>Loading...</p>
-    </div>
-    <div v-else> -->
-      <h1>EDIT</h1>
-      <campaign-form :campaign="campaign" ref="editForm" />
-    <!-- </div> -->
+    
+      <h1>Edit Campaign</h1>
+      <div class="loading" v-if="isLoading">
+        <p>Loading...</p>
+      </div>
+      <campaign-form v-show="!isLoading" :campaign="campaign" :allTags="allTags" :campaignTags="campaignTags" ref="editForm"/>
+    
   </template>
   
   <script>
@@ -20,8 +20,10 @@
     },
     data() {
       return {
-        campaign: {}
-        // isLoading: true
+        campaign: {},
+        allTags: [],
+        campaignTags: [],
+        isLoading: true
       }
     },
     methods: {
@@ -30,9 +32,8 @@
         campaignService.getCampaignById(id)
           .then(response => {
             this.campaign = response.data;
-            console.log(this.campaign)
             this.$refs.editForm.updateFormData(this.campaign);
-            // this.isLoading = false;
+            this.isLoading = false;
           })
           .catch(error => {
             if (error.response) {
@@ -49,41 +50,29 @@
               this.$store.commit('SET_NOTIFICATION', `Error getting message. Request could not be created.`);
             }
           })
+      },
+      getAllTags(){
+        campaignService.getTags().then(response => {
+          if(response.status === 200){
+            this.allTags = response.data;
+          }
+        });
+      },
+      getCampaignTags(id){
+        campaignService.getTagsByCampaignId(id).then(response => {
+          if(response.status === 200){
+            this.campaignTags = response.data;
+            this.$refs.editForm.updateCampaignTagData(this.campaignTags);
+          }
+        });
       }
     },
     created() {
       console.log(this.$route.params.id);
       this.getCampaign(this.$route.params.id);
-      // let campaignId = parseInt(this.$route.params.id);
-      // // this.getCampaign(campaignId);
-      // campaignService.getCampaignById(campaignId)
-      //     .then(response => {
-      //       this.campaign = response.data;
-      //       this.$refs.editForm.updateFormData();
-      //       // this.isLoading = false;
-      //     })
-      //     .catch(error => {
-      //       if (error.response) {
-      //         if (error.response.status == 404) {
-      //           this.$router.push({name: 'NotFoundView'});
-      //         } 
-      //         else {
-      //           this.$store.commit('SET_NOTIFICATION',
-      //           `Error getting message. Response received was "${error.response.statusText}".`);
-      //         }
-      //       } else if (error.request) {
-      //         this.$store.commit('SET_NOTIFICATION', `Error getting message. Server could not be reached.`);
-      //       } else {
-      //         this.$store.commit('SET_NOTIFICATION', `Error getting message. Request could not be created.`);
-      //       }
-      //     })
-    },
-    computed: { //don't really need this was just testing things
-      // testCampaign(){
-      //   this.getCampaign(this.$route.params.id);
-      //   return this.campaign;
-      // },
-      
+      this.getAllTags();
+      this.getCampaignTags(this.$route.params.id);
+
     }
   };
   </script>

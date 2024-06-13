@@ -18,6 +18,7 @@ public class JdbcTagDao implements TagDao{
         this.jdbcTemplate = jdbcTemplate;
     }
 
+
     @Override
     public Tag createTag(String tag) {
         Tag newTag = null;
@@ -96,6 +97,17 @@ public class JdbcTagDao implements TagDao{
             System.out.println(e.getMessage());
         }
         return tags;}
+
+    @Override
+    public List<Tag> getTags() {
+        List<Tag> tags = new ArrayList<>();
+        String sql = "SELECT * FROM tag";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while (results.next()) {
+            tags.add( mapRowToTag(results));
+        }
+        return tags;
+    }
 
     private Tag mapRowToTag(SqlRowSet rs) {
         Tag tag = new Tag();
