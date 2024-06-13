@@ -10,4 +10,5 @@ public interface TagDao {
     List<Tag> getTagsByCampaignId(int id);
     int deleteTag(int id);
     List<Tag> getFeaturedTags();
+    List<Tag> getTags();
 }

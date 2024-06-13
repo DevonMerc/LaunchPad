@@ -26,9 +26,9 @@ public class AppController {
     public Tag getTagById(@PathVariable int id){
         return tagDao.getTagById(id);
     }
-    @RequestMapping(path = "/tags", method = RequestMethod.GET)
-    public List<Tag> getTagsByCampaignId(int id){
-        return tagDao.getTagsByCampaignId(id);
+    @RequestMapping(path = "/tags/{campaignId}", method = RequestMethod.GET)
+    public List<Tag> getTagsByCampaignId(@PathVariable int campaignId){
+        return tagDao.getTagsByCampaignId(campaignId);
     }
     @RequestMapping(path = "/featured", method = RequestMethod.GET)
     public List<Tag> getFeaturedTags(){
@@ -56,9 +56,9 @@ public class AppController {
     public List<SpendRequest> getSpendRequestsByCampaignId(int id){
         return spendRequestDao.getSpendRequestsByCampaignId(id);
     }
-    @RequestMapping(path = "spend", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/tag/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteTag(int id){
+    public void deleteTag(@PathVariable int id){
         try{
             tagDao.deleteTag(id);
         }catch (DaoException e){
@@ -66,4 +66,9 @@ public class AppController {
         }
     }
 
+    //for campaign form, bc we need to display all tag options for users to choose
+    @RequestMapping(path = "/tags", method = RequestMethod.GET)
+    public List<Tag> getTags(){
+        return tagDao.getTags();
     }
+}

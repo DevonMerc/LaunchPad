@@ -8,25 +8,25 @@
 
 
         <div class="info">
-        <p v-if="errorMsg != ''">{{ errorMsg }}</p>
-        <p class="title">{{ campaign.title }}</p>
-        <p class="manager">Managed by {{ managerName }}</p>
-        <p class="description">{{ campaign.description }}</p>
-        <ProgressBar :funding="campaign.funding" :goal="campaign.goal"/>
-        <p class="funding">${{ campaign.funding }} / ${{ campaign.goal }} Currently raised</p>
-
-        <!-- <button  @click="$router.push({name: 'campaignDetails', params: {id: campaign.campaignId}})">View Details</button> -->
-        <div v-show="isDashboard" class="dashboard-buttons">
-            <button @click="$router.push({ name: 'editCampaign', params: { id: campaign.campaignId } })">Edit Campaign</button>
-            <!-- Add click event later vvv -->
-            <button @click="deleteCampaign">Delete Campaign</button>
-            <router-link to="/create-spend-request" class="button-link">Create Spend Request</router-link>
+          <p v-if="errorMsg != ''">{{ errorMsg }}</p>
+          <p class="title">{{ campaign.title }}</p>
+          <p class="manager">Managed by {{ managerName }}</p>
+          <p class="description">{{ campaign.description }}</p>
+          
+          <ProgressBar class="progress" :funding="campaign.funding" :goal="campaign.goal"/>
+          <p class="funding">${{ campaign.funding }} / ${{ campaign.goal }} Currently raised</p>
+          
+          <div v-show="isDashboard" class="dashboard-buttons">
+              <button @click="$router.push({ name: 'editCampaign', params: { id: campaign.campaignId } })">Edit Campaign</button>
+              <button @click="deleteCampaign">Delete Campaign</button>
+              <button @click="$router.push({ name: 'CreateSpendRequest'})">Create Spend Request</button>
+              <!-- <router-link to="/create-spend-request" class="button-link">Create Spend Request</router-link> -->
+          </div>
+          <div class="tags" v-for="tag in tags" :key="tag.id">
+            <span>{{ tag.description }}</span>
+          </div>
         </div>
-        <!-- <p>Tags</p>
-        <div class="tags" v-for="tag in campaign.tags" :key="tag">
-            <p>{{ tag }}</p>
-        </div> -->
-        </div>
+        
     </div> 
 </template>
 
@@ -42,7 +42,8 @@ export default{
       return{
         errorMsg: '',
         donations : [],
-        managerName: 'N/A'
+        managerName: 'N/A',
+        tags: []
       }
     },
     props: ['campaign', 'isDashboard'],
@@ -98,7 +99,13 @@ export default{
         if(response.status === 200){
           this.managerName = response.data;
         }
-      })
+      });
+
+      campaignService.getTagsByCampaignId(this.campaign.campaignId).then(response => {
+        if(response.status === 200){
+          this.tags = response.data;
+        }
+      });
     }
 }
 </script> 
@@ -108,7 +115,7 @@ body {
   padding: 0;
 }
 
-.card {
+.card:not(.progress) {
   border: 2px solid rgb(194, 192, 192);
   border-radius: 10px;
   width: 100%;
@@ -130,14 +137,15 @@ body {
   object-fit: cover; /* Ensure the image covers the entire area */
 }
 
-.info {
+.info:not(.progress) {
   width: 70%;
   padding: 0.5rem; /* Reduced padding */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
+  /* justify-content: space-between; */
+  /* align-items: flex-start; */
 }
+
 
 .title,
 .manager,
@@ -178,7 +186,7 @@ body {
 .dashboard-buttons .button-link {
   padding: 0.5rem 1rem;
   font-size: 1rem;
-  background-color: #007bff;
+  background-color: #e7a325;
   color: white;
   border: none;
   border-radius: 4px;
@@ -190,12 +198,17 @@ body {
   display: inline-block; 
 }
 
-.dashboard-buttons .button-link:hover {
-  background-color: #0056b3; /* Add hover effect */
+.dashboard-buttons button:hover {
+  background-color: #b35f00; /* Add hover effect */
 }
-.dashboard-buttons button:last-child {
-  background-color: #007BFF;
+/* .dashboard-buttons button:last-child {
+  background-color: #ff9900;
   color: white;
+} */
+
+.tags{
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width: 600px) {

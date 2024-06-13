@@ -1,33 +1,43 @@
 <template>
     <!-- STILL NEEDS WORK -->
-    <div class="container">
+<div class="container">
       <!-- We probably dont need the @submit in the form tag but this works so not gonna touch it now -->
     <form @submit.prevent="addCampaign">
         <div>
-            <label for="title" class="grey">What will you call your campaign? </label>
-            <input type="text" id="title"  required placeholder="Campaign title here" v-model="editedCampaign.title" />
-        </div>
-        <!-- <div>
-            <label for="managerId" class="grey">Campaign Organizer</label>
-            <input type="text" id="managerId" required v-model="editedCampaign.managerId"/>
-        </div> -->
-        <div>
-            <label for="goal" class="grey">What is your starting goal? (Currency is in U.S. dollars $)</label>
-            <input type="number" id="goal" required placeholder="eg. 2000" v-model="editedCampaign.goal"/>
+            <label for="title" class="form-label">What will you call your campaign? </label>
+            <input class="form-input" type="text" id="title"  required placeholder="Campaign title here" v-model="editedCampaign.title" />
         </div>
         <div>
-            <label for="description" class="grey">Describe your campaign: </label>
-            <textarea id="description" rows="6" cols="50" required placeholder="We're raising money to fund our amazing project!" v-model="editedCampaign.description"></textarea>
+            <label for="goal" class="form-label" >What is your starting goal? (Currency is in U.S. dollars $)</label>
+            <input class="form-input" type="number" id="goal" required placeholder="eg. 2000" v-model="editedCampaign.goal"/>
         </div>
         <div>
-            <label for="imgURL">Upload an image: </label>
+            <label for="description" class="form-label">Describe your campaign: </label>
+            <textarea class="form-input" id="description" rows="6" cols="50" required placeholder="We're raising money to fund our amazing project!" v-model="editedCampaign.description"></textarea>
+        </div>
+        <div>
+            <label for="imgURL" class="form-label">Upload an image: </label>
             <input type="file" id="imgURL" accept="image/*" :src="editedCampaign.imgURL"/>
         </div>
         <div>
             <label for="endDate" class="form-label">When will the fundraiser end?</label>
             <input type="date" id="endDate" required  v-model="editedCampaign.endDate" class="form-input" />
         </div>
-        <label for="isPublic">Should your campaign be public or private?</label>
+
+        <div class="tag-selection">
+            <label class="form-label">Add some tags to your campaign! (Optional)</label>
+            <select class="form-input" v-model="tagSelected" @change="addTag">
+              <option disabled value="">Select a tag to add</option>
+              <option v-for="tag in allTags" :key="tag.id" :value="tag">{{ tag.description }}</option>
+            </select>
+        </div>
+
+        <div class="current-tags" v-show="editedCampaignTags">
+          <!-- <p>Current campaign tags:</p> -->
+          <span v-for="tag in editedCampaignTags" :key="tag.id" @click="removeTag(tag)">x {{ tag.description }}</span>
+        </div>
+
+        <label for="isPublic" class="form-label">Is this campaign going to be public or private?</label>
         <div class="button-group" >
             <label> 
                 <input type="radio" id="isPublic" :value="true" v-model="editedCampaign.isPublic"/> Public
@@ -48,7 +58,7 @@ import campaignService from '../services/CampaignService.js';
 import { mapActions } from 'vuex';
 
 export default {
-  props: ['campaign'], //bug with props when the content passed is a webcall, shows up in html, is undefined in javascript. dunno what to do about that
+  props: ['campaign', 'allTags', 'campaignTags'], //bug with props when the content passed is a webcall, shows up in html, is undefined in javascript. dunno what to do about that
   data() {
     return {
         editedCampaign: {
@@ -61,32 +71,29 @@ export default {
             funding: this.campaign ? this.campaign.funding : '',
             description: this.campaign ? this.campaign.description : '',
             isPublic: this.campaign ? this.campaign.isPublic : ''
-        }
+        },
+      editedCampaignTags: this.campaignTags,
+      tagSelected: null
     };
   },
-  mounted() {
-    
-    this.updateFormData();
-  },
   methods: {
-    // ...mapActions(['updateCampaign']), //I'm personally not sure how this works, add back in later?
-    // addCampaign() {
-    //   const campaign = {
-    //     title: this.title,
-    //     goal: this.goal,
-    //     about: this.about,
-    //     pic: this.pic,
-    //     visibility: this.visibility
-    //   };
-    //   this.updateCampaign(campaign); //Does this connect to something outside this file? I think it still needs an id to update a campaign
-    //   this.$router.push({ name: 'dashboard' });
-    // },
-    // onFileChange(event) {
-    //   const file = event.target.files[0];
-    //   if (file) {
-    //     this.pic = URL.createObjectURL(file);
-    //   }
-    // }
+    addTag(){
+      if(this.tagSelected && !this.editedCampaignTags.includes(this.tagSelected)){
+        
+        this.editedCampaignTags.push(this.tagSelected);
+        console.log("adding tag");
+        console.log(this.editedCampaignTags);
+        this.tagSelected = null;
+      }
+    },
+    removeTag(tag){
+      const tagIndex = this.editedCampaignTags.indexOf(tag);
+      if(tagIndex !== -1){
+        this.editedCampaignTags.splice(tagIndex, 1);
+        console.log("removing tag");
+        console.log(this.editedCampaignTags);
+      }
+    },
     updateFormData(campaignInfo) {
       console.log(campaignInfo);
       this.editedCampaign = {
@@ -101,6 +108,10 @@ export default {
             isPublic: campaignInfo ? campaignInfo.isPublic : ''
         }
     },
+    updateCampaignTagData(campaignTagsInfo){
+      console.log(campaignTagsInfo);
+      this.editedCampaignTags = campaignTagsInfo ? campaignTagsInfo : [];
+    },
     submitForm() {
       // Do client-side form validation 
       if (!this.validateForm()) {
@@ -110,7 +121,7 @@ export default {
       // Check for add or edit
       if (this.editedCampaign.campaignId === 0) {
         
-        // TODO - Do an add, then navigate Dashboard on success.
+        // Do an add, then navigate Dashboard on success.
         // For errors, call handleErrorResponse
         campaignService.createCampaign(this.editedCampaign).then(response => {
           if(response.status === 201){
@@ -159,11 +170,6 @@ export default {
         title += 'The new campaign must have a title. ';
       }
 
-      // this.editCampaign.messageText = this.editCampaign.messageText.trim();
-      // if (this.editCampaign.messageText.length === 0) {
-      //   msg += 'The message must contain message text.';
-      // }
-
       if (title.length > 0) {
         this.$store.commit('SET_NOTIFICATION', title);
         return false;
@@ -173,41 +179,25 @@ export default {
   }
 };
 
-/** 
-export default{ 
-    methods: {
-        addCampaign(){
-            //right now it only redirects to the dashboard, gonna add in store stuff later
-            this.$router.push({name:'dashboard'});
-        }
-    },
-   
-}
-*/
 </script>
 
 
-<style>
+<style scoped>
 
 h1{
     text-align: left;
     max-width: 100%;
 }
 
-.grey{
-    color: grey;
-}
-
 .container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100vh;
+    height: auto;
     padding: 10px;
     padding-top: 4.4rem;
     margin-right: 20px;
     font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  
 }
 .button-group {
     display: flex;
@@ -226,18 +216,6 @@ text-align: center;
 
 }
 
-form input[type="text"],
-form input[type="number"],
-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-form input[type ="checkbox"]{
-    color: green;
-}
 form input[type="file"]{
     margin: 20px;
     text-align: left;
@@ -251,23 +229,48 @@ form input[type="submit"]{
     border-radius: 10px;
 }
 
-.form-group {
-  margin: 20px 0;
+form div:not(.button-group):not(.current-tags) {
+  margin: 2rem 0 2rem 0;
   display: flex;
   flex-direction: column;
   border-radius: 4px;
+}
+.current-tags{
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 5%;
+  /* height: 100px;  */
+  /* background-color: #f7f5e5; */
+  border-radius: 5px;
+  /* border: 1px solid #db8605; */
+}
+
+.current-tags span{
+  color: rgb(184, 113, 6);
+  margin: 1%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-inline: 2%;
+  background-color: #fae098;
+  border-radius: 10px;
+  border: 1px solid #db8605;
+}
+.current-tags span:hover{
+  color: rgb(184, 62, 6);
+  background-color: #e7b872;
+
 }
 
 .form-label {
   font-weight: bold;
   margin-bottom: 5px;
-  color: #333;
+  color: #81450c;
   font-size: 1.1em;
 }
 
 .form-input {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #ce1313;
   border-radius: 5px;
   font-size: 1em;
   width: 100%;
@@ -280,7 +283,6 @@ form input[type="submit"]{
   outline: none;
   box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
-
 
 /* FOR PHONE ONLY VIEW:  */
 @media (max-width: 767px) {

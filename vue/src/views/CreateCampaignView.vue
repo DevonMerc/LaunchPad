@@ -21,11 +21,11 @@ export default{
             campaign: {
                 campaignId: 0,
                 title: "",
-                endDate: '0000-00-00',
-                goal: 0.00,
-                managerId: 0,
+                endDate: "",
+                goal: "",
+                managerId: "",
                 imgURL: "",
-                funding: 0.00,
+                funding: "",
                 description: "",
                 isPublic: false
             }
