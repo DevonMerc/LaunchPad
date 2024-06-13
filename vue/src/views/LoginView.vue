@@ -180,42 +180,51 @@ button{
 h1{
   text-align: center;
   position: relative; 
-  top: -450px;
+  top: -430px;
   font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .form-input-group {
   margin-bottom: 1rem;
   position: relative; 
-  top: -450px;
+  top: -420px;
   font-size: 1rem;
 }
 
-input[type="text"] {
+/*input[type="text"] {
 height: 10px;
-width: 300px;
+width: 334px;
 border: 1px solid #cdcdcd;
 }
 
 input[type="password"] {
 height: 29px;
-width: 320px;
+width: 350px;
 border: 1px solid #cdcdcd;
 border-radius: 5px;
 padding: 0.1rem;
+}*/
+form input[type="text"],
+form input[type="password"],
+form textarea {
+    width: 93%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-input[type="password"] {
-height: 29px;
-width: 262px;
-border: 1px solid #cdcdcd;
-border-radius: 5px;
-padding: 0.1rem;
+label{
+    display: inline-block;
+    clear: left;
+    width: 250px;
+    text-align: left; /*Change to right here if you want it close to the inputs*/
+    font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-label {
-  margin-right: 0.6rem;
+input {
+  display: inline-block;
 }
 
 button{
@@ -225,9 +234,16 @@ button{
   font-size: large;
   border-color: #23CF68;
   position: relative; 
-  top: -430px;
+  top: -420px;
   border-radius: 5px;
+  max-width: 80%;
+  display: flex;
+  text-align: center;
+  justify-content: space-evenly;
+  align-content: center;
+  margin: 0 auto;
 }
+
 
 header{
   align-self: center;
@@ -246,7 +262,7 @@ margin-top: 30px;
   font-style: italic;
   justify-content: space-evenly;
   position: relative; 
-  top: -440px;
+  top: -415px;
 }
 
 @media (max-width: 767px) {
