@@ -153,6 +153,7 @@ export default {
 }
 
 .content {
+  font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
