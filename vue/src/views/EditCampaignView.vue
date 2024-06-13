@@ -4,7 +4,7 @@
       <p>Loading...</p>
     </div>
     <div v-else> -->
-      <h1>Edit Campaign</h1>
+      <h1>EDIT</h1>
       <campaign-form :campaign="campaign" ref="editForm" />
     <!-- </div> -->
   </template>
