@@ -3,6 +3,7 @@
 <div class="container">
       <!-- We probably dont need the @submit in the form tag but this works so not gonna touch it now -->
     <form @submit.prevent="addCampaign">
+      <h1 >Campaign Form</h1>
         <div>
             <label for="title" class="form-label">What will you call your campaign? </label>
             <input class="form-input" type="text" id="title"  required placeholder="Campaign title here" v-model="editedCampaign.title" />
@@ -185,8 +186,13 @@ export default {
 <style scoped>
 
 h1{
-    text-align: left;
-    max-width: 100%;
+    text-align: center;
+    display: block;
+    position: relative; 
+    max-width: 90%;
+    color: rgb(248, 69, 10);
+    font-size: calc(7vw);
+    font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .container {
@@ -291,9 +297,5 @@ form input[type="submit"]{
     height: 50px;
 }
 
-}
-h1{
-    font-size: calc(7vw);
-    text-align: left;
 }
 </style>

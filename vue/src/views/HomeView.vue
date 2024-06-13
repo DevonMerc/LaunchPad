@@ -153,6 +153,7 @@ export default {
 } */
 
 .content {
+  font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -162,6 +163,10 @@ export default {
   /* min-height: calc(100vh - 80px);  */
   /* padding: 1rem; */
   padding-top: 1rem;
+}
+
+h3{
+  color: rgb(248, 69, 10);
 }
 
 .search-container {

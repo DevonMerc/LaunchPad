@@ -3,7 +3,10 @@
     <div class = "card">
       
         <router-link v-bind:to="{ name: 'campaignDetails', params: { id: campaign.campaignId } }" class="card-image">
-          <img src="../assets/Launchpad-logo.png" alt="Campaign Image" />
+          <!-- <img src="../assets/Launchpad-logo.png" alt="Campaign Image" /> -->
+          
+          <img :src="getRandomImage()" alt="Campaign Image" />
+          <!-- <img data-v-7377613c="" src="../assets/campaignPictures/clothes.jpg" alt="Campaign Image"> -->
         </router-link>
 
 
@@ -31,7 +34,102 @@
 </template>
 
 
+
+
+
+
 <script>
+import campaignService from '../services/CampaignService.js';
+import ProgressBar from './ProgressBar.vue';
+
+export default {
+  components: {
+    ProgressBar
+  },
+  data() {
+    return {
+      errorMsg: '',
+      donations: [],
+      managerName: 'N/A',
+      campaignImage: '',
+  
+    };
+  },
+  props: ['campaign', 'isDashboard'],
+  methods: {
+    deleteCampaign() { // for now shouldn't work, uncomment and work on after endpoint is set
+      const donations = this.donations;
+      console.log(donations.length);
+      if (donations.length > 0) { //we need to be able to get donors associated with a campaign id
+        this.errorMsg = 'Cannot delete campaign';
+        this.$store.commit('SET_NOTIFICATION', 'Cannot delete campaigns that have donors!');
+      } else {
+        if (confirm("Are you sure you want to delete this campaign? This action cannot be undone.")) {
+          campaignService.deleteCampaign(this.campaign.campaignId).then(response => {
+            if (response.status === 204) {
+              this.$emit('delete-complete');
+            }
+          })
+          .catch(error => {
+            if (error.response) {
+              this.$store.commit('SET_NOTIFICATION', `Error deleting campaign. Response received was "${error.response.statusText}".`);
+            } else if (error.request) {
+              this.$store.commit('SET_NOTIFICATION', 'Error deleting campaign. Server could not be reached.');
+            } else {
+              this.$store.commit('SET_NOTIFICATION', 'Error deleting campaign. Request could not be created.');
+            }
+          });
+        }
+      }
+    },
+    getDonations() {
+      campaignService.getDonationsByCampaignId(this.campaign.campaignId).then(response => {
+        if (response.status === 200) {
+          this.donations = response.data;
+        }
+      });
+      return [];
+    },
+    getRandomImage() {
+      
+      const images = [
+        '../../public/campaignPictures/school.jpg',
+        '../../public/campaignPictures/art.jpg',
+        '../../public/campaignPictures/clothes.jpg',
+        '../../public/campaignPictures/elephants.jpg',
+        '../../public/campaignPictures/food.jpg',
+        '../../public/campaignPictures/medicalsupplies.jpg',
+        '../../public/campaignPictures/waterwell.jpg',
+      ];
+      const randomIndex = Math.floor(Math.random() * images.length);
+      console.log(images[randomIndex]);
+      return images[randomIndex];
+    }
+  },
+  created() {
+    campaignService.getDonationsByCampaignId(this.campaign.campaignId).then(response => {
+      if (response.status === 200) {
+        this.donations = response.data;
+      }
+    });
+
+    campaignService.getUsernameByManagerId(this.campaign.managerId).then(response => {
+      if (response.status === 200) {
+        this.managerName = response.data;
+      }
+    });
+
+    // Set a random campaign image
+    this.campaignImage = this.getRandomImage();
+  }
+};
+</script>
+
+
+
+<!-- The line script file below this line is the original script file.  -->
+
+<!-- <script>
 import campaignService from '../services/CampaignService.js';
 import ProgressBar from './ProgressBar.vue';
 export default{
@@ -108,7 +206,7 @@ export default{
       });
     }
 }
-</script> 
+</script>  -->
 
 <style scoped>
 body {
@@ -132,9 +230,11 @@ body {
 }
 
 .card-image img {
-  width: 100%;
-  height: auto;
-  object-fit: cover; /* Ensure the image covers the entire area */
+  width: 90%;
+  height: 90%;
+  border-radius: 10px;
+  margin: 1rem;
+  /* object-fit: cover; Ensure the image covers the entire area */
 }
 
 .info:not(.progress) {
