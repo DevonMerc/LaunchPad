@@ -165,6 +165,10 @@ export default {
   padding-top: 6.5rem;
 }
 
+h3{
+  color: rgb(248, 69, 10);
+}
+
 .search-container {
   display: flex;
   align-items: center;

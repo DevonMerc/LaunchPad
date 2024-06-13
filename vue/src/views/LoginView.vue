@@ -183,6 +183,7 @@ h1{
   top: -430px;
   font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 1.3rem;
+  color: rgb(248, 69, 10);
 }
 
 .form-input-group {
