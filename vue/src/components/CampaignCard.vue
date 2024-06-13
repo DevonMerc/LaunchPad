@@ -10,8 +10,9 @@
         <div class="info">
         <p v-if="errorMsg != ''">{{ errorMsg }}</p>
         <p class="title">{{ campaign.title }}</p>
-        <p class="manager">Managed by {{ campaign.managerId }}</p>
+        <p class="manager">Managed by {{ managerName }}</p>
         <p class="description">{{ campaign.description }}</p>
+        <ProgressBar :funding="campaign.funding" :goal="campaign.goal"/>
         <p class="funding">${{ campaign.funding }} / ${{ campaign.goal }} Currently raised</p>
 
         <!-- <button  @click="$router.push({name: 'campaignDetails', params: {id: campaign.campaignId}})">View Details</button> -->
@@ -32,11 +33,16 @@
 
 <script>
 import campaignService from '../services/CampaignService.js';
+import ProgressBar from './ProgressBar.vue';
 export default{
+    components: {
+      ProgressBar
+    },
     data(){
       return{
         errorMsg: '',
-        donations : []
+        donations : [],
+        managerName: 'N/A'
       }
     },
     props: ['campaign', 'isDashboard'],
@@ -87,6 +93,12 @@ export default{
               this.donations = response.data;
             }
           });
+
+      campaignService.getUsernameByManagerId(this.campaign.managerId).then(response => {
+        if(response.status === 200){
+          this.managerName = response.data;
+        }
+      })
     }
 }
 </script> 

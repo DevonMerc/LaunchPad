@@ -25,10 +25,12 @@ public class CampaignController {
     RestTemplate restTemplate = new RestTemplate();
     private CampaignService campaignService;
     private CampaignDao campaignDao;
+    private UserDao userDao;
 
-    public CampaignController(CampaignService campaignService, CampaignDao campaignDao) {
+    public CampaignController(CampaignService campaignService, CampaignDao campaignDao, UserDao userDao) {
         this.campaignService = campaignService;
         this.campaignDao = campaignDao;
+        this.userDao = userDao;
     }
 
 
@@ -114,5 +116,11 @@ public class CampaignController {
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Campaign not found");
         }
+    }
+
+    //not the most secure thing to do but for now whatever
+    @RequestMapping(path = "/username/{managerId}", method = RequestMethod.GET)
+    public String getUsernameByManagerId(@PathVariable int managerId){
+        return userDao.getUserById(managerId).getUsername();
     }
 }

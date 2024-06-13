@@ -8,12 +8,15 @@
       <img class="logo" src="../assets/Launchpad-logo-full.png" alt="Place Holder">
     </div>
 
-    <div class="container">
+    <div class="container" v-show="!isLoading">
       <h1 class="title">{{ campaign.title }}</h1>
       <h2 class="subtitle">Fund this Project!</h2>
       <p class="organizer">Organizer: {{ campaign.managerId }}</p>
       <p class="goal">Goal: {{ campaign.goal }}</p>
       <p class="description">{{ campaign.description }}</p>
+
+      <ProgressBar :funding="campaign.funding" :goal="campaign.goal"/>
+
       <p class="funding">${{ campaign.funding }} raised out of our ${{ campaign.goal }} GOAL!</p>
       <button class="donate-button" @click="this.$router.push({name: 'donationForm', params:{campaignId:campaign.campaignId}})">Donate</button>
       <p class="timeline">Timeline: {{ daysLeft }} Days Left!</p>
@@ -22,12 +25,8 @@
       <h1 class="donors-title">Thank You To Our Donors!</h1>
       <p class="top-donors">Top Donors:</p>
       <div v-for="donation in donations.slice(0,5)" :key="donation.donationId">
-        <p>Donor {{ donation.donorId }} donated ${{ donation.amount }} on {{donationDateTime(donation.dateTime) }}</p>
+        <p>Donor {{ donation.name }} donated ${{ donation.amount }} on {{donationDateTime(donation.dateTime) }}</p>
       </div>
-      <!-- <h2 class="breakdown-title">Donation Breakdown:  X% of Money on: Placeholder | X% of Money on: Placeholder | X% of Money on: Placeholder</h2>
-      <progress id="item1Spend" :value="progressValue" max="100">{{progressValue}}%</progress>
-      <progress id="item2Spend" :value="progressValue" max="100">{{progressValue}}%</progress>
-      <progress id="item3Spend" :value="progressValue" max="100">{{progressValue}}%</progress> -->
     </div>
   </div>
 </template>
@@ -35,11 +34,16 @@
 <script>
 import { mapGetters } from 'vuex';
 import campaignService from '../services/CampaignService';
+import ProgressBar from './ProgressBar.vue';
 
 export default {
   props: ['campaign', 'campaignId'], //bc of timing BUGS adding in campaignId to props, campaign is null in JS despite having data accessible in html
+  components: {
+    ProgressBar
+  },
   data(){
     return{
+      isLoading: true,
       donations: []
     }
   },
@@ -68,7 +72,6 @@ export default {
   },
   computed: {
     // ...mapGetters(['campaign']),
-    
     daysLeft() {
       if (!this.campaign.endDate) {
         return '';
@@ -110,12 +113,22 @@ export default {
       return dynamicDonation;
     }
   },
-  created(){
+  created(){ //brute force way ig
     campaignService.getDonationsByCampaignId(this.campaignId).then(response => {
       if(response.status === 200){
         this.donations = response.data;
+        this.donations.forEach( donation =>{
+          campaignService.getUsernameByDonorId(donation.donorId).then(response => {
+          if(response.status === 200){
+              donation.name = response.data;
+              this.isLoading = false;
+            }
+          });
+        });
+        
       }
     });
+    console.log(this.donations);
   }
 };
 </script>
