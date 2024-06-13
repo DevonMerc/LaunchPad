@@ -223,9 +223,11 @@ body {
 }
 
 .card-image img {
-  width: 100%;
-  height: auto;
-  object-fit: cover; /* Ensure the image covers the entire area */
+  width: 90%;
+  height: 90%;
+  border-radius: 10px;
+  margin: 1rem;
+  /* object-fit: cover; Ensure the image covers the entire area */
 }
 
 .info {
