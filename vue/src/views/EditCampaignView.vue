@@ -1,7 +1,7 @@
 <template>
     <!-- STILL NEEDS WORK -->
     
-      <h1>Edit Campaign</h1>
+      <h1>EDIT</h1>
       <div class="loading" v-if="isLoading">
         <p>Loading...</p>
       </div>
