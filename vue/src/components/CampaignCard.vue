@@ -17,7 +17,7 @@
           <p class="description">{{ campaign.description }}</p>
           
           <ProgressBar class="progress" :funding="campaign.funding" :goal="campaign.goal"/>
-          <p class="funding">${{ campaign.funding }} / ${{ campaign.goal }} Currently raised</p>
+          <p class="funding">{{goalMsg}}</p>
           
           <div v-show="isDashboard" class="dashboard-buttons">
               <button @click="$router.push({ name: 'editCampaign', params: { id: campaign.campaignId } })">Edit Campaign</button>
@@ -141,6 +141,15 @@ export default{
       }
     },
     props: ['campaign', 'isDashboard'],
+    computed: {
+      goalMsg(){
+        if(this.campaign.funding >= this.campaign.goal){
+          return `Goal $${ this.campaign.goal } reached! :)`;
+        }else{
+          return `$${ this.campaign.funding } / $${ this.campaign.goal } Currently raised`; 
+        }
+      }
+    },
     methods: {
         deleteCampaign() { // for now shouldn't work, uncomment and work on after endpoint is set
         const donations = this.donations;

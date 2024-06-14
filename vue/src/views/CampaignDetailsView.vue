@@ -64,7 +64,7 @@ export default{
             campaignService.getUsernameByManagerId(this.campaign.managerId).then(response => {
             if(response.status === 200){
             this.managerName = response.data;
-            console.log(this.managerName); 
+            // console.log(this.managerName); 
             this.isLoading = false;
             }
             });
@@ -72,7 +72,7 @@ export default{
         
       });
 
-      campaignService.getDonationsByCampaignId(this.campaign.campaignId).then(response => {
+      campaignService.getDonationsByCampaignId(this.$route.params.id).then(response => {
       if(response.status === 200){
         this.donations = response.data;
         this.donations.forEach( donation =>{
@@ -82,8 +82,7 @@ export default{
               this.isLoading = false;
             }
           });
-        });
-        
+        });        
       }
     });
   }

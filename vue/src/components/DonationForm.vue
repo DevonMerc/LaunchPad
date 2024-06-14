@@ -3,7 +3,7 @@
       <h1>Donation Form</h1>
     </div>
     <div class="form-container">
-      <form @submit.prevent="submitForm">
+      <form @submit.prevent="amountAlert">
         <div class="form-group">
           <label for="donationAmount">What amount are you donating (Currency is in U.S. dollars $)?</label>
           <input type="number" id="donationAmount" name="donationAmount" placeholder="What amount are you donating ($0.00)?" required v-model="donation.amount">
@@ -30,7 +30,8 @@
           amount: 0, //I have no clue why amount doesn't return null in backend but donationAmount does.. but whatever it works
           // dateTime: ""
           dateTime: Date.now()
-        }
+        },
+        isReadyToSubmit: false
       };
     },
   //   computed: {
@@ -38,7 +39,19 @@
   //   },
     methods: {
   //     ...mapMutations(['setCampaign']),
+      amountAlert(){
+        if(this.campaign.funding + this.donation.amount > this.campaign.goal && !this.isReadyToSubmit){
+          const newAmount = this.campaign.goal - this.campaign.funding;
+          if (confirm(`That amount exceeds the goal. The most you can donate is $${newAmount}. Proceed?`)){
+            this.donation.amount = newAmount;
+            this.isReadyToSubmit = true;
+          }
+        }else{
+          this.submitForm();
+        }
+      },
       submitForm() {
+        
         //need to create donation and then get campaign by id, then update campaign to adjust funding
         // this.donation.dateTime = Date.now();
         campaignService.createDonation(this.donation).then(response => {

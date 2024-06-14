@@ -1,5 +1,5 @@
 <template>
-  <SiteHeader />
+  <!-- <SiteHeader /> -->
   <div class="campaign-page">
     <!-- <div class="logo-container" v-if="campaign.imgURL">
       <img class="logo" src="../assets/Launchpad-logo-full.png" alt="Place Holder">
@@ -7,7 +7,8 @@
 
     <img class="campaign-img" src="../assets/PLACEHOLDER_LOGO.png" alt="Place Holder">
     <ProgressBar class="progress" :funding="campaign.funding" :goal="campaign.goal"/>
-    <p class="funding">${{ campaign.funding }} raised out of our ${{ campaign.goal }} GOAL!</p>
+    <!-- <p class="funding">${{ campaign.funding }} raised out of our ${{ campaign.goal }} GOAL!</p> -->
+    <p class="funding">{{ goalMsg }}</p>
 
     <div class="container">
       <h1 class="title">{{ campaign.title }}</h1>
@@ -16,7 +17,9 @@
       <p class="description">{{ campaign.description }}</p>
 
       
-      <button class="donate-button" @click="this.$router.push({name: 'donationForm', params:{campaignId:campaign.campaignId}})">Donate</button>
+      <button :class="{'donate-button' : !isGoalReached, 'locked-button': isGoalReached}" @click="goToDonateForm">Donate</button>
+      <span class="lock-msg" v-show="isGoalReached">Goal was reached. No more donations!</span>
+
       <p class="timeline">Timeline: {{ daysLeft }} Days Left!</p>
       <p class="donation-info">If {{ requiredDonors }} people donate ${{ donationAmount }}, the campaign will be over.</p>
       <h1 class="donors-title">Thank You To Our Donors!</h1>
@@ -32,11 +35,13 @@
 import { mapGetters } from 'vuex';
 import campaignService from '../services/CampaignService';
 import ProgressBar from './ProgressBar.vue';
+import SiteHeader from './SiteHeader.vue';
 
 export default {
   props: ['campaign', 'campaignId', 'managerName', 'donations'], //bc of timing BUGS adding in campaignId to props, campaign is null in JS despite having data accessible in html
   components: {
-    ProgressBar
+    ProgressBar,
+    // SiteHeader
   },
   data(){
     return{
@@ -66,10 +71,28 @@ export default {
           return `${day}th`;
         }
       }
+    },
+    goToDonateForm(){
+      if(!this.isGoalReached){
+        this.$router.push({name: 'donationForm', params:{campaignId:this.campaign.campaignId}});
+      }
     }
   },
   computed: {
     // ...mapGetters(['campaign']),
+    isGoalReached(){
+      if(this.campaign.funding >= this.campaign.goal){
+        return true;
+      }
+      return false;
+    },
+    goalMsg(){
+      if(this.isGoalReached){
+        return `Campaign goal of $${ this.campaign.goal } reached! :)`;
+      }else{
+        return `$${ this.campaign.funding } / $${ this.campaign.goal } Currently raised`; 
+      }
+    },
     daysLeft() {
       if (!this.campaign.endDate) {
         return '';
@@ -184,10 +207,30 @@ export default {
   cursor: pointer;
   margin: 10px 0;
   font-size: 1em;
+  font-weight: bold;
 }
 
 .donate-button:hover {
   background-color: #45a049;
+}
+
+.locked-button{
+  background-color: #4b764d;
+  color: rgb(200, 207, 192);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  font-size: 1em;
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+  font-weight: bold;
+}
+
+.lock-msg{
+  font-size: .8rem;
+  margin-left: 5px;
 }
 
 .vote-button {
@@ -219,6 +262,8 @@ export default {
   border-radius: 5px;
   margin: 5px 0;
 }
+
+
 
 /* progress {
   width: 100%;

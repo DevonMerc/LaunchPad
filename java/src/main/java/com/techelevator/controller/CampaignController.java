@@ -122,6 +122,9 @@ public class CampaignController {
     @PreAuthorize("permitAll")
     @RequestMapping(path = "/username/{managerId}", method = RequestMethod.GET)
     public String getUsernameByManagerId(@PathVariable int managerId){
-        return userDao.getUserById(managerId).getUsername();
+        if(managerId != 0){
+            return userDao.getUserById(managerId).getUsername();
+        }
+        return "N/A"; //kind of a cop out
     }
 }
