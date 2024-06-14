@@ -5,7 +5,7 @@
         <router-link v-bind:to="{ name: 'campaignDetails', params: { id: campaign.campaignId } }" class="card-image">
           <!-- <img src="../assets/Launchpad-logo.png" alt="Campaign Image" /> -->
           
-          <img :src="getRandomImage()" alt="Campaign Image" />
+          <img :src="campaignImage" alt="Campaign Image" />
           <!-- <img data-v-7377613c="" src="../assets/campaignPictures/clothes.jpg" alt="Campaign Image"> -->
         </router-link>
 

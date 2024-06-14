@@ -60,35 +60,35 @@ export default{
     },
     
   },
-  created() { //what does this do again
+  created() {
     this.callUserCampaigns();
-  },
-    computed: {
+  }
+    // computed: {
     // userCampaigns(){
     //   const filteredCampaigns = this.$store.state.campaigns.filter( campaign => {
     //     return campaign.campaignManagerId === this.$store.state.user.id;
     //   });
     //   return filteredCampaigns;
     // },
-    userCampaigns(){
-      this.callUserCampaigns();
-      const test = this.campaigns; //for debugging
-      // if(this.campaigns.length === 0){
-      //   return [{
-      //     campaignId: -1,
-      //     title: "No Campaigns created",
-      //     endDate: "",
-      //     goal: 0.00,
-      //     managerId: 8,
-      //     imgURL: "",
-      //     funding: 0.00,
-      //     description: "",
-      //     isPublic: false
-      //   }]
-      // }
-      return this.campaigns;
-    }
-  }
+    // userCampaigns(){
+    //   this.callUserCampaigns();
+    //   const test = this.campaigns; //for debugging
+    //   // if(this.campaigns.length === 0){
+    //   //   return [{
+    //   //     campaignId: -1,
+    //   //     title: "No Campaigns created",
+    //   //     endDate: "",
+    //   //     goal: 0.00,
+    //   //     managerId: 8,
+    //   //     imgURL: "",
+    //   //     funding: 0.00,
+    //   //     description: "",
+    //   //     isPublic: false
+    //   //   }]
+    //   // }
+    //   return this.campaigns;
+    // }
+  // }
 }
 </script>
 
