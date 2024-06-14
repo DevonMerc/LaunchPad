@@ -74,9 +74,9 @@ export default {
             goal: this.campaign ? this.campaign.goal : '',
             managerId: this.campaign ? this.campaign.managerId : this.$store.state.user.id,
             imgURL: this.campaign ? this.campaign.imgURL : '',
-            funding: this.campaign ? this.campaign.funding : '',
+            funding: this.campaign ? this.campaign.funding : 0,
             description: this.campaign ? this.campaign.description : '',
-            isPublic: this.campaign ? this.campaign.isPublic : ''
+            isPublic: this.campaign ? this.campaign.isPublic : false
         },
       editedCampaignTags: this.campaignTags,
       tagSelected: null
@@ -109,9 +109,9 @@ export default {
             goal: campaignInfo ? campaignInfo.goal : '',
             managerId: campaignInfo ? campaignInfo.managerId : this.$store.state.user.id,
             imgURL: campaignInfo ? campaignInfo.imgURL : '',
-            funding: campaignInfo ? campaignInfo.funding : '',
+            funding: campaignInfo ? campaignInfo.funding : 0,
             description: campaignInfo ? campaignInfo.description : '',
-            isPublic: campaignInfo ? campaignInfo.isPublic : ''
+            isPublic: campaignInfo ? campaignInfo.isPublic : false
         }
     },
     updateCampaignTagData(campaignTagsInfo){

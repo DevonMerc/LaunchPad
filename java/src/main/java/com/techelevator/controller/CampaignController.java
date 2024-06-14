@@ -119,6 +119,7 @@ public class CampaignController {
     }
 
     //not the most secure thing to do but for now whatever
+    @PreAuthorize("permitAll")
     @RequestMapping(path = "/username/{managerId}", method = RequestMethod.GET)
     public String getUsernameByManagerId(@PathVariable int managerId){
         return userDao.getUserById(managerId).getUsername();

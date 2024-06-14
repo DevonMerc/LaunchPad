@@ -1,7 +1,7 @@
 <template>
 <div id="app">
   <div class="shell">
-    <div class="bar" :style="{ width: (funding/goal)*100 + '%'}">
+    <div class="bar" :style="{ width: fundingWidth + '%'}">
       <!-- <span>${{ funding }}</span> -->
     </div>
   </div>
@@ -10,7 +10,16 @@
 
 <script>
 export default{
-    props: ['funding', 'goal']
+    props: ['funding', 'goal'],
+    computed: {
+      fundingWidth(){
+        if(this.funding >= this.goal){
+          return `${100}`;
+        }else{
+          return `${(this.funding/this.goal)*100}`;
+        }
+      }
+    }
 }
 </script>
 

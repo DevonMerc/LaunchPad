@@ -9,7 +9,7 @@
     <ProgressBar class="progress" :funding="campaign.funding" :goal="campaign.goal"/>
     <p class="funding">${{ campaign.funding }} raised out of our ${{ campaign.goal }} GOAL!</p>
 
-    <div class="container" v-show="!isLoading">
+    <div class="container">
       <h1 class="title">{{ campaign.title }}</h1>
       <!-- <h2 class="subtitle">Fund this Project!</h2> -->
       <p class="organizer">Organizer: {{ managerName }}</p>
@@ -34,15 +34,15 @@ import campaignService from '../services/CampaignService';
 import ProgressBar from './ProgressBar.vue';
 
 export default {
-  props: ['campaign', 'campaignId'], //bc of timing BUGS adding in campaignId to props, campaign is null in JS despite having data accessible in html
+  props: ['campaign', 'campaignId', 'managerName', 'donations'], //bc of timing BUGS adding in campaignId to props, campaign is null in JS despite having data accessible in html
   components: {
     ProgressBar
   },
   data(){
     return{
       isLoading: true,
-      donations: [],
-      managerName: 'N/A'
+      // donations: []
+      // managerName: 'N/A'
     }
   },
   methods: {
@@ -110,29 +110,29 @@ export default {
       
       return dynamicDonation;
     }
-  },
-  created(){ //brute force way ig
-    campaignService.getDonationsByCampaignId(this.campaignId).then(response => {
-      if(response.status === 200){
-        this.donations = response.data;
-        this.donations.forEach( donation =>{
-          campaignService.getUsernameByDonorId(donation.donorId).then(response => {
-          if(response.status === 200){
-              donation.name = response.data;
-              this.isLoading = false;
-            }
-          });
-        });
-        
-      }
-    });
-    campaignService.getUsernameByManagerId(this.campaign.managerId).then(response => {
-        if(response.status === 200){
-          this.managerName = response.data;
-          console.log(this.managerName); 
-        }
-    });
   }
+  // created(){ //brute force way ig
+  //   campaignService.getDonationsByCampaignId(this.campaignId).then(response => {
+  //     if(response.status === 200){
+  //       this.donations = response.data;
+  //       this.donations.forEach( donation =>{
+  //         campaignService.getUsernameByDonorId(donation.donorId).then(response => {
+  //         if(response.status === 200){
+  //             donation.name = response.data;
+  //             this.isLoading = false;
+  //           }
+  //         });
+  //       });
+        
+  //     }
+  //   });
+  //   // campaignService.getUsernameByManagerId(this.campaign.managerId).then(response => {
+  //   //     if(response.status === 200){
+  //   //       this.managerName = response.data;
+  //   //       console.log(this.managerName); 
+  //   //     }
+  //   // });
+  // }
 };
 </script>
 

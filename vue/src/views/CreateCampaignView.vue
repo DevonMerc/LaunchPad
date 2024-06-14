@@ -5,16 +5,17 @@
         <!-- SHOULD BE OK -->
         
         <h1 class="campaign-form-h1">Create a campaign</h1>
-        <div class="loading" v-if="isLoading">
+        <!-- <div class="loading" v-if="isLoading">
             <p>Loading...</p>
-        </div>
-        <campaign-form :campaign="campaign"/>
+        </div> -->
+        <campaign-form :campaign="campaign" :allTags="allTags" :campaignTags="campaignTags"/>
     </body>
 </template>
 
 <script>
 import CampaignForm from '../components/CampaignForm.vue';
 import SiteHeader from '../components/SiteHeader.vue';
+import campaignService from '../services/CampaignService';
 
 export default{
     components: {
@@ -28,13 +29,27 @@ export default{
                 title: "",
                 endDate: "",
                 goal: "",
-                managerId: "",
+                managerId: this.$store.state.user.id,
                 imgURL: "",
-                funding: "",
+                funding: 0,
                 description: "",
                 isPublic: false
-            }
+            },
+            allTags: [],
+            campaignTags: []
         }
+    },
+    methods: {
+        getAllTags(){
+        campaignService.getTags().then(response => {
+          if(response.status === 200){
+            this.allTags = response.data;
+          }
+        });
+      }
+    },
+    created() {
+      this.getAllTags();
     }
 }
 </script>

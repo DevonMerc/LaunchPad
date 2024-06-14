@@ -4,8 +4,8 @@
     <!-- <div>{{ isUserAnon }}, {{ isUserRegistered }}</div> -->
     <!-- I think this was meant to be the component not the view, so changed the names -->
     <!-- <CampaignDetailsAnonView /> -->
-    <CampaignDetailsAnon v-if="isUserAnon" :campaign="campaign" />
-    <CampaignDetailsRegistered v-if="isUserRegistered" :campaign="campaign" :campaignId="this.$route.params.id"/>
+    <!-- <CampaignDetailsAnon v-if="isUserAnon" :campaign="campaign" /> -->
+    <CampaignDetailsRegistered :campaign="campaign" :campaignId="this.$route.params.id" :managerName="managerName" :donations="donations"/>
     <VoteSpendRequest />
 </template>
 
@@ -22,7 +22,7 @@ export default{
     
     components: {
     // CampaignDetailsAnonView,
-    CampaignDetailsAnon,
+    // CampaignDetailsAnon,
     CampaignDetailsRegistered,
     SiteHeader,
     VoteSpendRequest
@@ -39,8 +39,10 @@ export default{
                 funding: 0.00,
                 description: "",
                 isPublic: false
-            }
-            // isLoading: true
+            },
+            managerName: 'N/A',
+            donations: [],
+            isLoading: true
         };
     },
     computed: { //so we actually dont need these, can just check if the token is empty or not oops
@@ -56,9 +58,34 @@ export default{
       campaignService
       .getCampaignById(this.$route.params.id)
       .then(response => {
-        this.campaign = response.data;
-        // this.isLoading = false;
+        if(response.status === 200){
+            this.campaign = response.data;
+            
+            campaignService.getUsernameByManagerId(this.campaign.managerId).then(response => {
+            if(response.status === 200){
+            this.managerName = response.data;
+            console.log(this.managerName); 
+            this.isLoading = false;
+            }
+            });
+        }
+        
       });
+
+      campaignService.getDonationsByCampaignId(this.campaign.campaignId).then(response => {
+      if(response.status === 200){
+        this.donations = response.data;
+        this.donations.forEach( donation =>{
+          campaignService.getUsernameByDonorId(donation.donorId).then(response => {
+          if(response.status === 200){
+              donation.name = response.data;
+              this.isLoading = false;
+            }
+          });
+        });
+        
+      }
+    });
   }
 }
 </script>
