@@ -1,23 +1,21 @@
 <template>
-    <!-- <div v-if="campaign.imgURL"> -->
-        <img src="../assets/PLACEHOLDER_LOGO.png" alt="Place Holder">
-    <!-- </div> -->
+  <SiteHeader />
   <div class="campaign-page">
-    <SiteHeader />
-    <div class="logo-container" v-if="campaign.imgURL">
+    <!-- <div class="logo-container" v-if="campaign.imgURL">
       <img class="logo" src="../assets/Launchpad-logo-full.png" alt="Place Holder">
-    </div>
+    </div> -->
+
+    <img class="campaign-img" src="../assets/PLACEHOLDER_LOGO.png" alt="Place Holder">
+    <ProgressBar class="progress" :funding="campaign.funding" :goal="campaign.goal"/>
+    <p class="funding">${{ campaign.funding }} raised out of our ${{ campaign.goal }} GOAL!</p>
 
     <div class="container" v-show="!isLoading">
       <h1 class="title">{{ campaign.title }}</h1>
-      <h2 class="subtitle">Fund this Project!</h2>
+      <!-- <h2 class="subtitle">Fund this Project!</h2> -->
       <p class="organizer">Organizer: {{ managerName }}</p>
-      <p class="goal">Goal: {{ campaign.goal }}</p>
       <p class="description">{{ campaign.description }}</p>
 
-      <ProgressBar :funding="campaign.funding" :goal="campaign.goal"/>
-
-      <p class="funding">${{ campaign.funding }} raised out of our ${{ campaign.goal }} GOAL!</p>
+      
       <button class="donate-button" @click="this.$router.push({name: 'donationForm', params:{campaignId:campaign.campaignId}})">Donate</button>
       <p class="timeline">Timeline: {{ daysLeft }} Days Left!</p>
       <p class="donation-info">If {{ requiredDonors }} people donate ${{ donationAmount }}, the campaign will be over.</p>
@@ -139,31 +137,22 @@ export default {
 </script>
 
 <style scoped>
-.campaign-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 6.5rem 3rem 20px; /* Add top padding to make room for fixed header */
+.campaign-img{
+  width: 100%;
+  border-radius: 10px;
+}
+.campaign-page:not(.progress):not(.campaign-img) {
+  margin: 2rem 0 2rem 0;
+  padding: 1rem;
   background-color: #f9f9f9;
-  font-family: Arial, sans-serif;
-}
-
-.logo-container {
-  margin-bottom: 20px;
-}
-
-.logo {
-  width: 150px;
-  border-radius: 15px;
+  /* font-family: Arial, sans-serif; */
 }
 
 .container {
   background: rgb(255, 255, 255);
-  padding: 2.2rem;
+  padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 800px;
   margin-top: 20px; /* Add margin to prevent overlap with header */
   height: auto;
 }
@@ -231,8 +220,8 @@ export default {
   margin: 5px 0;
 }
 
-progress {
+/* progress {
   width: 100%;
   margin: 10px 0;
-}
+} */
 </style>

@@ -1,22 +1,26 @@
 <template>
     <!-- STILL NEEDS WORK -->
-    
-      <h1>Edit Campaign</h1>
+    <site-header />
+    <body>
+      <h1 class="campaign-form-h1">Edit Campaign</h1>
       <div class="loading" v-if="isLoading">
         <p>Loading...</p>
       </div>
       <campaign-form v-show="!isLoading" :campaign="campaign" :allTags="allTags" :campaignTags="campaignTags" ref="editForm"/>
-    
+    </body>
   </template>
   
   <script>
   
   import campaignService from '../services/CampaignService';
   import CampaignForm from '../components/CampaignForm.vue';
+  import SiteHeader from '../components/SiteHeader.vue';
+
   
   export default {
     components: {
-        CampaignForm
+        CampaignForm,
+        SiteHeader
     },
     data() {
       return {
@@ -78,5 +82,8 @@
   </script>
   
   <style scoped>
+    body{
+      margin: .7rem;
+    }
   </style>
   

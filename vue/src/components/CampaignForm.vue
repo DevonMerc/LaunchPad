@@ -3,7 +3,7 @@
 <div class="container">
       <!-- We probably dont need the @submit in the form tag but this works so not gonna touch it now -->
     <form @submit.prevent="addCampaign">
-      <h1 >Campaign Form</h1>
+      <!-- <h1 >Campaign Form</h1> -->
         <div>
             <label for="title" class="form-label">What will you call your campaign? </label>
             <input class="form-input" type="text" id="title"  required placeholder="Campaign title here" v-model="editedCampaign.title" />
@@ -40,15 +40,20 @@
 
         <label for="isPublic" class="form-label">Is this campaign going to be public or private?</label>
         <div class="button-group" >
-            <label> 
-                <input type="radio" id="isPublic" :value="true" v-model="editedCampaign.isPublic"/> Public
-            </label>
-            <label>
-                <input type="radio" id="isPublic" :value="false" checked v-model="editedCampaign.isPublic"/> Private
-            </label>
+
+          <div class="choice">
+            <input class="radio_input" type="radio" id="isPublic" :value="true" v-model="editedCampaign.isPublic"/> 
+            <label class="radio_label" for="isPublic">Public</label>
+          </div>
+
+          <div class="choice">
+            <input class="radio_input" type="radio" id="notPublic" :value="false" checked v-model="editedCampaign.isPublic"/> 
+            <label class="radio_label" for="notPublic">Private</label>
+          </div>
+
         </div>
         <input type="submit" @click.prevent="submitForm" value="Create Campaign"/>
-        <input class="form-group" type="cancel" @click.prevent="cancelForm" value="Cancel"/>
+        <input type="cancel" @click.prevent="cancelForm" value="Cancel"/>
     </form>
 </div>
 </template>
@@ -190,35 +195,48 @@ h1{
     display: block;
     position: relative; 
     max-width: 90%;
-    color: rgb(248, 69, 10);
     font-size: calc(7vw);
-    font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .container {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     justify-content: center;
-    height: auto;
-    padding: 10px;
-    padding-top: 4.4rem;
-    margin-right: 20px;
-    font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    height: auto; */
+    /* padding: 1rem; */
+    padding-top: 3rem;
 }
 .button-group {
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 20px;
 }
-.button-group label {
-    margin-top: 10px;
-text-align: center;
 
+.choice{
+  padding-top: 0;
+  display: inline-flex;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 0 4px 5px rgba(228, 102, 0, 0.25);
+  background: #f8cf90;
 }
 
-.button-group input[type="radio"] {
+.radio_input{
+  /* not the most accessible thing to do */
+  display: none;
+}
+.radio_label{
+  padding: 8px 14px;
+  /* padding-top: 0; */
+  font-size: 1em;
+  font-weight: bold;
+  color:rgb(168, 62, 13);
+  background: #f8cf90;
+  cursor: pointer;
+}
 
-   justify-content: stretch;
+.radio_input:checked + .radio_label{
+  background: #ecaa47;
 
 }
 
@@ -226,13 +244,18 @@ form input[type="file"]{
     margin: 20px;
     text-align: left;
 }
-form input[type="submit"]{
-    border-color: #23CF68;
+form input[type="submit"], input[type="cancel"]{
+    /* border-color: #23CF68;
     background-color: #23CF68;
-    color: white;
+    color: white; */
     padding: 5px;
     font-size: large;
+    /* border-radius: 10px; */
+    background-color: #e7a325;
+    color: white;
+    border: none;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 form div:not(.button-group):not(.current-tags) {
@@ -245,10 +268,7 @@ form div:not(.button-group):not(.current-tags) {
   margin: auto;
   margin-top: 0;
   margin-bottom: 5%;
-  /* height: 100px;  */
-  /* background-color: #f7f5e5; */
   border-radius: 5px;
-  /* border: 1px solid #db8605; */
 }
 
 .current-tags span{
@@ -293,6 +313,11 @@ form div:not(.button-group):not(.current-tags) {
 /* FOR PHONE ONLY VIEW:  */
 @media (max-width: 767px) {
 form input[type="submit"]{
+    width: 100%;
+    height: 50px;
+}
+
+form input[type="cancel"]{
     width: 100%;
     height: 50px;
 }

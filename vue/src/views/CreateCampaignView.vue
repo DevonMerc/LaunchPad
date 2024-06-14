@@ -1,10 +1,15 @@
 <!-- add header here  -->
 <template>
-    <div>
-    <!-- SHOULD BE OK -->
     <site-header />
-    <campaign-form :campaign="campaign"/>
-    </div>
+    <body>
+        <!-- SHOULD BE OK -->
+        
+        <h1 class="campaign-form-h1">Create a campaign</h1>
+        <div class="loading" v-if="isLoading">
+            <p>Loading...</p>
+        </div>
+        <campaign-form :campaign="campaign"/>
+    </body>
 </template>
 
 <script>
@@ -33,3 +38,9 @@ export default{
     }
 }
 </script>
+
+<style scoped>
+body{
+    margin: .7rem;
+}
+</style>

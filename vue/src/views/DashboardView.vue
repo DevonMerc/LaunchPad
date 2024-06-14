@@ -1,19 +1,17 @@
 <template>
   <!-- NEED TO MAKE SURE I CAN SEE CURRENT USERS CAMPAIGNS ONCE CREATE CAMPAIGNS WORKS-->
+  <site-header />
     <div class="dashboard">
-    <!-- <p>You are authenticated if you see this. can delete this later</p> -->
-    <!-- <div>{{ $store.state.user }}</div> -->
-    <site-header />
     <body>
-      <button @click="$router.push( { name: 'createCampaign'} )">Start a new campaign</button>
       <h3>Your Campaigns</h3> 
+      <button @click="$router.push( { name: 'createCampaign'} )">Start a new campaign</button>
+    </body>
       <div>
-        <!-- <campaign-list :campaigns="this.$store.state.campaigns"/> -->
         <campaign-list :campaigns="campaigns" :isDashboard="true"
           @delete-complete="refreshList"
         />
       </div>
-    </body>
+    
   </div>
 </template>
 
@@ -93,3 +91,14 @@ export default{
   }
 }
 </script>
+
+<style scoped>
+  .dashboard{
+    margin: 3%;
+    margin-top: 2rem;
+  }
+  body{
+    display: flex;
+    
+  }
+</style>

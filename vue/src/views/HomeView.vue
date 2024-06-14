@@ -1,7 +1,8 @@
 <template>
   <!-- CONTENT SHOULD BE GOOD -->
+  <site-header />
   <div class="home">
-    <site-header />
+    
     <main class="content">
       <h3>Search For a Campaign</h3>
       <!-- <div class="search-container">
@@ -22,13 +23,12 @@
         <button class="search-button" @click="searchCampaigns">
           <img src="../assets/search-icon.svg" alt="Search Icon" />
         </button>
-        
-         
-        
       </div>
-      <div v-for="featuredTag in featuredTags" v-bind:key="featuredTag.id">
-            <div @click="getCampaignByTag(featuredTag.description)">{{ featuredTag.description }}</div>
-          </div>
+
+      <div class="tags">
+        <span v-for="featuredTag in featuredTags" v-bind:key="featuredTag.id" @click="getCampaignByTag(featuredTag.description)">{{ featuredTag.description }}</span>
+      </div>
+      
       <button class="get-started" @click="this.$router.push({ name: 'createCampaign' })">Get Started</button>
       <h3>Browse Featured Campaigns</h3> 
       
@@ -152,7 +152,7 @@ export default {
   align-items: center;
 } */
 
-.content {
+.content:not(.tags) {
   font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   display: flex;
   flex-direction: column;
@@ -160,14 +160,30 @@ export default {
   justify-content: center;
   text-align: center;
   width: 100%;
-  /* min-height: calc(100vh - 80px);  */
-  /* padding: 1rem; */
   padding-top: 1rem;
 }
 
-h3{
-  color: rgb(248, 69, 10);
+.tags{
+  white-space: normal; /* Prevent line breaks */
+  width:auto;
+
 }
+.tags span{
+  color: rgb(184, 113, 6);
+  margin: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-inline: 3%;
+  background-color: #fae098;
+  border-radius: 20px;
+  border: 1px solid #db8605;
+}
+.tags span:hover{
+  color: rgb(184, 62, 6);
+  background-color: #e7b872;
+
+}
+
 
 .search-container {
   display: flex;
@@ -223,7 +239,7 @@ h3{
   margin-top: 1rem;
   padding: 0.5rem 1rem; 
   font-size: 1rem; 
-  background-color: #28a745;
+  background-color: #f3880e;
   color: white;
   border: none;
   border-radius: 4px;

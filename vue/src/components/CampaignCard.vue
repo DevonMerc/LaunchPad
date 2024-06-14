@@ -33,12 +33,7 @@
     </div> 
 </template>
 
-
-
-
-
-
-<script>
+<!-- <script>
 import campaignService from '../services/CampaignService.js';
 import ProgressBar from './ProgressBar.vue';
 
@@ -123,13 +118,13 @@ export default {
     this.campaignImage = this.getRandomImage();
   }
 };
-</script>
+</script>  -->
 
 
 
 <!-- The line script file below this line is the original script file.  -->
 
-<!-- <script>
+<script>
 import campaignService from '../services/CampaignService.js';
 import ProgressBar from './ProgressBar.vue';
 export default{
@@ -141,14 +136,14 @@ export default{
         errorMsg: '',
         donations : [],
         managerName: 'N/A',
-        tags: []
+        tags: [],
+        campaignImage: ''
       }
     },
     props: ['campaign', 'isDashboard'],
     methods: {
         deleteCampaign() { // for now shouldn't work, uncomment and work on after endpoint is set
         const donations = this.donations;
-        console.log(donations.length);
             if(donations.length > 0){//we need to be able to get donors associated with a campaign id
               this.errorMsg = 'Cannot delete campaign';
               this.$store.commit(
@@ -157,10 +152,7 @@ export default{
                 if (confirm("Are you sure you want to delete this campaign? This action cannot be undone.")) {
                 campaignService.deleteCampaign(this.campaign.campaignId).then(response => {
                     if (response.status === 204) {
-                        // this.$router.push({ name: "dashboard"});
-                        
                         this.$emit('delete-complete');
-                        // this.$router.go(0);
                     }
                 })
                 .catch(error => {
@@ -184,6 +176,20 @@ export default{
             }
           });
           return [];
+        },
+        getRandomImage() {
+          const images = [
+            '../../public/campaignPictures/school.jpg',
+            '../../public/campaignPictures/art.jpg',
+            '../../public/campaignPictures/clothes.jpg',
+            '../../public/campaignPictures/elephants.jpg',
+            '../../public/campaignPictures/food.jpg',
+            '../../public/campaignPictures/medicalsupplies.jpg',
+            '../../public/campaignPictures/waterwell.jpg',
+          ];
+          const randomIndex = Math.floor(Math.random() * images.length);
+          // console.log(images[randomIndex]);
+          return images[randomIndex];
         }
     }, 
     created() {
@@ -204,9 +210,10 @@ export default{
           this.tags = response.data;
         }
       });
+      this.campaignImage = this.getRandomImage();
     }
 }
-</script>  -->
+</script>
 
 <style scoped>
 body {

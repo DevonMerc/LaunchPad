@@ -24,11 +24,11 @@ export default{
 }
 
 .shell {
-  height: 100%;
+  height: .6rem;
   width: 100%;
   border: 1px solid #db8605;
   border-radius: 13px;
-  padding: 3px;
+  padding: 1px;
 }
 
 .bar {
