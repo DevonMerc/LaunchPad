@@ -5,7 +5,9 @@
       <img class="logo" src="../assets/Launchpad-logo-full.png" alt="Place Holder">
     </div> -->
 
-    <img class="campaign-img" src="../assets/PLACEHOLDER_LOGO.png" alt="Place Holder">
+    <!-- <img class="campaign-img" src="../assets/PLACEHOLDER_LOGO.png" alt="Place Holder"> -->
+    <img class="campaign-img" :src="campaignImage" alt="Campaign Image" />
+
     <ProgressBar class="progress" :funding="campaign.funding" :goal="campaign.goal"/>
     <!-- <p class="funding">${{ campaign.funding }} raised out of our ${{ campaign.goal }} GOAL!</p> -->
     <p class="funding">{{ goalMsg }}</p>
@@ -25,7 +27,7 @@
       <h1 class="donors-title">Thank You To Our Donors!</h1>
       <p class="top-donors">Top Donors:</p>
       <div v-for="donation in donations.slice(0,5)" :key="donation.donationId">
-        <p>Donor {{ donation.name }} donated ${{ donation.amount }} on {{donationDateTime(donation.dateTime) }}</p>
+        <p class="donor">Donor {{ donation.name }} donated ${{ donation.amount }} on {{donationDateTime(donation.dateTime) }}</p>
       </div>
     </div>
   </div>
@@ -46,6 +48,7 @@ export default {
   data(){
     return{
       isLoading: true,
+      campaignImage: ''
       // donations: []
       // managerName: 'N/A'
     }
@@ -76,7 +79,21 @@ export default {
       if(!this.isGoalReached){
         this.$router.push({name: 'donationForm', params:{campaignId:this.campaign.campaignId}});
       }
-    }
+    },
+      getRandomImage() {
+        const images = [
+          '../../public/campaignPictures/school.jpg',
+          '../../public/campaignPictures/art.jpg',
+          '../../public/campaignPictures/clothes.jpg',
+          '../../public/campaignPictures/elephants.jpg',
+          '../../public/campaignPictures/food.jpg',
+          '../../public/campaignPictures/medicalsupplies.jpg',
+          '../../public/campaignPictures/waterwell.jpg',
+        ];
+        const randomIndex = Math.floor(Math.random() * images.length);
+        // console.log(images[randomIndex]);
+        return images[randomIndex];
+      }
   },
   computed: {
     // ...mapGetters(['campaign']),
@@ -133,6 +150,9 @@ export default {
       
       return dynamicDonation;
     }
+  },
+  created(){
+    this.campaignImage = this.getRandomImage();
   }
   // created(){ //brute force way ig
   //   campaignService.getDonationsByCampaignId(this.campaignId).then(response => {
@@ -167,12 +187,13 @@ export default {
 .campaign-page:not(.progress):not(.campaign-img) {
   margin: 2rem 0 2rem 0;
   padding: 1rem;
-  background-color: #f9f9f9;
+  background-color: #ffeec6;
+  box-shadow: 0 -20px 8px #ffeec6;
   /* font-family: Arial, sans-serif; */
 }
 
 .container {
-  background: rgb(255, 255, 255);
+  background: rgb(255, 255, 245);
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -182,7 +203,7 @@ export default {
 
 .title {
   font-size: 2em;
-  color: #333;
+  color: #ec6809;
 }
 
 .subtitle {
@@ -193,9 +214,14 @@ export default {
 .organizer, .goal, .description, .funding, .timeline, .donation-info, .campaign-impact, .top-donors, .breakdown-title {
   font-size: 1em;
   margin: 10px 0;
-  color: #444;
+  color: #d33d3d;
   font-style: italic;
   font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.funding{
+  color:#168e1c;
+  font-weight: bold;
 }
 
 .donate-button {
@@ -253,7 +279,7 @@ export default {
 .donors-title {
   font-size: 1.5em;
   margin-top: 20px;
-  color: #333;
+  color: #ec6403;
 }
 
 .donation {

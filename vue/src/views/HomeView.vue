@@ -147,12 +147,13 @@ export default {
 </script> 
 
 <style scoped>
-/* .home {
-  flex-direction: column;
-  align-items: center;
-} */
+.home{
+    margin: 3%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;;
+  }
 
-.content:not(.tags) {
+.content {
   font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   display: flex;
   flex-direction: column;
@@ -164,9 +165,11 @@ export default {
 }
 
 .tags{
-  white-space: normal; /* Prevent line breaks */
+  white-space: normal;
   width:auto;
-
+  margin-bottom: 2rem;
+  align-self: start;
+  margin-left: 10%;
 }
 .tags span{
   color: rgb(184, 113, 6);
@@ -181,11 +184,15 @@ export default {
 .tags span:hover{
   color: rgb(184, 62, 6);
   background-color: #e7b872;
-
 }
 
+h3{
+  width: 100%;
+  font-size: 1.5rem;
+}
 
 .search-container {
+  margin: 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -195,22 +202,22 @@ export default {
   
   height: 100%;
   width: 100%;
-  border: 3px solid #369c07;
-  border-radius: 13px;
-  padding: 2%;
+  border: 2px solid #369c07;
+  border-radius: 5px;
+  padding: .2rem;
 }
 
 .search-input {
   flex: 1;
   padding: 0.4rem;
   font-size: 0.9rem; /* Adjust font size for mobile */
-  border: 1px solid #ccc;
+  border: 1px solid #91b382;
   border-radius: 4px 0 0 4px; /* Rounded corners on the left */
   box-sizing: border-box;
 }
 
 .search-input::placeholder {
-  color: #aaa; /* Adjust the placeholder text color if needed */
+  color: #6ca15c; /* Adjust the placeholder text color if needed */
 }
 
 .search-input:focus {
@@ -220,7 +227,7 @@ export default {
 
 .search-button {
   padding: 0.4rem;
-  background-color: #ffffff;
+  background-color: #c0deb7;
   color: white;
   border: none;
   border-radius: 0 4px 4px 0; /* Rounded corners on the right */
@@ -237,14 +244,17 @@ export default {
 
 .get-started {
   margin-top: 1rem;
+  margin-bottom: 3rem;
   padding: 0.5rem 1rem; 
-  font-size: 1rem; 
+  font-size: 1.3rem; 
+  /* font-weight: bold; */
   background-color: #f3880e;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   width: 100%;
-  max-width: 300px; 
+  max-width: 310px; 
+  height: 3rem
 }
 </style>

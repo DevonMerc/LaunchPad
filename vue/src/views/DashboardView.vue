@@ -3,8 +3,8 @@
   <site-header />
     <div class="dashboard">
     <body>
-      <h3>Your Campaigns</h3> 
       <button @click="$router.push( { name: 'createCampaign'} )">Start a new campaign</button>
+      <h3>Your Campaigns</h3> 
     </body>
       <div>
         <campaign-list :campaigns="campaigns" :isDashboard="true"
@@ -99,6 +99,23 @@ export default{
   }
   body{
     display: flex;
-    
+    flex-direction: column;
+    align-items: center;
+  }
+  button{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem; 
+    font-size: 1.3rem; 
+    /* font-weight: bold; */
+    background-color: #f3880e;
+    width: 100%;
+    max-width: 310px; 
+    height: 3rem;
+  }
+  
+  h3{
+    /* width: 100%; */
+    font-size: 1.5rem;
   }
 </style>

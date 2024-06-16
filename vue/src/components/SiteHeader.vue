@@ -37,11 +37,12 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  /* background: linear-gradient( #faf886, #ffffff); */
+  /* background: linear-gradient( rgb(249, 249, 186),#ffc677); */
   /* background-color: rgb(249, 252, 228); */
-  background-color: rgb(247, 239, 175);
+  background-color: rgb(249, 249, 186);
+  box-shadow: 0 5px 20px #f5d278;
 
-  border-bottom: 2px solid rgb(240, 111, 6);
+  /* border-bottom: 2px solid rgb(240, 111, 6); */
   /* position: fixed;  */
   width: 100%; 
   top: 0; 

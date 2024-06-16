@@ -10,10 +10,12 @@
 
 <style>
 body{
-  background-color: rgb(248, 243, 237);
+  background-color: rgb(255, 250, 224);
 }
 *{
-  color: rgb(25, 117, 7);
+  /* color: rgb(236, 126, 1); */
+  color: rgb(214, 109, 4);
+
   font-family: sans-serif,'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS';
   margin:0;
 }

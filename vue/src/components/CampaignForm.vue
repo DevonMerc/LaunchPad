@@ -16,10 +16,10 @@
             <label for="description" class="form-label">Describe your campaign: </label>
             <textarea class="form-input" id="description" rows="6" cols="50" required placeholder="We're raising money to fund our amazing project!" v-model="editedCampaign.description"></textarea>
         </div>
-        <div>
+        <!-- <div>
             <label for="imgURL" class="form-label">Upload an image: </label>
             <input type="file" id="imgURL" accept="image/*" :src="editedCampaign.imgURL"/>
-        </div>
+        </div> -->
         <div>
             <label for="endDate" class="form-label">When will the fundraiser end?</label>
             <input type="date" id="endDate" required  v-model="editedCampaign.endDate" class="form-input" />
@@ -245,17 +245,22 @@ form input[type="file"]{
     text-align: left;
 }
 form input[type="submit"], input[type="cancel"]{
-    /* border-color: #23CF68;
-    background-color: #23CF68;
-    color: white; */
-    padding: 5px;
-    font-size: large;
-    /* border-radius: 10px; */
-    background-color: #e7a325;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
+  margin: auto;
+  margin-bottom: 2rem;
+  /* padding: 5px; */
+  font-size: large;
+  background-color: #e7a325;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  font-size: large;
+}
+
+input[type="cancel"]{
+  background-color: #e35e0b;
+
 }
 
 form div:not(.button-group):not(.current-tags) {
@@ -267,7 +272,7 @@ form div:not(.button-group):not(.current-tags) {
 .current-tags{
   margin: auto;
   margin-top: 0;
-  margin-bottom: 5%;
+  margin-bottom: 2rem;
   border-radius: 5px;
 }
 
@@ -290,13 +295,13 @@ form div:not(.button-group):not(.current-tags) {
 .form-label {
   font-weight: bold;
   margin-bottom: 5px;
-  color: #81450c;
+  color: #d35e0b;
   font-size: 1.1em;
 }
 
 .form-input {
   padding: 10px;
-  border: 1px solid #ce1313;
+  border: 1px solid #dfb128;
   border-radius: 5px;
   font-size: 1em;
   width: 100%;

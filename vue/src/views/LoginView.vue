@@ -1,13 +1,11 @@
 <template> 
-  <div>
-  <div id="login" class="container">
-    <header>
-      <router-link v-bind:to="{ name: 'home' }" class="logo">
-        <img src="../assets/Launchpad-logo-full.png" alt="LaunchPad">
-      </router-link>
-    </header>
-  </div>
-  <div id="login">
+  <div class="container">
+  <header>
+    <router-link v-bind:to="{ name: 'home' }" class="logo">
+      <img src="../assets/Launchpad-logo-full.png" alt="LaunchPad">
+    </router-link>
+  </header>
+  <div id="login" class="login-inputs">
     <form v-on:submit.prevent="login">
       <h1 >Enter Your Username And Password</h1>
       <div role="alert" v-if="invalidCredentials">
@@ -160,52 +158,41 @@ button{
 </style> -->
 
 <style scoped>
+
 .container{
+  margin: 7%;
+  margin-top: 50%;
   display: flex;
-  position: relative; 
-  top: -200px;
-  padding: 15rem;
-  width: 1px;
-  height: auto;
-  transform: scale(1.1);
+  flex-direction: column;
   align-items: center;
 }
 
-.container img{
+header{
+  margin: auto;
+  margin-bottom: 2rem;
+  height: auto;
+  transform: scale(1.1);
+  display: flex;
+  justify-content: center;
+}
+
+header img{
   width: 150px;
   height: auto;
-  display: flex;
 }
 
 h1{
   text-align: center;
-  position: relative; 
-  top: -430px;
   font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 1.3rem;
-  /* color: rgb(248, 69, 10); */
+  margin-bottom: 2rem;
 }
 
 .form-input-group {
   margin-bottom: 1rem;
-  position: relative; 
-  top: -420px;
   font-size: 1rem;
 }
 
-/*input[type="text"] {
-height: 10px;
-width: 334px;
-border: 1px solid #cdcdcd;
-}
-
-input[type="password"] {
-height: 29px;
-width: 350px;
-border: 1px solid #cdcdcd;
-border-radius: 5px;
-padding: 0.1rem;
-}*/
 form input[type="text"],
 form input[type="password"],
 form textarea {
@@ -229,22 +216,19 @@ input {
 }
 
 button{
-  fill: #23CF68;
-  color: white;
-  padding: 15px;
+  /* fill: #23CF68; */
+  /* color: white; */
+  padding: 10px;
   font-size: large;
-  border-color: #23CF68;
-  position: relative; 
-  top: -420px;
+  /* border-color: #23CF68; */
   border-radius: 5px;
-  max-width: 80%;
+  max-width: 60%;
+  height: 50%;
   display: flex;
-  text-align: center;
-  justify-content: space-evenly;
+  justify-content: center;
   align-content: center;
   margin: 0 auto;
 }
-
 
 header{
   align-self: center;
@@ -252,24 +236,24 @@ header{
 
 #register{
 display: flex;
-justify-content: space-evenly;
+justify-content: center;
 align-content: center;
 margin-top: 30px;
 }
 
 .link{
+  margin: 1rem;
   display: flex;
   text-align: center;
   font-style: italic;
-  justify-content: space-evenly;
-  position: relative; 
-  top: -415px;
+  justify-content: center;
 }
 
 @media (max-width: 767px) {
 button{
     width: 100%;
-    background-color:#23CF68;
+    height: 50%;
+    /* background-color:#23CF68; */
   
 }
 }

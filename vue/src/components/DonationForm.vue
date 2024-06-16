@@ -1,16 +1,18 @@
 <template>
-    <div>
-      <h1>Donation Form</h1>
-    </div>
+<button class="back" @click="$router.back()">Back</button>
+  <div class="donation-form">
+    <h1>Donation Form</h1>
     <div class="form-container">
       <form @submit.prevent="amountAlert">
         <div class="form-group">
-          <label for="donationAmount">What amount are you donating (Currency is in U.S. dollars $)?</label>
+          <label for="donationAmount"><span>What amount are you donating?</span> <span>(Currency is in U.S. dollars $)</span></label>
           <input type="number" id="donationAmount" name="donationAmount" placeholder="What amount are you donating ($0.00)?" required v-model="donation.amount">
         </div>
         <button type="submit" class="submit-btn">Donate</button>
+        
       </form>
     </div>
+  </div>
 </template>
   
 <script>
@@ -100,6 +102,71 @@
   }
 </script>
   
-<style>
+<style scoped>
+  .donation-form{
+    margin: 3%;
+    margin-top: 50%;
+  }
+
+  h1{
+    text-align: center;
+  }
+  .form-group{
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  form label{
+    display: flex;
+    flex-direction: column;
+    font-size: large;
+  }
+
+  form input{
+    padding: 10px;
+    border: 1px solid #dfb128;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out;
+  }
+
+  form input:focus {
+  border-color: #4CAF50;
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+  button{
+    margin: auto;
+    /* margin-bottom: 2rem; */
+    padding: .5rem 1rem;
+    font-size: large;
+    background-color: #e7a325;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    font-size: large;
+  }
+
+  .back{
+    margin-left: 1rem;
+    margin-top: 2rem;
+    padding-top: .3rem;
+    padding-bottom: .3rem;
+  }
 </style>
   
