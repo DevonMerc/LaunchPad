@@ -56,7 +56,7 @@ public class AppController {
     public List<SpendRequest> getSpendRequestsByCampaignId(int id){
         return spendRequestDao.getSpendRequestsByCampaignId(id);
     }
-    @RequestMapping(path = "spend", method = RequestMethod.DELETE)
+    @RequestMapping(path = "tag", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTag(int id){
         try{

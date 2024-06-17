@@ -1,4 +1,5 @@
 <template>
+  <div>
     <div>
       <h1>Donation Form</h1>
     </div>
@@ -11,6 +12,7 @@
         <button type="submit" class="submit-btn">Donate</button>
       </form>
     </div>
+  </div>
 </template>
   
 <script>

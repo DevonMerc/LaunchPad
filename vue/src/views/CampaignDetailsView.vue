@@ -1,4 +1,5 @@
 <template>
+    <div>
     <!-- Connection works -->
     <SiteHeader />
     <!-- <div>{{ isUserAnon }}, {{ isUserRegistered }}</div> -->
@@ -6,6 +7,7 @@
     <!-- <CampaignDetailsAnonView /> -->
     <CampaignDetailsAnon v-if="isUserAnon" :campaign="campaign" />
     <CampaignDetailsRegistered v-if="isUserRegistered" :campaign="campaign" :campaignId="this.$route.params.id"/>
+</div>
 </template>
 
 

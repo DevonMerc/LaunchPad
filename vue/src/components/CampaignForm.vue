@@ -33,6 +33,11 @@
             <textarea id="description" rows="6" cols="50" required v-model="editedCampaign.description"></textarea>
         </div>
         <div>
+            <label for="tags" class="grey">Enter tags separated by a comma: </label>
+            <input type="text" id="tags"/>
+            <!-- THIS NEEDS TO BE DONE STILL, NOT WORKING, needs vmodel for tag table?  -->
+        </div>
+        <div>
             <label for="imgURL">Upload an image: </label>
             <input type="file" id="imgURL" accept="image/*" :src="editedCampaign.imgURL"/>
         </div>
