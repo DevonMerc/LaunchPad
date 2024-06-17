@@ -1,11 +1,11 @@
 <template> 
-  <div>
-  <div id="login" class="container">
-    <header>
+  <div class="container">
+  <header>
+    <router-link v-bind:to="{ name: 'home' }" class="logo">
       <img src="../assets/Launchpad-logo-full.png" alt="LaunchPad">
-    </header>
-  </div>
-  <div id="login">
+    </router-link>
+  </header>
+  <div id="login" class="login-inputs">
     <form v-on:submit.prevent="login">
       <h1 >Enter Your Username And Password</h1>
       <div role="alert" v-if="invalidCredentials">
@@ -68,17 +68,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<!-- <style scoped>
 .container{
   display: flex;
   position: relative; 
-  top: -300px;
   padding: 1rem;
   align-items: center;
 }
 
 .container img{
-  width: 150px;
+  width: 70%;
   height: auto;
   display: flex;
 }
@@ -90,6 +89,7 @@ h1{
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 1.5rem;
 }
+
 
 .form-input-group {
   margin-bottom: 1rem;
@@ -138,12 +138,6 @@ header img{
     justify-content: center;
   }
 
-  /* header{
-    display: flex;
-    justify-content: left;
-    align-items: top;
-  } */
-
 .link{
   display: flex;
   text-align: center;
@@ -160,5 +154,107 @@ button{
   
 }
 
+}
+</style> -->
+
+<style scoped>
+
+.container{
+  margin: 7%;
+  margin-top: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header{
+  margin: auto;
+  margin-bottom: 2rem;
+  height: auto;
+  transform: scale(1.1);
+  display: flex;
+  justify-content: center;
+}
+
+header img{
+  width: 150px;
+  height: auto;
+}
+
+h1{
+  text-align: center;
+  font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+}
+
+.form-input-group {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+form input[type="text"],
+form input[type="password"],
+form textarea {
+    width: 93%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+label{
+    display: inline-block;
+    clear: left;
+    width: 250px;
+    text-align: left; /*Change to right here if you want it close to the inputs*/
+    font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+input {
+  display: inline-block;
+}
+
+button{
+  /* fill: #23CF68; */
+  /* color: white; */
+  padding: 10px;
+  font-size: large;
+  /* border-color: #23CF68; */
+  border-radius: 5px;
+  max-width: 60%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 0 auto;
+}
+
+header{
+  align-self: center;
+}
+
+#register{
+display: flex;
+justify-content: center;
+align-content: center;
+margin-top: 30px;
+}
+
+.link{
+  margin: 1rem;
+  display: flex;
+  text-align: center;
+  font-style: italic;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+button{
+    width: 100%;
+    height: 50%;
+    /* background-color:#23CF68; */
+  
+}
 }
 </style>

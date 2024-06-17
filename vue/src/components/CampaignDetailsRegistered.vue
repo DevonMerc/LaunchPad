@@ -1,41 +1,34 @@
 <template>
-    <!-- <div v-if="campaign.imgURL"> -->
-        <img src="../assets/PLACEHOLDER_LOGO.png" alt="Place Holder">
-    <!-- </div> -->
+  <!-- <SiteHeader /> -->
   <div class="campaign-page">
-    <SiteHeader />
-    <div class="logo-container" v-if="campaign.imgURL">
+    <!-- <div class="logo-container" v-if="campaign.imgURL">
       <img class="logo" src="../assets/Launchpad-logo-full.png" alt="Place Holder">
-    </div>
+    </div> -->
+
+    <!-- <img class="campaign-img" src="../assets/PLACEHOLDER_LOGO.png" alt="Place Holder"> -->
+    <img class="campaign-img" :src="campaignImage" alt="Campaign Image" />
+
+    <ProgressBar class="progress" :funding="campaign.funding" :goal="campaign.goal"/>
+    <!-- <p class="funding">${{ campaign.funding }} raised out of our ${{ campaign.goal }} GOAL!</p> -->
+    <p class="funding">{{ goalMsg }}</p>
 
     <div class="container">
       <h1 class="title">{{ campaign.title }}</h1>
-      <h2 class="subtitle">Fund this Project!</h2>
-      <p class="organizer">Organizer: {{ campaign.managerId }}</p>
-      <p class="goal">Goal: {{ campaign.goal }}</p>
+      <!-- <h2 class="subtitle">Fund this Project!</h2> -->
+      <p class="organizer">Organizer: {{ managerName }}</p>
       <p class="description">{{ campaign.description }}</p>
-      <p class="funding">${{ campaign.funding }} raised out of our ${{ campaign.goal }} GOAL!</p>
-      <button class="donate-button" @click="this.$router.push({name: 'donationForm', params:{campaignId:campaign.campaignId}})">Donate</button>
+
+      
+      <button :class="{'donate-button' : !isGoalReached, 'locked-button': isGoalReached}" @click="goToDonateForm">Donate</button>
+      <span class="lock-msg" v-show="isGoalReached">Goal was reached. No more donations!</span>
+
       <p class="timeline">Timeline: {{ daysLeft }} Days Left!</p>
       <p class="donation-info">If {{ requiredDonors }} people donate ${{ donationAmount }}, the campaign will be over.</p>
-      <!-- <p class="campaign-impact">For every $Y the campaign will be able to Z(Whatever the campaign is for)</p> -->
       <h1 class="donors-title">Thank You To Our Donors!</h1>
       <p class="top-donors">Top Donors:</p>
       <div v-for="donation in donations.slice(0,5)" :key="donation.donationId">
-        <p>Donor {{ donation.donorId }} donated ${{ donation.amount }} on {{donationDateTime(donation.dateTime) }}</p>
+        <p class="donor">Donor {{ donation.name }} donated ${{ donation.amount }} on {{donationDateTime(donation.dateTime) }}</p>
       </div>
-      <!-- <h2 class="breakdown-title">Donation Breakdown:  X% of Money on: Placeholder | X% of Money on: Placeholder | X% of Money on: Placeholder</h2>
-      <progress id="item1Spend" :value="progressValue" max="100">{{progressValue}}%</progress>
-      <progress id="item2Spend" :value="progressValue" max="100">{{progressValue}}%</progress>
-      <progress id="item3Spend" :value="progressValue" max="100">{{progressValue}}%</progress> -->
-
-      <div>
-        <p>Placeholder for spend request</p>
-        <button class="vote-button">
-          <router-link to="/spendRequests">Vote!</router-link>
-        </button>
-      </div>
-
     </div>
   </div>
 </template>
@@ -43,12 +36,21 @@
 <script>
 import { mapGetters } from 'vuex';
 import campaignService from '../services/CampaignService';
+import ProgressBar from './ProgressBar.vue';
+import SiteHeader from './SiteHeader.vue';
 
 export default {
-  props: ['campaign', 'campaignId'], //bc of timing BUGS adding in campaignId to props, campaign is null in JS despite having data accessible in html
+  props: ['campaign', 'campaignId', 'managerName', 'donations'], //bc of timing BUGS adding in campaignId to props, campaign is null in JS despite having data accessible in html
+  components: {
+    ProgressBar,
+    // SiteHeader
+  },
   data(){
     return{
-      donations: []
+      isLoading: true,
+      campaignImage: ''
+      // donations: []
+      // managerName: 'N/A'
     }
   },
   methods: {
@@ -72,11 +74,42 @@ export default {
           return `${day}th`;
         }
       }
-    }
+    },
+    goToDonateForm(){
+      if(!this.isGoalReached){
+        this.$router.push({name: 'donationForm', params:{campaignId:this.campaign.campaignId}});
+      }
+    },
+      getRandomImage() {
+        const images = [
+          '../../public/campaignPictures/school.jpg',
+          '../../public/campaignPictures/art.jpg',
+          '../../public/campaignPictures/clothes.jpg',
+          '../../public/campaignPictures/elephants.jpg',
+          '../../public/campaignPictures/food.jpg',
+          '../../public/campaignPictures/medicalsupplies.jpg',
+          '../../public/campaignPictures/waterwell.jpg',
+        ];
+        const randomIndex = Math.floor(Math.random() * images.length);
+        // console.log(images[randomIndex]);
+        return images[randomIndex];
+      }
   },
   computed: {
     // ...mapGetters(['campaign']),
-    
+    isGoalReached(){
+      if(this.campaign.funding >= this.campaign.goal){
+        return true;
+      }
+      return false;
+    },
+    goalMsg(){
+      if(this.isGoalReached){
+        return `Campaign goal of $${ this.campaign.goal } reached! :)`;
+      }else{
+        return `$${ this.campaign.funding } / $${ this.campaign.goal } Currently raised`; 
+      }
+    },
     daysLeft() {
       if (!this.campaign.endDate) {
         return '';
@@ -119,47 +152,58 @@ export default {
     }
   },
   created(){
-    campaignService.getDonationsByCampaignId(this.campaignId).then(response => {
-      if(response.status === 200){
-        this.donations = response.data;
-      }
-    });
+    this.campaignImage = this.getRandomImage();
   }
+  // created(){ //brute force way ig
+  //   campaignService.getDonationsByCampaignId(this.campaignId).then(response => {
+  //     if(response.status === 200){
+  //       this.donations = response.data;
+  //       this.donations.forEach( donation =>{
+  //         campaignService.getUsernameByDonorId(donation.donorId).then(response => {
+  //         if(response.status === 200){
+  //             donation.name = response.data;
+  //             this.isLoading = false;
+  //           }
+  //         });
+  //       });
+        
+  //     }
+  //   });
+  //   // campaignService.getUsernameByManagerId(this.campaign.managerId).then(response => {
+  //   //     if(response.status === 200){
+  //   //       this.managerName = response.data;
+  //   //       console.log(this.managerName); 
+  //   //     }
+  //   // });
+  // }
 };
 </script>
 
 <style scoped>
-.campaign-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 6.5rem 3rem 20px; /* Add top padding to make room for fixed header */
-  background-color: #f9f9f9;
-  font-family: Arial, sans-serif;
+.campaign-img{
+  width: 100%;
+  border-radius: 10px;
 }
-
-.logo-container {
-  margin-bottom: 20px;
-}
-
-.logo {
-  width: 150px;
-  border-radius: 15px;
+.campaign-page:not(.progress):not(.campaign-img) {
+  margin: 2rem 0 2rem 0;
+  padding: 1rem;
+  background-color: #ffeec6;
+  box-shadow: 0 -20px 8px #ffeec6;
+  /* font-family: Arial, sans-serif; */
 }
 
 .container {
-  background: white;
-  padding: 2.2rem;
+  background: rgb(255, 255, 245);
+  padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 800px;
   margin-top: 20px; /* Add margin to prevent overlap with header */
+  height: auto;
 }
 
 .title {
   font-size: 2em;
-  color: #333;
+  color: #ec6809;
 }
 
 .subtitle {
@@ -170,9 +214,14 @@ export default {
 .organizer, .goal, .description, .funding, .timeline, .donation-info, .campaign-impact, .top-donors, .breakdown-title {
   font-size: 1em;
   margin: 10px 0;
-  color: #444;
+  color: #d33d3d;
   font-style: italic;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.funding{
+  color:#168e1c;
+  font-weight: bold;
 }
 
 .donate-button {
@@ -184,10 +233,30 @@ export default {
   cursor: pointer;
   margin: 10px 0;
   font-size: 1em;
+  font-weight: bold;
 }
 
 .donate-button:hover {
   background-color: #45a049;
+}
+
+.locked-button{
+  background-color: #4b764d;
+  color: rgb(200, 207, 192);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  font-size: 1em;
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+  font-weight: bold;
+}
+
+.lock-msg{
+  font-size: .8rem;
+  margin-left: 5px;
 }
 
 .vote-button {
@@ -210,7 +279,7 @@ export default {
 .donors-title {
   font-size: 1.5em;
   margin-top: 20px;
-  color: #333;
+  color: #ec6403;
 }
 
 .donation {
@@ -220,8 +289,10 @@ export default {
   margin: 5px 0;
 }
 
-progress {
+
+
+/* progress {
   width: 100%;
   margin: 10px 0;
-}
+} */
 </style>

@@ -8,9 +8,9 @@
       <p>Yes Votes: {{ yesVotes }}</p>
       <p>No Votes: {{ noVotes }}</p>
     </div>
-  </template>
+</template>
   
-  <script>
+<script>
   export default {
     data() {
       return {
@@ -35,9 +35,9 @@
       },
     },
   };
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
   .vote-spend-request {
     padding: 2rem;
   }
@@ -45,5 +45,5 @@
   .vote-spend-request button {
     margin-right: 1rem;
   }
-  </style>
+</style>
   

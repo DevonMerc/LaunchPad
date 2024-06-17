@@ -1,7 +1,9 @@
 <template>
+  <div>
   <!-- CONTENT SHOULD BE GOOD -->
+  <site-header />
   <div class="home">
-    <site-header />
+    
     <main class="content">
       <h3>Search For a Campaign</h3>
       <!-- <div class="search-container">
@@ -22,20 +24,19 @@
         <button class="search-button" @click="searchCampaigns">
           <img src="../assets/search-icon.svg" alt="Search Icon" />
         </button>
-        
-         
-        
       </div>
-      <div v-for="featuredTag in featuredTags" v-bind:key="featuredTag.id">
-            <div @click="getCampaignByTag(featuredTag.description)">{{ featuredTag.description }}</div>
-          </div>
+
+      <div class="tags">
+        <span v-for="featuredTag in featuredTags" v-bind:key="featuredTag.id" @click="getCampaignByTag(featuredTag.description)">{{ featuredTag.description }}</span>
+      </div>
+      
       <button class="get-started" @click="this.$router.push({ name: 'createCampaign' })">Get Started</button>
       <h3>Browse Featured Campaigns</h3> 
-      <div>
+      
+    </main>
+    <div>
         <campaign-list :campaigns="campaigns" :isDashboard="false" />
       </div>
-    </main>
-    
     <body>
       <!-- {{ this.$store.state.user }} -->
       <!-- Testing routing, delete later, things don't show up but I think it's because no data is reachable atm -->
@@ -70,6 +71,7 @@
     </body>
   
   </div>
+</div>
 </template>
 
 <script>
@@ -147,43 +149,77 @@ export default {
 </script> 
 
 <style scoped>
-.home {
-  flex-direction: column;
-  align-items: center;
-}
+.home{
+    margin: 3%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;;
+  }
 
 .content {
+  font-family: sans-serif,'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   width: 100%;
-  min-height: calc(100vh - 80px); 
-  padding: 1rem;
-  padding-top: 6.5rem;
+  padding-top: 1rem;
+}
+
+.tags{
+  white-space: normal;
+  width:auto;
+  margin-bottom: 2rem;
+  align-self: start;
+  margin-left: 10%;
+}
+.tags span{
+  color: rgb(184, 113, 6);
+  margin: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-inline: 3%;
+  background-color: #fae098;
+  border-radius: 20px;
+  border: 1px solid #db8605;
+}
+.tags span:hover{
+  color: rgb(184, 62, 6);
+  background-color: #e7b872;
+}
+
+h3{
+  width: 100%;
+  font-size: 1.5rem;
 }
 
 .search-container {
+  margin: 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 1rem;
   width: 100%;
   max-width: 300px; /* Adjust as necessary for mobile */
+  
+  height: 100%;
+  width: 100%;
+  border: 2px solid #369c07;
+  border-radius: 5px;
+  padding: .2rem;
 }
 
 .search-input {
   flex: 1;
   padding: 0.4rem;
   font-size: 0.9rem; /* Adjust font size for mobile */
-  border: 1px solid #ccc;
+  border: 1px solid #91b382;
   border-radius: 4px 0 0 4px; /* Rounded corners on the left */
   box-sizing: border-box;
 }
 
 .search-input::placeholder {
-  color: #aaa; /* Adjust the placeholder text color if needed */
+  color: #6ca15c; /* Adjust the placeholder text color if needed */
 }
 
 .search-input:focus {
@@ -193,7 +229,7 @@ export default {
 
 .search-button {
   padding: 0.4rem;
-  background-color: #ffffff;
+  background-color: #c0deb7;
   color: white;
   border: none;
   border-radius: 0 4px 4px 0; /* Rounded corners on the right */
@@ -210,14 +246,17 @@ export default {
 
 .get-started {
   margin-top: 1rem;
+  margin-bottom: 3rem;
   padding: 0.5rem 1rem; 
-  font-size: 1rem; 
-  background-color: #28a745;
+  font-size: 1.3rem; 
+  /* font-weight: bold; */
+  background-color: #f3880e;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   width: 100%;
-  max-width: 300px; 
+  max-width: 310px; 
+  height: 3rem
 }
 </style>

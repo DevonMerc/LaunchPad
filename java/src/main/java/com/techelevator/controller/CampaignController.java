@@ -25,10 +25,12 @@ public class CampaignController {
     RestTemplate restTemplate = new RestTemplate();
     private CampaignService campaignService;
     private CampaignDao campaignDao;
+    private UserDao userDao;
 
-    public CampaignController(CampaignService campaignService, CampaignDao campaignDao) {
+    public CampaignController(CampaignService campaignService, CampaignDao campaignDao, UserDao userDao) {
         this.campaignService = campaignService;
         this.campaignDao = campaignDao;
+        this.userDao = userDao;
     }
 
 
@@ -63,10 +65,10 @@ public class CampaignController {
         return campaignService.getCampaignsByManagerId(userInfo);
     }
 
-    @RequestMapping(path = "/user-campaigns/{userId}", method = RequestMethod.GET)
-    public List<Campaign> getCampaignsByManagerId(@PathVariable int userId) {
-        return campaignDao.getCampaignsByManagerId(userId);
-    }
+//    @RequestMapping(path = "/user-campaigns/{userId}", method = RequestMethod.GET)
+//    public List<Campaign> getCampaignsByManagerId(@PathVariable int userId) {
+//        return campaignDao.getCampaignsByManagerId(userId);
+//    }
 
     @RequestMapping(path = "/donor-campaigns", method = RequestMethod.GET)
     public List<Campaign> getCampaignsByDonorId(Principal userInfo) {
@@ -74,6 +76,7 @@ public class CampaignController {
     }
 
     @RequestMapping(path = "/search", method = RequestMethod.GET)
+    @PreAuthorize("permitAll")
     public List<Campaign> getCampaignsBySearch(@RequestParam String searchTerm) {
         return campaignService.getCampaignsBySearch(searchTerm);
     }
@@ -94,6 +97,7 @@ public class CampaignController {
         }
     }
     @RequestMapping(path = "/{campaignId}", method = RequestMethod.GET)
+    @PreAuthorize("permitAll")
     public Campaign getCampaignById(@PathVariable int campaignId){
         return campaignDao.getCampaignById(campaignId);
     }
@@ -112,5 +116,15 @@ public class CampaignController {
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Campaign not found");
         }
+    }
+
+    //not the most secure thing to do but for now whatever
+    @PreAuthorize("permitAll")
+    @RequestMapping(path = "/username/{managerId}", method = RequestMethod.GET)
+    public String getUsernameByManagerId(@PathVariable int managerId){
+        if(managerId != 0){
+            return userDao.getUserById(managerId).getUsername();
+        }
+        return "N/A"; //kind of a cop out
     }
 }

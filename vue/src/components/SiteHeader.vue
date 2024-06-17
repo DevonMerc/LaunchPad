@@ -5,9 +5,13 @@
     </router-link>
     <nav class="nav-buttons">
       <button @click="$router.push({ name: 'dashboard' })" class="menu-button">Manage</button>
+      &nbsp;
+      &nbsp;
       <button v-if="this.$store.state.token != ''" @click="logout" class="logout-button">
         Logout
       </button>
+      &nbsp;
+      &nbsp;
       <button v-if="this.$store.state.token === ''" class="login-button" @click="this.$router.push({ name: 'createCampaign' })">
         Login
       </button>
@@ -27,13 +31,18 @@ export default {
 </script>
 
 <style scoped>
+
 .site-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: white;
-  border-bottom: 2px solid aliceblue;
+  /* background: linear-gradient( rgb(249, 249, 186),#ffc677); */
+  /* background-color: rgb(249, 252, 228); */
+  background-color: rgb(249, 249, 186);
+  box-shadow: 0 5px 20px #f5d278;
+
+  /* border-bottom: 2px solid rgb(240, 111, 6); */
   /* position: fixed;  */
   width: 100%; 
   top: 0; 
@@ -57,10 +66,10 @@ export default {
 }
 
 .menu-button, .logout-button, .login-button {
-  background-color: rgb(228, 225, 225);
-  color: black;
-  font-weight: bolder;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background-color: rgb(252, 152, 22);
+  color: white;
+  /* font-weight: bolder; */
+  font-family: sans-serif,'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
   border: none;
   padding: 0.5rem 1rem;
   font-size: 1rem;

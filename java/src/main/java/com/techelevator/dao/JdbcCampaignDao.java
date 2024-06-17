@@ -91,7 +91,7 @@ public class JdbcCampaignDao implements CampaignDao {
         List<Campaign> campaigns = new ArrayList<>();
         searchTerm = '%' + searchTerm.toLowerCase() + '%';
 
-        String sql = "SELECT * FROM campaigns WHERE LOWER (description) LIKE ? OR LOWER(title) LIKE ?";
+        String sql = "SELECT * FROM campaigns WHERE is_public = true AND (LOWER (description) LIKE ? OR LOWER(title) LIKE ?)";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, searchTerm, searchTerm);
             while (results.next()) {

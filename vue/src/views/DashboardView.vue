@@ -1,19 +1,17 @@
 <template>
   <!-- NEED TO MAKE SURE I CAN SEE CURRENT USERS CAMPAIGNS ONCE CREATE CAMPAIGNS WORKS-->
+  <site-header />
     <div class="dashboard">
-    <!-- <p>You are authenticated if you see this. can delete this later</p> -->
-    <!-- <div>{{ $store.state.user }}</div> -->
-    <site-header />
     <body>
       <button @click="$router.push( { name: 'createCampaign'} )">Start a new campaign</button>
       <h3>Your Campaigns</h3> 
+    </body>
       <div>
-        <!-- <campaign-list :campaigns="this.$store.state.campaigns"/> -->
-        <campaign-list  :campaigns="campaigns" :isDashboard="true"
+        <campaign-list :campaigns="campaigns" :isDashboard="true"
           @delete-complete="refreshList"
         />
       </div>
-    </body>
+    
   </div>
 </template>
 
@@ -39,8 +37,8 @@ export default{
         this.callUserCampaigns();
     },
     callUserCampaigns() { //I made this a diff name from getUserCampaigns just in case, probably doesnt matter
-      //right now its taking in a userId, that's backup since principal isnt working, change back later if that's figured out
-      campaignService.getUserCampaigns(this.$store.state.user.id).then(response => {
+      //principal works now yay
+      campaignService.getUserCampaigns().then(response => {
         this.campaigns = response.data;
         // this.isLoading = false;
       }).catch( error => {
@@ -62,34 +60,62 @@ export default{
     },
     
   },
-  created() { //what does this do again
+  created() {
     this.callUserCampaigns();
-  },
-    computed: {
+  }
+    // computed: {
     // userCampaigns(){
     //   const filteredCampaigns = this.$store.state.campaigns.filter( campaign => {
     //     return campaign.campaignManagerId === this.$store.state.user.id;
     //   });
     //   return filteredCampaigns;
     // },
-    userCampaigns(){
-      this.callUserCampaigns();
-      const test = this.campaigns; //for debugging
-      // if(this.campaigns.length === 0){
-      //   return [{
-      //     campaignId: -1,
-      //     title: "No Campaigns created",
-      //     endDate: "",
-      //     goal: 0.00,
-      //     managerId: 8,
-      //     imgURL: "",
-      //     funding: 0.00,
-      //     description: "",
-      //     isPublic: false
-      //   }]
-      // }
-      return this.campaigns;
-    }
-  }
+    // userCampaigns(){
+    //   this.callUserCampaigns();
+    //   const test = this.campaigns; //for debugging
+    //   // if(this.campaigns.length === 0){
+    //   //   return [{
+    //   //     campaignId: -1,
+    //   //     title: "No Campaigns created",
+    //   //     endDate: "",
+    //   //     goal: 0.00,
+    //   //     managerId: 8,
+    //   //     imgURL: "",
+    //   //     funding: 0.00,
+    //   //     description: "",
+    //   //     isPublic: false
+    //   //   }]
+    //   // }
+    //   return this.campaigns;
+    // }
+  // }
 }
 </script>
+
+<style scoped>
+  .dashboard{
+    margin: 3%;
+    margin-top: 2rem;
+  }
+  body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  button{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem; 
+    font-size: 1.3rem; 
+    /* font-weight: bold; */
+    background-color: #f3880e;
+    width: 100%;
+    max-width: 310px; 
+    height: 3rem;
+  }
+  
+  h3{
+    /* width: 100%; */
+    font-size: 1.5rem;
+  }
+</style>
