@@ -18,3 +18,10 @@ Campaign Manager
 
 User who created campaign. Can create spend requests to use campaign funds after funding goal is reached, requests must be approved by 51% of campaign donors.
 
+
+Wireframes: 
+https://www.figma.com/design/1trJ1B5ZGhU6mHqvF3cSA9/Launchpad?node-id=0-1&t=a7VNZ5fgOqdJzVCs-1
+
+Trello Workspace: 
+https://trello.com/b/ZOYNsxFO/campaign-crowdfunding
+
